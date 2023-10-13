@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup} from '@mui/material';
+import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addDoc, collection } from 'firebase/firestore';
@@ -103,6 +103,9 @@ export default function CreatePatient() {
 
   return (
     <>
+      <marquee behavior="scroll" direction="left" style={{ backgroundColor: 'red', color: 'white' }}>
+      This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
+      </marquee>
       <nav style={navStyle}>
         <button style={buttonStyle}>
           <a href="/">Home</a>
