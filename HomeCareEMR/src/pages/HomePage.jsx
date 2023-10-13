@@ -73,15 +73,15 @@ export default function HomePage() {
       </nav>
       <div style={{ marginTop: '80px' }}>
         <div style={gridContainerStyle}>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Services</h2>
             <p>We offer a wide range of medical services to cater to your needs.</p>
           </div>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Doctors</h2>
             <p>Meet our experienced and dedicated medical professionals.</p>
           </div>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Appointments</h2>
             <p>Schedule an appointment and receive quality healthcare.</p>
           </div>
