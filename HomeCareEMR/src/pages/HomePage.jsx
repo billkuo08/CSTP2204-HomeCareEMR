@@ -55,6 +55,13 @@ const footerStyle = {
   textAlign: 'center',
 };
 
+const headerStyle = {
+  backgroundColor: '#0055A4',
+  color: 'white',
+  padding: '30px',
+  textAlign: 'center',
+};
+
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
 
@@ -71,17 +78,21 @@ export default function HomePage() {
           <a href="/contact">Contact</a>
         </button>
       </nav>
-      <div style={{ marginTop: '80px' }}>
+      <div style={headerStyle}>
+        <h1>Welcome to HomeCare EMR</h1>
+        <p>Your Trusted Partner in Healthcare</p>
+      </div>
+      <div style={{ marginTop: '20px' }}>
         <div style={gridContainerStyle}>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Services</h2>
             <p>We offer a wide range of medical services to cater to your needs.</p>
           </div>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Doctors</h2>
             <p>Meet our experienced and dedicated medical professionals.</p>
           </div>
-          <div style={{ ...gridItemStyle, ':hover': gridItemHoverStyle }}>
+          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Appointments</h2>
             <p>Schedule an appointment and receive quality healthcare.</p>
           </div>
@@ -96,3 +107,4 @@ export default function HomePage() {
     </div>
   );
 }
+
