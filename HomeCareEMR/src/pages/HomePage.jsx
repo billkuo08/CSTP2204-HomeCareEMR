@@ -55,6 +55,13 @@ const footerStyle = {
   textAlign: 'center',
 };
 
+const headerStyle = {
+  backgroundColor: '#0055A4',
+  color: 'white',
+  padding: '30px',
+  textAlign: 'center',
+};
+
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
 
@@ -71,7 +78,11 @@ export default function HomePage() {
           <a href="/contact">Contact</a>
         </button>
       </nav>
-      <div style={{ marginTop: '80px' }}>
+      <div style={headerStyle}>
+        <h1>Welcome to HomeCare EMR</h1>
+        <p>Your Trusted Partner in Healthcare</p>
+      </div>
+      <div style={{ marginTop: '20px' }}>
         <div style={gridContainerStyle}>
           <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
             <h2>Services</h2>
@@ -96,3 +107,4 @@ export default function HomePage() {
     </div>
   );
 }
+
