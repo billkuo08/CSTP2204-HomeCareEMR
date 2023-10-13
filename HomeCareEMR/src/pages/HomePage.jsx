@@ -80,7 +80,7 @@ export default function HomePage() {
       </nav>
       <div style={headerStyle}>
         <h1>Welcome to HomeCare EMR</h1>
-        <p>Your Trusted Partner in Healthcare</p>
+        <p>Your Trusted Partner in Healthcare ♥️</p>
       </div>
       <div style={{ marginTop: '20px' }}>
         <div style={gridContainerStyle}>
