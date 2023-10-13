@@ -60,6 +60,14 @@ const formContainerStyle = {
   alignItems: 'center',
 };
 
+const marqueeStyle = {
+    backgroundColor: 'red',
+    color: 'white',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    animation: 'marquee 30s linear infinite', // Adjust the duration to 30 seconds
+  };
+
 export default function CreatePatient() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
