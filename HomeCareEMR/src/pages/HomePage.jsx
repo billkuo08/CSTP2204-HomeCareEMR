@@ -1,5 +1,21 @@
 import React from 'react';
 
+<<<<<<< HEAD
+=======
+const gridContainerStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)', // Three equal columns
+  gap: '20px', // Gap between grid items
+  padding: '20px',
+};
+
+const gridItemStyle = {
+  backgroundColor: 'lightblue',
+  padding: '20px',
+  border: '1px solid gray',
+  borderRadius: '5px',
+};
+>>>>>>> d9f8d9b (added basic grid for categories)
 const navStyle = {
   position: 'fixed',
   top: 0,
@@ -35,6 +51,29 @@ export default function HomePage() {
       <div style={{ marginTop: '60px' }}>
         care
       </div>
+<<<<<<< HEAD
     </div>
+=======
+
+      <div>
+      <nav style={navStyle}>
+        {/* Your navigation buttons here */}
+      </nav>
+      <div style={{ marginTop: '60px' }}>
+        <div style={gridContainerStyle}>
+          <div style={gridItemStyle}>Item 1</div>
+          <div style={gridItemStyle}>Item 2</div>
+          <div style={gridItemStyle}>Item 3</div>
+          <div style={gridItemStyle}>Item 4</div>
+          <div style={gridItemStyle}>Item 5</div>
+          <div style={gridItemStyle}>Item 6</div>
+        </div>
+        care
+      </div>
+    </div>
+    </div>
+
+    
+>>>>>>> d9f8d9b (added basic grid for categories)
   );
 }
