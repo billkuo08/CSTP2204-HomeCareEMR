@@ -1,77 +1,14 @@
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
 import { Link } from 'react-router-dom'
-import { addDoc, collection } from 'firebase/firestore';
-import { db} from '../config/config';
+// import { addDoc, collection } from 'firebase/firestore';
+// import { db} from '../config/config';
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
-const navStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  backgroundColor: '#0055A4', // Professional blue color
-  color: 'yellow', // White text for better contrast
-  padding: '10px',
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-const buttonStyle = {
-  margin: '5px',
-  padding: '10px 20px',
-  backgroundColor: 'white', // Light blue background
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  color: 'yellow', // White text
-  fontWeight: 'bold', // Bold text
-  textDecoration: 'none',
-};
-
-const gridItemStyle = {
-  backgroundColor: 'white',
-  padding: '20px',
-  border: '1px solid #E0E0E0', // Light gray border
-  borderRadius: '5px',
-  transition: 'background-color 0.3s',
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Subtle box shadow
-};
-
-const gridItemHoverStyle = {
-  backgroundColor: '#F0F0F0', // Light gray background on hover
-};
-
-const footerStyle = {
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  backgroundColor: '#0055A4', // Match the top navigation bar
-  color: 'white',
-  padding: '10px',
-  textAlign: 'center',
-};
-
-const formContainerStyle = {
-  marginTop: '80px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-};
-
-const marqueeStyle = {
-    backgroundColor: 'red',
-    color: 'white',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    animation: 'marquee 30s linear infinite', // Adjust the duration to 30 seconds
-  };
+import { addPatient } from '../API/patients';
 
 
 export default function CreatePatient() {
@@ -162,20 +99,6 @@ export default function CreatePatient() {
     }
 
 
-
-
-
-  const handleDayChange = (event) => {
-    const index = tasks.indexOf(event.target.value);
-    if (index === -1) {
-      setTasks([...tasks, event.target.value]);
-    } else {
-      setTasks(tasks.filter((task) => task !== event.target.value));
-    }
-  };
-
-  const patientsRef = collection(db, 'patients');
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         const patient = { 
@@ -199,34 +122,22 @@ export default function CreatePatient() {
             insulinDose,
             spo,
             createdAt: Date.now(),
-    };
-    try {
-      await addDoc(patientsRef, patient);
-      alert('Patient information submitted successfully.');
-    } catch (err) {
-      console.log(err);
+
+        }
+        try {
+            await addPatient(patient)
+            alert("Doctor information submitted successfully.");
+        } catch (err) {
+            console.log(err)
+        }
     }
-  };
+
 
 
 
   return (
     <>
-      <marquee behavior="scroll" direction="left" style={{ backgroundColor: 'red', color: 'white' }}>
-          This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
-      </marquee>
-      <nav style={navStyle}>
-            <button style={buttonStyle}>
-              <a href="/">Home</a>
-            </button>
-            <button style={buttonStyle}>
-              <a href="/about">About</a>
-            </button>
-            <button style={buttonStyle}>
-              <a href="/contact">Contact</a>
-            </button>
-        </nav>
-        <Container style={formContainerStyle}>
+        <Container >
             <Typography variant="h5">Create Patient</Typography>
             <form onSubmit={handleSubmit} action={<Link to="/" />}>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
@@ -830,7 +741,6 @@ export default function CreatePatient() {
 
             </form>
         </Container>
-
     </>
-  );
+  )
 }
