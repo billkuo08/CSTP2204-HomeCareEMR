@@ -1,13 +1,14 @@
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
 import { Link } from 'react-router-dom'
-import { addDoc, collection } from 'firebase/firestore';
-import { db} from '../config/config';
+// import { addDoc, collection } from 'firebase/firestore';
+// import { db} from '../config/config';
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { addPatient } from '../API/patients';
 
 
 export default function CreatePatient() {
@@ -98,8 +99,6 @@ export default function CreatePatient() {
     }
 
 
-    const patientsRef = collection(db, 'patients')
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         const patient = { 
@@ -126,7 +125,7 @@ export default function CreatePatient() {
 
         }
         try {
-            await addDoc(patientsRef, patient)
+            await addPatient(patient)
             alert("Doctor information submitted successfully.");
         } catch (err) {
             console.log(err)

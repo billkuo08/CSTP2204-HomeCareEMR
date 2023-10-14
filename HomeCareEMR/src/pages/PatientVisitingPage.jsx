@@ -2,8 +2,9 @@
 import { useEffect,useState } from "react";
 import BloodPress from "../components/BloodPress";
 import Pulse from "../components/Pulse";
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../config/config';
+// import { collection, getDocs } from 'firebase/firestore';
+// import { db } from '../config/config';
+import { getAllPatients } from "../API/patients";
 
 
 
@@ -16,25 +17,8 @@ export default function PatientVisitingPage() {
     console.log(dayNames[day]);
    
     const getAllPatientData = async () => {
-        try {
-            const patients = await getDocs(collection(db, "patients"));
-            console.log("patients", patients)
-            if(patients){
-                const patientsData = patients.docs.map((doc) => {
-                    return{
-                        ...doc.data(),
-                        id: doc.id,
-                    };
-                });
-                setPatients(patientsData);
-            }else{
-                console.log("No such document!");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        
-
+        const patientsData = await getAllPatients();
+        setPatients(patientsData);  
     }
     
     useEffect(() => {
