@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../CSS/HomePage.css';
-import MenuIcon from '@mui/icons-material/Menu'; // Import the Menu icon
+import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
+import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
+import InsertChartTwoToneIcon from '@mui/icons-material/InsertChartTwoTone';
+import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
@@ -13,7 +16,7 @@ export default function HomePage() {
   return (
     <div>
       <button className="toggle-button" onClick={toggleSidebar}>
-      <MenuIcon /> {/* Use the Menu icon */}
+      <ViewSidebarTwoToneIcon /> {/* Use the Menu icon */}
       </button>
       <div className="content">
         <div
@@ -22,15 +25,31 @@ export default function HomePage() {
           <h3>Sidebar</h3>
           <ul>
             <li>
-              <a href="/services">Services</a>
+
+              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses </a>
             </li>
+
             <li>
-              <a href="/doctors">Nurses</a>
+              <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
             </li>
+          
+          <li>
+              <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
+            </li>
+
             <li>
-              <a href="/appointments">Health Charts</a>
+              <a href="/log">Mileage Log Tracker</a>
             </li>
-          </ul>
+
+            <li>
+              <a href="/database">Patient's Database</a>
+            </li>
+            
+            <li>
+              <a href="/order">Order Medication and Supplies</a>
+            </li>
+
+            </ul>
         </div>
         <div className="main-content">
           <div className="header">
