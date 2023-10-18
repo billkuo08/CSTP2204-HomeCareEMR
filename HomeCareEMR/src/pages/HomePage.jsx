@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../CSS/HomePage.css';
+import MenuIcon from '@mui/icons-material/Menu'; // Import the Menu icon
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ export default function HomePage() {
   return (
     <div>
       <button className="toggle-button" onClick={toggleSidebar}>
-        Toggle Sidebar
+      <MenuIcon /> {/* Use the Menu icon */}
       </button>
       <div className="content">
         <div
@@ -24,10 +25,10 @@ export default function HomePage() {
               <a href="/services">Services</a>
             </li>
             <li>
-              <a href="/doctors">Doctors</a>
+              <a href="/doctors">Nurses</a>
             </li>
             <li>
-              <a href="/appointments">Appointments</a>
+              <a href="/appointments">Health Charts</a>
             </li>
           </ul>
         </div>
