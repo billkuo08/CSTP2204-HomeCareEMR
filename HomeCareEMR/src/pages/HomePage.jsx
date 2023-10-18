@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../CSS/HomePage.css';
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
+  const [sidebarVisible, setSidebarVisible] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
 
   return (
     <div>
-      <nav className="nav">
-        <button className="button">
-          <a href="/">Home</a>
-        </button>
-        <button className="button">
-          <a href="/about">About</a>
-        </button>
-        <button className="button">
-          <a href="/contact">Contact</a>
-        </button>
-      </nav>
+      <button className="toggle-button" onClick={toggleSidebar}>
+        Toggle Sidebar
+      </button>
       <div className="content">
-        <div className="sidebar">
+        <div
+          className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}
+        >
           <h3>Sidebar</h3>
           <ul>
             <li>
