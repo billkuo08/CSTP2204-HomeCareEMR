@@ -1,0 +1,68 @@
+/* Navigation styles */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0055A4;
+  color: yellow;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Button styles */
+.button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: yellow;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Grid container styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Grid item styles */
+.grid-item {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid item hover styles */
+.grid-item:hover {
+  background-color: #F0F0F0;
+}
+
+/* Footer styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0055A4;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Header styles */
+.header {
+  background-color: #0055A4;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
