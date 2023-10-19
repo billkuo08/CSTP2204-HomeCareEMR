@@ -10,17 +10,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@canvasjs/react-charts": "^1.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.12",
+    "@mui/icons-material": "^5.14.14",
+    "@mui/material": "^5.14.14",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.2",
+    "@mui/x-charts": "^6.0.0-alpha.15",
     "@mui/x-date-pickers": "^6.16.1",
+    "chart.js": "^4.4.0",
     "dayjs": "^1.11.10",
     "firebase": "^10.4.0",
     "install": "^0.13.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "semantic-ui-react": "^2.1.4",
+    "styled-components": "^6.1.0",
+    "xcharts": "^0.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -30,6 +39,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "sass": "^1.69.4",
     "vite": "^4.3.2"
   }
 }

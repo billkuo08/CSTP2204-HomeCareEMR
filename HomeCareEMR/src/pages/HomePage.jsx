@@ -1,110 +1,148 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '../CSS/HomePage.css';
+import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
+import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
+import InsertChartTwoToneIcon from '@mui/icons-material/InsertChartTwoTone';
+import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
+import DoNotStepTwoToneIcon from '@mui/icons-material/DoNotStepTwoTone';
+import FolderSharedTwoToneIcon from '@mui/icons-material/FolderSharedTwoTone';
+import VaccinesTwoToneIcon from '@mui/icons-material/VaccinesTwoTone';
+import NavigationTwoToneIcon from '@mui/icons-material/NavigationTwoTone';
+import PinchTwoToneIcon from '@mui/icons-material/PinchTwoTone';
+import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
+import CanvasJSReact from '@canvasjs/react-charts';
 
-const navStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  backgroundColor: '#0055A4', // Professional blue color
-  color: 'yellow', // White text for better contrast
-  padding: '10px',
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-const buttonStyle = {
-  margin: '5px',
-  padding: '10px 20px',
-  backgroundColor: 'white', // Light blue background
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  color: 'yellow', // White text
-  fontWeight: 'bold', // Bold text
-  textDecoration: 'none',
-};
-
-const gridContainerStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '20px',
-  padding: '20px',
-};
-
-const gridItemStyle = {
-  backgroundColor: 'white',
-  padding: '20px',
-  border: '1px solid #E0E0E0', // Light gray border
-  borderRadius: '5px',
-  transition: 'background-color 0.3s',
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Subtle box shadow
-};
-
-const gridItemHoverStyle = {
-  backgroundColor: '#F0F0F0', // Light gray background on hover
-};
-
-const footerStyle = {
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  backgroundColor: '#0055A4', // Match the top navigation bar
-  color: 'white',
-  padding: '10px',
-  textAlign: 'center',
-};
-
-const headerStyle = {
-  backgroundColor: '#0055A4',
-  color: 'white',
-  padding: '30px',
-  textAlign: 'center',
-};
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
+  const [sidebarVisible, setSidebarVisible] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const options = {
+    animationEnabled: true,
+    exportEnabled: true,
+    theme: "light2",
+    title: {
+      text: "Simple Column Chart with Index Labels"
+    },
+    axisY: {
+      includeZero: true
+    },
+    data: [{
+      type: "column",
+      indexLabelFontColor: "#5A5757",
+      indexLabelPlacement: "outside",
+      dataPoints: [
+        { x: 10, y: 71 },
+        { x: 20, y: 55 },
+        { x: 30, y: 50 },
+        { x: 40, y: 65 },
+        { x: 50, y: 71 },
+        { x: 60, y: 68 },
+        { x: 70, y: 38 },
+        { x: 80, y: 92, indexLabel: "Highest" },
+        { x: 90, y: 54 },
+        { x: 100, y: 60 },
+        { x: 110, y: 21 },
+        { x: 120, y: 49 },
+        { x: 130, y: 36 }
+      ]
+    }]
+  };
+
+  const options2 = {
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+      text: "Website Traffic Sources"
+    },
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      showInLegend: "true",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}%",
+      dataPoints: [
+        { y: 18, label: "Direct" },
+        { y: 49, label: "Organic Search" },
+        { y: 9, label: "Paid Search" },
+        { y: 5, label: "Referral" },
+        { y: 19, label: "Social" }
+      ]
+    }]
+  };
 
   return (
     <div>
-      <nav style={navStyle}>
-        <button style={buttonStyle}>
-          <a href="/">Home</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/about">About</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/contact">Contact</a>
-        </button>
-      </nav>
-      <div style={headerStyle}>
-        <h1>Welcome to HomeCare EMR</h1>
-        <p>Your Trusted Partner in Healthcare ♥️</p>
-      </div>
-      <div style={{ marginTop: '20px' }}>
-        <div style={gridContainerStyle}>
-          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
-            <h2>Services</h2>
-            <p>We offer a wide range of medical services to cater to your needs.</p>
+      <button className="toggle-button" onClick={toggleSidebar}>
+        <ViewSidebarTwoToneIcon />
+      </button>
+      <div className="content">
+        <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
+          <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+          <ul>
+            <li>
+              <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
+            </li>
+            <li>
+              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
+            </li>
+            <li>
+              <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
+            </li>
+            <li>
+              <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
+            </li>
+            <li>
+              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log Tracker</a>
+            </li>
+            <li>
+              <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
+            </li>
+            <li>
+              <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
+            </li>
+          </ul>
+        </div>
+        <div className="main-content">
+          <div className="header">
+            <h1>Welcome to HomeCare EMR</h1>
+            <p>Your Trusted Partner in Healthcare ♥️</p>
           </div>
-          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
-            <h2>Doctors</h2>
-            <p>Meet our experienced and dedicated medical professionals.</p>
+          <div className="grid-container">
+            <div className="grid-item">
+              <h2>Services</h2>
+              <p>We offer a wide range of medical services to cater to your needs.</p>
+            </div>
+            <div className="grid-item">
+              <h2>Doctors</h2>
+              <p>Meet our experienced and dedicated medical professionals.</p>
+            </div>
+            <div className="grid-item">
+              <h2>Appointments</h2>
+              <p>Schedule an appointment and receive quality healthcare.</p>
+            </div>
           </div>
-          <div style={{ ...gridItemStyle, ...gridItemHoverStyle }}>
-            <h2>Appointments</h2>
-            <p>Schedule an appointment and receive quality healthcare.</p>
+          <p style={{ textAlign: 'center', marginTop: '20px' }}>
+            We are committed to your well-being.
+          </p>
+          <br></br>
+          <div>
+            <CanvasJSChart options={options} />
+            <CanvasJSChart options={options2} />
           </div>
         </div>
-        <p style={{ textAlign: 'center', marginTop: '20px' }}>
-          We are committed to your well-being.
-        </p>
       </div>
-      <footer style={footerStyle}>
+      <footer className="footer">
         &copy; {currentYear} HomeCare EMR
       </footer>
     </div>
   );
 }
-
