@@ -126,13 +126,16 @@ export default function HomePage() {
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             We are committed to your well-being.
           </p>
-          
+          <br></br>
+
+          <br></br>
+
+          <br></br>
           <div>
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
-				/* containerProps={{ width: '100%', height: '300px' }} */
+				// /* containerProps={{ width: '100%', height: '300px' }} 
 			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
  
 		</div>
     
