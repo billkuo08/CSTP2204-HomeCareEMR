@@ -28,7 +28,7 @@ export default function HomePage() {
     exportEnabled: true,
     theme: "light2",
     title: {
-      text: "Simple Column Chart with Index Labels"
+      text: "Highest Diagnostic Test Results"
     },
     axisY: {
       includeZero: true
@@ -64,7 +64,7 @@ export default function HomePage() {
     data: [{
       type: "pie",
       startAngle: 75,
-      toolTipContent: "<b>{label}</b>: {y}%",
+      toolTipContent: "<b:>{label}</b: {y}%",
       showInLegend: "true",
       legendText: "{label}",
       indexLabelFontSize: 16,
