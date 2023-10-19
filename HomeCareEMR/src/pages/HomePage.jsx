@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../CSS/HomePage.css';
-import { Bar, Line } from 'react-chartjs-2';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
 import InsertChartTwoToneIcon from '@mui/icons-material/InsertChartTwoTone';
@@ -11,8 +10,6 @@ import VaccinesTwoToneIcon from '@mui/icons-material/VaccinesTwoTone';
 import NavigationTwoToneIcon from '@mui/icons-material/NavigationTwoTone';
 import PinchTwoToneIcon from '@mui/icons-material/PinchTwoTone';
 import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
-
-//
 import CanvasJSReact from '@canvasjs/react-charts';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -29,16 +26,15 @@ export default function HomePage() {
   const options = {
     animationEnabled: true,
     exportEnabled: true,
-    theme: "light2", //"light1", "dark1", "dark2"
-    title:{
+    theme: "light2",
+    title: {
       text: "Simple Column Chart with Index Labels"
     },
     axisY: {
       includeZero: true
     },
     data: [{
-      type: "column", //change type to bar, line, area, pie, etc
-      //indexLabel: "{y}", //Shows y value on all Data Points
+      type: "column",
       indexLabelFontColor: "#5A5757",
       indexLabelPlacement: "outside",
       dataPoints: [
@@ -57,58 +53,69 @@ export default function HomePage() {
         { x: 130, y: 36 }
       ]
     }]
-  }
+  };
 
+  const options2 = {
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+      text: "Website Traffic Sources"
+    },
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      showInLegend: "true",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}%",
+      dataPoints: [
+        { y: 18, label: "Direct" },
+        { y: 49, label: "Organic Search" },
+        { y: 9, label: "Paid Search" },
+        { y: 5, label: "Referral" },
+        { y: 19, label: "Social" }
+      ]
+    }]
+  };
 
   return (
     <div>
       <button className="toggle-button" onClick={toggleSidebar}>
-      <ViewSidebarTwoToneIcon /> {/* Use the Menu icon */}
+        <ViewSidebarTwoToneIcon />
       </button>
       <div className="content">
-        <div
-          className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}
-        >
+        <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
           <ul>
-
-          <li>
-              <a href="/admin"><PasswordTwoToneIcon/> Admin Login </a>
-            </li>
-
             <li>
-              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses </a>
+              <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
-
+            <li>
+              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
+            </li>
             <li>
               <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
             </li>
-          
-          <li>
+            <li>
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
-
             <li>
               <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log Tracker</a>
             </li>
-
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
             </li>
-            
             <li>
               <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
             </li>
-
-            </ul>
+          </ul>
         </div>
         <div className="main-content">
           <div className="header">
             <h1>Welcome to HomeCare EMR</h1>
             <p>Your Trusted Partner in Healthcare ♥️</p>
           </div>
-
-          
           <div className="grid-container">
             <div className="grid-item">
               <h2>Services</h2>
@@ -127,18 +134,10 @@ export default function HomePage() {
             We are committed to your well-being.
           </p>
           <br></br>
-
-          <br></br>
-
-          <br></br>
           <div>
-			<CanvasJSChart options = {options} 
-				/* onRef={ref => this.chart = ref} */
-				// /* containerProps={{ width: '100%', height: '300px' }} 
-			/>
- 
-		</div>
-    
+            <CanvasJSChart options={options} />
+            <CanvasJSChart options={options2} />
+          </div>
         </div>
       </div>
       <footer className="footer">
