@@ -4,6 +4,12 @@ import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
 import InsertChartTwoToneIcon from '@mui/icons-material/InsertChartTwoTone';
 import PersonPinCircleTwoToneIcon from '@mui/icons-material/PersonPinCircleTwoTone';
+import DoNotStepTwoToneIcon from '@mui/icons-material/DoNotStepTwoTone';
+import FolderSharedTwoToneIcon from '@mui/icons-material/FolderSharedTwoTone';
+import VaccinesTwoToneIcon from '@mui/icons-material/VaccinesTwoTone';
+import NavigationTwoToneIcon from '@mui/icons-material/NavigationTwoTone';
+import PinchTwoToneIcon from '@mui/icons-material/PinchTwoTone';
+import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
 
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
@@ -22,10 +28,14 @@ export default function HomePage() {
         <div
           className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}
         >
-          <h3>Sidebar</h3>
+          <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
           <ul>
-            <li>
 
+          <li>
+              <a href="/admin"><PasswordTwoToneIcon/> Admin Login </a>
+            </li>
+
+            <li>
               <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses </a>
             </li>
 
@@ -38,15 +48,15 @@ export default function HomePage() {
             </li>
 
             <li>
-              <a href="/log">Mileage Log Tracker</a>
+              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log Tracker</a>
             </li>
 
             <li>
-              <a href="/database">Patient's Database</a>
+              <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
             </li>
             
             <li>
-              <a href="/order">Order Medication and Supplies</a>
+              <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
             </li>
 
             </ul>
@@ -73,6 +83,7 @@ export default function HomePage() {
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             We are committed to your well-being.
           </p>
+          
         </div>
       </div>
       <footer className="footer">
