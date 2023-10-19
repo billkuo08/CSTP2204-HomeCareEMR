@@ -80,7 +80,7 @@ export default function HomePage() {
   };
 
   return (
-    <div>
+    <div >
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
       </button>
