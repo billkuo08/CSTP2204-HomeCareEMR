@@ -141,3 +141,9 @@
   }
   
   
+
+  .custom-title-class {
+    font-weight: normal; /* Remove bold font */
+    font-size: 16px; /* Set the font size to match the options2 font size */
+    /* Add other custom styles here */
+  }

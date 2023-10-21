@@ -11,6 +11,8 @@ import NavigationTwoToneIcon from '@mui/icons-material/NavigationTwoTone';
 import PinchTwoToneIcon from '@mui/icons-material/PinchTwoTone';
 import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
 import CanvasJSReact from '@canvasjs/react-charts';
+import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
+import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -59,7 +61,8 @@ export default function HomePage() {
     exportEnabled: true,
     animationEnabled: true,
     title: {
-      text: "Website Traffic Sources"
+      text: "Medical Traffic Sources",
+      className: "custom-title-class", // Custom class for the title
     },
     data: [{
       type: "pie",
@@ -80,7 +83,7 @@ export default function HomePage() {
   };
 
   return (
-    <div >
+    <div>
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
       </button>
@@ -114,19 +117,19 @@ export default function HomePage() {
         <div className="main-content">
           <div className="header">
             <h1>Welcome to HomeCare EMR</h1>
-            <p>Your Trusted Partner in Healthcare ♥️</p>
+            <p><Diversity1TwoToneIcon /> our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
           <div className="grid-container">
             <div className="grid-item">
-              <h2>Services</h2>
+              <h2>Lorem</h2>
               <p>We offer a wide range of medical services to cater to your needs.</p>
             </div>
             <div className="grid-item">
-              <h2>Doctors</h2>
+              <h2>Lorem</h2>
               <p>Meet our experienced and dedicated medical professionals.</p>
             </div>
             <div className="grid-item">
-              <h2>Appointments</h2>
+              <h2>Lorem</h2>
               <p>Schedule an appointment and receive quality healthcare.</p>
             </div>
           </div>
