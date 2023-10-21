@@ -1,6 +1,20 @@
 
+import PatientTableComponent from '../components/PatientTableComponent';
+
 export default function PatientListPage() {
+
   return (
-    <div>PatientListPage</div>
+    <>
+
+        <PatientTableComponent />
+
+
+
+    </>
+
+      
+
+      
+    
   )
 }
