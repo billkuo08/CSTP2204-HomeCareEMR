@@ -1,5 +1,6 @@
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
+import '../CSS/CreatePatient.css';
 import { Link } from 'react-router-dom'
 // import { addDoc, collection } from 'firebase/firestore';
 // import { db} from '../config/config';
@@ -767,7 +768,7 @@ export default function CreatePatient() {
                 </Stack>
 
                 <Button 
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+                variant="outlined" color="secondary" type="submit" >Submit</Button>
                 
             </form>
         </Container>
