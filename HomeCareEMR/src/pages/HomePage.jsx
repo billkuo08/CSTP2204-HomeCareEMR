@@ -15,6 +15,7 @@ import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
 import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
+import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -106,7 +107,10 @@ export default function HomePage() {
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
             <li>
-              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log Tracker</a>
+              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
+            </li>
+            <li>
+              <a href="/log"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
