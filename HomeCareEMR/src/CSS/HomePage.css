@@ -1,149 +1,221 @@
 /* Navigation styles */
 .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #38783c;
-    color: yellow;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Button styles */
-  .button {
-    margin: 5px;
-    padding: 10px 20px;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: yellow;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  /* Grid container styles */
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  /* Grid item styles */
-  .grid-item {
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #E0E0E0;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Grid item hover styles */
-  .grid-item:hover {
-    background-color: #F0F0F0;
-  }
-  
-  /* Footer styles */
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #38783c;
-    color: white;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  /* Header styles */
-  .header {
-    background-color: #38783c;
-    color: white;
-    padding: 30px;
-    text-align: center;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #38783c;
+  color: yellow;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Button styles */
+.button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: yellow;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Grid container styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Grid item styles */
+.grid-item {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid item hover styles */
+.grid-item:hover {
+  background-color: #F0F0F0;
+}
+
+/* Footer styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #006955;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Header styles */
+.header {
+  background-color: #006955;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
 /* Sidebar Styles */
 .sidebar {
-    width: 250px;
-    background-color: #38783c;
-    color: #fff;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    transition: transform 0.3s, background-color 0.3s; /* Add background-color transition */
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2); /* Add a box shadow */
-  }
-  
-  /* Hover effect for the sidebar */
-  .sidebar:hover {
-    background-color: #4caf50; /* Change the background color on hover */
-  }
-  
-  /* Sidebar text effect */
-  .sidebar h3,
-  .sidebar ul {
-    transition: opacity 0.3s; /* Add opacity transition */
-  }
+  width: 250px;
+  background-color: #006955;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: transform 0.3s, background-color 0.3s;
+  /* Add background-color transition */
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+  /* Add a box shadow */
+}
 
-  sidebar.visible {
-    transform: translateX(0); /* Slide in when visible */
-  }
-  
-  .sidebar.hidden {
-    transform: translateX(-250px); /* Slide out when hidden */
-  }
+/* Hover effect for the sidebar */
+.sidebar:hover {
+  background-color: #4caf50;
+  /* Change the background color on hover */
+}
 
-  
-  /* Style for sidebar headings and links */
-  .sidebar h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
-  }
-  
-  .sidebar a {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  /* Main Content Styles */
-  .main-content {
-    margin-left: 270px; /* Adjust the margin to make space for the sidebar */
-    padding: 20px;
-  }
+/* Sidebar text effect */
+.sidebar h3,
+.sidebar ul {
+  transition: opacity 0.3s;
+  /* Add opacity transition */
+}
 
-  /* Toggle button styles */
+sidebar.visible {
+  transform: translateX(0);
+  /* Slide in when visible */
+}
+
+.sidebar.hidden {
+  transform: translateX(-250px);
+  /* Slide out when hidden */
+}
+
+
+/* Style for sidebar headings and links */
+.sidebar h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-left: 270px;
+  /* Adjust the margin to make space for the sidebar */
+  padding: 20px;
+}
+
+/* Toggle button styles */
 .toggle-button {
-    position: fixed;
-    top: 10px; /* Adjust the top position as needed */
-    left: 10px; /* Adjust the left position as needed */
-    z-index: 1; /* Ensure it's above the content */
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  
+  position: fixed;
+  top: 10px;
+  /* Adjust the top position as needed */
+  left: 10px;
+  /* Adjust the left position as needed */
+  z-index: 1;
+  /* Ensure it's above the content */
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
 
-  .custom-title-class {
-    font-weight: normal; /* Remove bold font */
-    font-size: 16px; /* Set the font size to match the options2 font size */
-    /* Add other custom styles here */
-  }
+
+
+.custom-title-class {
+  font-weight: normal;
+  /* Remove bold font */
+  font-size: 16px;
+  /* Set the font size to match the options2 font size */
+  /* Add other custom styles here */
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 190px;
+  height: 254px;
+  perspective: 1000px;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  margin: 0;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid coral;
+  border-radius: 1rem;
+}
+
+.flip-card-front {
+  background: linear-gradient(120deg, #006955, rgb(113, 103, 100) 88%,
+      rgb(255, 211, 195) 40%, rgba(255, 127, 80, 0.603) 48%);
+  color: white;
+}
+
+.flip-card-back {
+  background: linear-gradient(120deg, rgb(255, 174, 145) 30%, coral 88%,
+      bisque 40%, rgb(255, 185, 160) 78%);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+/* ////////////////////////// */
+
