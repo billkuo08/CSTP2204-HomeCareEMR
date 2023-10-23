@@ -753,7 +753,6 @@ export default function CreatePatient() {
                 </Stack>
                 <Typography variant="h7">Anticoagulant injection</Typography>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
-                                   
                     <TextField 
                         label="Anticoagulant Name"
                         value={anticoagulantName}
