@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
+import '../CSS/CreatePatient.css';
 import { Link } from 'react-router-dom'
 // import { addDoc, collection } from 'firebase/firestore';
 // import { db} from '../config/config';
@@ -35,17 +36,6 @@ export default function CreatePatient() {
     const [anticoagulantName, setAnticoagulantName] = useState('')
     const [anticoagulantDose, setAnticoagulantDose] = useState('')
 
-    const navStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Professional blue color
-        color: 'yellow', // White text for better contrast
-        padding: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-      };
       const buttonStyle = {
         margin: '5px',
         padding: '10px 20px',
@@ -68,16 +58,7 @@ export default function CreatePatient() {
       const gridItemHoverStyle = {
         backgroundColor: '#F0F0F0', // Light gray background on hover
       };
-      const footerStyle = {
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Match the top navigation bar
-        color: 'white',
-        padding: '10px',
-        textAlign: 'center',
-      };
+
       const formContainerStyle = {
         marginTop: '80px',
         display: 'flex',
@@ -85,13 +66,6 @@ export default function CreatePatient() {
         alignItems: 'center',
       };
       
-      const marqueeStyle = {
-          backgroundColor: 'red',
-          color: 'white',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          animation: 'marquee 30s linear infinite', // Adjust the duration to 30 seconds
-        };
 
     const handleGender = (event) => {
         setGender(event.target.value);
@@ -195,21 +169,7 @@ export default function CreatePatient() {
 
   return (
     <>
-     <marquee behavior="scroll" direction="left" style={{ backgroundColor: 'red', color: 'white' }}>
-      This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
-      </marquee>
-
-      <nav style={navStyle}>
-        <button style={buttonStyle}>
-          <a href="/">Home</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/about">About</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/contact">Contact</a>
-        </button>
-      </nav>
+   
 
         <Container >
             <Typography variant="h5">Create Patient</Typography>
@@ -795,7 +755,7 @@ export default function CreatePatient() {
                 </Stack>
                 <Typography variant="h7">Anticoagulant injection</Typography>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
-                                   
+                
                     <TextField 
                         label="Anticoagulant Name"
                         value={anticoagulantName}
@@ -810,7 +770,7 @@ export default function CreatePatient() {
                 </Stack>
 
                 <Button 
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+                variant="outlined" color="secondary" type="submit" >Submit</Button>
                 
             </form>
         </Container>

@@ -14,6 +14,9 @@ import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
 import CanvasJSReact from '@canvasjs/react-charts';
 import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
+import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidTwoTone';
+import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
+import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -105,7 +108,10 @@ export default function HomePage() {
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
             <li>
-              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log Tracker</a>
+              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
+            </li>
+            <li>
+              <a href="/log"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
@@ -121,18 +127,46 @@ export default function HomePage() {
             <p><Diversity1TwoToneIcon /> our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
           <div className="grid-container">
-            <div className="grid-item">
-              <h2>Lorem</h2>
-              <p>We offer a wide range of medical services to cater to your needs.</p>
-            </div>
-            <div className="grid-item">
-              <h2>Lorem</h2>
-              <p>Meet our experienced and dedicated medical professionals.</p>
-            </div>
-            <div className="grid-item">
-              <h2>Lorem</h2>
-              <p>Schedule an appointment and receive quality healthcare.</p>
-            </div>
+
+{/* ////////////////////////// FLIP CARDS ////////////////////////// */}
+            <div className="flip-card">
+    <div className="flip-card-inner">
+        <div className="flip-card-front">
+            <p className="title">Community Care Clinics</p>
+            <p><FlipCameraAndroidTwoToneIcon /></p>
+        </div>
+        <div className="flip-card-back">
+        <p className="title"><InfoTwoToneIcon/></p>
+            <p>Community care clinics provide a range of nursing care and other professional health services in your community.</p>
+        </div>
+    </div>
+</div>
+
+<div className="flip-card">
+    <div className="flip-card-inner">
+        <div className="flip-card-front">
+            <p className="title">Home Care Nursing</p>
+            <p><FlipCameraAndroidTwoToneIcon /></p>
+        </div>
+        <div className="flip-card-back">
+        <p className="title"><InfoTwoToneIcon/></p>
+            <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
+        </div>
+    </div>
+</div>
+
+<div className="flip-card">
+    <div className="flip-card-inner">
+        <div className="flip-card-front">
+            <p className="title">Home Support Services</p>
+            <p><FlipCameraAndroidTwoToneIcon /></p>
+        </div>
+        <div className="flip-card-back">
+            <p className="title"><InfoTwoToneIcon/></p>
+            <p>Home support services are intended to promote independence for those with chronic health conditions, disabilities or terminal illness.</p>
+        </div>
+    </div>
+</div>
           </div>
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             We are committed to your well-being.
