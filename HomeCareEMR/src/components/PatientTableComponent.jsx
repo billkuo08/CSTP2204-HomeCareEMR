@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import '../CSS/PatientTableComponent.css';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
@@ -64,7 +64,7 @@ function ResponsiveTable() {
 
 export default function PatientTableComponent() {
   const data = useContext(PatientsContext);
-  
+
   return (
     <>
       <ResponsiveTable /> {/* Add the ResponsiveTable component here */}
