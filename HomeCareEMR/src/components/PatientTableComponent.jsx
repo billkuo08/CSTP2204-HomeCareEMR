@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Link} from 'react-router-dom';
 import { useContext } from 'react';
 import {PatientsContext} from '../context/PatientsContext';
@@ -9,6 +9,7 @@ export default function PatientTableComponent() {
     console.log(data);
   return (
     <>
+    <Typography variant="h4">All Patients List</Typography>
     <TableContainer comppoent={Paper}>
         <Table aria-label="patient table">
             <TableHead>

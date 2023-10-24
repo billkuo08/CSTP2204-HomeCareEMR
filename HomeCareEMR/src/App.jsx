@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useRoutes } from 'react-router-dom'
+import { Routes, Route} from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import CreatePatientPage from './pages/CreatePatientPage'
 import PatientVisitingPage from './pages/PatientVisitingPage'

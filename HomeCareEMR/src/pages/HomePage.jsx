@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';

@@ -12,6 +12,7 @@ import AnticoagulantInjection from "../components/AnticoagulantInjection";
 import {PatientsContext} from "../context/PatientsContext";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import BloodGlucose from "../components/BloodGlucose";
 
 export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
@@ -20,7 +21,7 @@ export default function PatientVisitingPage() {
     const today = new Date();
     const day = today.getDay();
     const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    console.log(dayNames[day-1]);
+    console.log(dayNames[day]);
     
    
 
@@ -37,7 +38,7 @@ export default function PatientVisitingPage() {
                         {(() => {
                             if(patient.bloodPressure!=""){
                                 for(let bp of patient.bloodPressure){
-                                    if(bp === dayNames[day-1]){
+                                    if(bp === dayNames[day]){
                                         return(
                                             <BloodPress />
                                         )
@@ -50,7 +51,7 @@ export default function PatientVisitingPage() {
                         {(() => {
                             if(patient.pulse!=""){
                                 for(let pl of patient.pulse){
-                                    if(pl === dayNames[day-1]){
+                                    if(pl === dayNames[day]){
                                         return(
                                             <Pulse />
                                         )
@@ -63,7 +64,7 @@ export default function PatientVisitingPage() {
                         {(() => {
                             if(patient.spo!=""){
                                 for(let sp of patient.spo){
-                                    if(sp === dayNames[day-1]){
+                                    if(sp === dayNames[day]){
                                         return(
                                             <Spo />
                                         )
@@ -76,9 +77,23 @@ export default function PatientVisitingPage() {
                         {(() => {
                             if(patient.anticoagulant!=""){
                                 for(let ac of patient.anticoagulant){
-                                    if(ac === dayNames[day-1]){
+                                    if(ac === dayNames[day]){
                                         return(
                                             <AnticoagulantInjection />
+                                        )
+                                    }
+                                }         
+                            }
+                        }
+                        )()
+                        }
+
+                        {(() => {
+                            if(patient.bloodGlucose!=""){
+                                for(let bg of patient.bloodGlucose){
+                                    if(bg === dayNames[day]){
+                                        return(
+                                            <BloodGlucose />
                                         )
                                     }
                                 }         

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
 import { Link } from 'react-router-dom'
@@ -169,6 +170,7 @@ export default function CreatePatient() {
             emergencyContactRelationship,
             emergencyContactPhone,
             bloodPressure,
+            bloodGlucose,
             pulse,
             tasks,
             anticoagulant,
