@@ -23,8 +23,8 @@ function ResponsiveTable() {
               <th>Last Name</th>
               <th>First Name</th>
               <th>Date of Birth</th>
-              <th>Healhcare Number</th>
-              <th>Link </th>
+              <th>HealthCare Number</th>
+              <th>Link</th>
             </tr>
           </thead>
           <tbody>
@@ -35,7 +35,7 @@ function ResponsiveTable() {
                 <td>{patient.birthDate}</td>
                 <td>{patient.healthCardNumber}</td>
                 <td>
-                    <Link to={`/visiting/${patient.id}`}>Visit</Link>
+                    <Link to={`/visiting/${patient.id}`} className="a" >Visit</Link>
                 </td>
             </tr>
             ))}
