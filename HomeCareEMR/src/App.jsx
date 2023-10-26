@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useRoutes } from 'react-router-dom'
+import { Routes, Route} from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import CreatePatientPage from './pages/CreatePatientPage'
 import PatientVisitingPage from './pages/PatientVisitingPage'
@@ -7,6 +7,7 @@ import PatientListPage from './pages/PatientListPage'
 import { getAllPatients } from './API/patients';
 import {PatientsContext} from './context/PatientsContext';
 import { useState, useEffect } from 'react';
+import CheckboxComponent from './components/CheckboxComponent';
 
 function App() {
   const [patients, setPatients] = useState([]);
@@ -32,6 +33,8 @@ function App() {
           <Route path="/visiting/:id" element={<PatientVisitingPage />} />
           <Route path="/createpatient" element={<CreatePatientPage />} />
           <Route path="/visiting" element={<PatientVisitingPage />} />
+          <Route path="checkbox" element={<CheckboxComponent />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </PatientsContext.Provider>
       
