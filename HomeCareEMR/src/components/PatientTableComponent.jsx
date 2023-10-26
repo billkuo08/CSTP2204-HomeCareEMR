@@ -1,13 +1,15 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 
 import '../CSS/PatientTableComponent.css';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
 
 // Define the ResponsiveTable component here
 function ResponsiveTable() {
+    const data = useContext(PatientsContext);
   return (
     <div>
       <h2>Patient List</h2>
@@ -24,37 +26,18 @@ function ResponsiveTable() {
             </tr>
           </thead>
           <tbody>
-          <tr>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-            </tr>
-
+          {data.map((patient) => (
             <tr>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
+                <td>{patient.lastName}</td>
+                <td>{patient.firstName}</td>
+                <td>{patient.birthDate}</td>
+                <td>{patient.healthCardNumber}</td>
+                <td>
+                    <Link to={`/visiting/${patient.id}`}>Visit</Link>
+                </td>
             </tr>
-
-            <tr>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-            </tr>
-
-            <tr>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-              <td>Content 1</td>
-            </tr>
+            ))}
+          
           </tbody>
         </table>
       </div>
@@ -63,37 +46,10 @@ function ResponsiveTable() {
 }
 
 export default function PatientTableComponent() {
-  const data = useContext(PatientsContext);
-
   return (
     <>
       <ResponsiveTable /> {/* Add the ResponsiveTable component here */}
-      <TableContainer component={Paper}>
-        <Table aria-label="patient table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Last Name</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Date of Birth</TableCell>
-              <TableCell>Health Care Number</TableCell>
-              <TableCell>Link</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((patient) => (
-              <TableRow key={patient.id}>
-                <TableCell>{patient.lastName}</TableCell>
-                <TableCell>{patient.firstName}</TableCell>
-                <TableCell>{patient.birthDate}</TableCell>
-                <TableCell>{patient.healthCardNumber}</TableCell>
-                <TableCell>
-                  <Link to={`/visiting/${patient.id}`}>Visit</Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      
     </>
   );
 }
