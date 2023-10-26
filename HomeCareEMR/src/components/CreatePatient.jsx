@@ -444,7 +444,7 @@ export default function CreatePatient() {
                 
                 <br></br>
 
-                <Typography variant="h7">Insulin Injection</Typography>
+                <Typography variant="h7"><b>Insulin Injection</b></Typography>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
                     <TextField 
@@ -463,7 +463,7 @@ export default function CreatePatient() {
                 
                 <br></br>
 
-                <Typography variant="h7" sx={{ textAlign: 'Left' }}>Anticoagulant injection</Typography>
+                <Typography variant="h7" sx={{ textAlign: 'Left' }}><b>Anticoagulant injection</b></Typography>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
 
