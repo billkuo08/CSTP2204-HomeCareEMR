@@ -334,7 +334,7 @@ export default function CreatePatient() {
                 </Stack>
 
                 <br></br>
-                
+
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
                     <TextField
                         size="medium"
