@@ -12,15 +12,16 @@ import AnticoagulantInjection from "../components/AnticoagulantInjection";
 import {PatientsContext} from "../context/PatientsContext";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import BloodGlucose from "../components/BloodGlucose";
 
 export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
     const {id} = useParams();
-    console.log(patients);
+    console.log(patients[3]?.permission["Blood Pressure"]);
     const today = new Date();
     const day = today.getDay();
     const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    console.log(dayNames[day-1]);
+    console.log(dayNames[day]);
     
    
 
@@ -34,78 +35,43 @@ export default function PatientVisitingPage() {
                         <Typography variant="h6">Patient Name : {patient.firstName} {patient.lastName}</Typography>
                         <Typography variant="h6">Patient Date of Birth : {patient.birthDate}</Typography>
                         <Typography variant="h6">Patient Health Card Number : {patient.healthCardNumber}</Typography>
-                        {(() => {
-                            if(patient.bloodPressure!=""){
-                                for(let bp of patient.bloodPressure){
-                                    if(bp === dayNames[day-1]){
-                                        return(
-                                            <BloodPress />
-                                        )
-                                    }
-                                }         
-                            }
-                        })()
+
+                        {
+                            Object.keys(patient?.permission['Blood Pressure']).map((key)=>
+                                patient?.permission['Blood Pressure'][key] ? <BloodPress />: null
+                            )
                         }
 
-                        {(() => {
-                            if(patient.pulse!=""){
-                                for(let pl of patient.pulse){
-                                    if(pl === dayNames[day-1]){
-                                        return(
-                                            <Pulse />
-                                        )
-                                    }
-                                }         
+                        {
+                            Object.keys(patient?.permission['Pulse']).map((key)=>
+                                patient?.permission['Pulse'][key] ? <Pulse />: null
+                            )
+                        }
+                            
+                            {
+                                Object.keys(patient?.permission['Spo2']).map((key)=>
+                                    patient?.permission['Spo2'][key] ? <Spo />: null
+                                )
                             }
-                        }
-                        )()
-                        }
-                        {(() => {
-                            if(patient.spo!=""){
-                                for(let sp of patient.spo){
-                                    if(sp === dayNames[day-1]){
-                                        return(
-                                            <Spo />
-                                        )
-                                    }
-                                }         
+    
+                            {
+                                Object.keys(patient?.permission['Blood Glucose']).map((key)=>
+                                    patient?.permission['Blood Glucose'][key] ? <BloodGlucose />: null
+                                )
                             }
-                        }
-                        )()
-                        }
-                        {(() => {
-                            if(patient.anticoagulant!=""){
-                                for(let ac of patient.anticoagulant){
-                                    if(ac === dayNames[day-1]){
-                                        return(
-                                            <AnticoagulantInjection />
-                                        )
-                                    }
-                                }         
+    
+                            {
+                                Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>
+                                    patient?.permission['Aanticoagulant Injection'][key] ? <AnticoagulantInjection />: null
+                                )
                             }
-                        }
-                        )()
-                        }
-                        
 
-
-                        
                     </>
                     
                     
                 )
             }
         })}
-   
-        {/* {patients[3]?.bloodPressure.map((bp) => {
-            if(bp === dayNames[day-1]){
-                return(
-                    <BloodPress />)
-            }
-            
-        })
-        }     */}
-  
         
     </Box>
   )
