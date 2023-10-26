@@ -12,7 +12,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { addPatient } from '../API/patients';
 import MitrixCheckBox from "./MatrixCheckBox"
-
+import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
+import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBulletedTwoTone';
+import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
+import LowPriorityTwoToneIcon from '@mui/icons-material/LowPriorityTwoTone';
+import PlaylistAddTwoToneIcon from '@mui/icons-material/PlaylistAddTwoTone';
 
 export default function CreatePatient() {
     const [firstName, setFirstName] = useState('')
@@ -224,7 +229,7 @@ export default function CreatePatient() {
       </marquee>
 
       <Container className="form-container" >
-        <Typography variant="h5" className="h5"><b>Create Patient</b></Typography>
+        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Create Patient <CreateTwoToneIcon /></b></Typography>
         <form onSubmit={handleSubmit} action={<Link to="/" />}>
           <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
             <TextField
@@ -372,7 +377,7 @@ export default function CreatePatient() {
                     />
                 </Stack>
                 <br></br>
-                <Typography variant="h5" className="h5"><b>Patient Daily Visiting Task</b></Typography>
+                <Typography variant="h5" className="h5"><b> <FormatListBulletedTwoToneIcon/> Patient Daily Visiting Task <TaskAltTwoToneIcon /></b></Typography>
                 <br></br>
                 <hr />
                 <Box className="custom-box">
@@ -403,7 +408,7 @@ export default function CreatePatient() {
                 </Box>
                 <br></br>
                 <br></br>
-                <Typography variant="h5" className="h5"><b>Other Task</b></Typography>
+                <Typography variant="h5" className="h5"><b><LowPriorityTwoToneIcon /> Other Task <PlaylistAddTwoToneIcon /></b></Typography>
                 <br></br>
                 <hr />         
                 <Box>
