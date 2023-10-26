@@ -6,13 +6,15 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
+import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
+import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 
 // Define the ResponsiveTable component here
 function ResponsiveTable() {
     const data = useContext(PatientsContext);
   return (
     <div>
-      <h2>Patient List</h2>
+      <h2><PersonAddAltTwoToneIcon /> Patient List <PersonAddDisabledTwoToneIcon /></h2>
       <div className="table-wrapper" >
         
         <table className="fl-table">
