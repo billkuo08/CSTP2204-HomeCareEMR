@@ -112,7 +112,7 @@ export default function CreatePatient() {
           color: 'white',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          animation: 'marquee 30s linear infinite', // Adjust the duration to 30 seconds
+          animation: 'marquee 990s linear infinite', // Adjust the duration to 30 seconds
         };
 
     const handleGender = (event) => {
@@ -219,11 +219,11 @@ export default function CreatePatient() {
   return (
     <>
      <marquee className="marquee" behavior="scroll" direction="left">
-        This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
+     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
       </marquee>
 
       <Container className="form-container">
-        <Typography variant="h5">Create Patient</Typography>
+        <Typography variant="h5" className="h5"><b>Create Patient</b></Typography>
         <form onSubmit={handleSubmit} action={<Link to="/" />}>
           <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
             <TextField
@@ -371,7 +371,7 @@ export default function CreatePatient() {
                     />
                 </Stack>
                 <br></br>
-                <Typography variant="h5">Patient Daily Visting Task</Typography>
+                <Typography variant="h5" className="h5"><b>Patient Daily Visiting Task</b></Typography>
                 <br></br>
                 <hr />
                 <Box className="custom-box">
@@ -402,7 +402,8 @@ export default function CreatePatient() {
                 </Box>
                 <br></br>
                 <br></br>
-                <Typography variant="h5">Other Task</Typography>
+                <Typography variant="h5" className="h5"><b>Other Task</b></Typography>
+                <br></br>
                 <hr />         
                 <Box>
                     <FormControl>
@@ -441,31 +442,39 @@ export default function CreatePatient() {
                     </FormControl>
                 </Box>
                 
-                
+                <br></br>
 
                 <Typography variant="h7">Insulin Injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
                     <TextField 
                         label="Insulin Name"
                         value={insulinName}
                         onChange={e => setInsulinName(e.target.value)}
                     />
+
+                    
                     <TextField
                         label="Insulin Dose"
                         value={insulinDose}
                         onChange={e => setInsulinDose(e.target.value)}
                     />
-                            
                 </Stack>
                 
-                <Typography variant="h7" sx={{ textAlign: 'Center' }}>Anticoagulant injection</Typography>
-<Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginLeft: 'auto' }}>
+                <br></br>
+
+                <Typography variant="h7" sx={{ textAlign: 'Left' }}>Anticoagulant injection</Typography>
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
+
+
+                    
     <TextField 
         label="Anticoagulant Name"
         value={anticoagulantName}
         onChange={e => setAnticoagulantName(e.target.value)}
     />
+
+    
     <TextField
         label="Anticoagulant Dose"
         value={anticoagulantDose}
@@ -473,9 +482,8 @@ export default function CreatePatient() {
     />
 </Stack>
 
-
-
-                <Button 
+<br></br>
+                <Button className="button-73"
                 variant="outlined" color="secondary" type="submit">Submit</Button>
                 
             </form>
