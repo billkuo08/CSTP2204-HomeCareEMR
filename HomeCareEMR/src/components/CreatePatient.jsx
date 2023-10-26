@@ -237,6 +237,7 @@ export default function CreatePatient() {
               fullWidth
               required
             />
+            <br></br>
                     <TextField
                         size="medium"
                         type="text"
@@ -248,8 +249,8 @@ export default function CreatePatient() {
                         fullWidth
                         required
                     />
-
-                    <FormControl fullWidth size="medium">
+            <br></br>
+                    <FormControl fullWidth size="medium" >
                         <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
@@ -263,6 +264,8 @@ export default function CreatePatient() {
                         </Select>
                     </FormControl>
                 </Stack>
+
+                <br></br>
 
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}>  
 
@@ -329,6 +332,9 @@ export default function CreatePatient() {
                         required
                     />
                 </Stack>
+
+                <br></br>
+                
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
                     <TextField
                         size="medium"
