@@ -88,28 +88,6 @@ export default function CreatePatient() {
         },
 });
 
-    const navStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Professional blue color
-        color: 'yellow', // White text for better contrast
-        padding: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-      };
-      const buttonStyle = {
-        margin: '5px',
-        padding: '10px 20px',
-        backgroundColor: 'white', // Light blue background
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        color: 'yellow', // White text
-        fontWeight: 'bold', // Bold text
-        textDecoration: 'none',
-      };
       const gridItemStyle = {
         backgroundColor: 'white',
         padding: '20px',
@@ -120,16 +98,6 @@ export default function CreatePatient() {
       };
       const gridItemHoverStyle = {
         backgroundColor: '#F0F0F0', // Light gray background on hover
-      };
-      const footerStyle = {
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Match the top navigation bar
-        color: 'white',
-        padding: '10px',
-        textAlign: 'center',
       };
       const formContainerStyle = {
         marginTop: '80px',
@@ -253,17 +221,6 @@ export default function CreatePatient() {
       This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
       </marquee>
 
-      <nav style={navStyle}>
-        <button style={buttonStyle}>
-          <a href="/">Home</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/about">About</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/contact">Contact</a>
-        </button>
-      </nav>
 
         <Container >
             <Typography variant="h5">Create Patient</Typography>
