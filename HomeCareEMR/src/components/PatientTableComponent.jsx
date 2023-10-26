@@ -5,13 +5,15 @@ import '../CSS/PatientTableComponent.css';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
+import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
+import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 
 // Define the ResponsiveTable component here
 function ResponsiveTable() {
     const data = useContext(PatientsContext);
   return (
     <div>
-      <h2>Patient List</h2>
+      <h2><PersonAddAltTwoToneIcon /> Patient List <PersonAddDisabledTwoToneIcon /></h2>
       <div className="table-wrapper" >
         
         <table className="fl-table">
@@ -20,8 +22,8 @@ function ResponsiveTable() {
               <th>Last Name</th>
               <th>First Name</th>
               <th>Date of Birth</th>
-              <th>Healhcare Number</th>
-              <th>Link </th>
+              <th>HealthCare Number</th>
+              <th>Link</th>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +34,7 @@ function ResponsiveTable() {
                 <td>{patient.birthDate}</td>
                 <td>{patient.healthCardNumber}</td>
                 <td>
-                    <Link to={`/visiting/${patient.id}`}>Visit</Link>
+                    <Link to={`/visiting/${patient.id}`} className="a" >Visit</Link>
                 </td>
             </tr>
             ))}

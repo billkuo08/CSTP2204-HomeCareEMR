@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
+import '../CSS/CreatePatient.css';
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -9,7 +10,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { addPatient } from '../API/patients';
 import MitrixCheckBox from "./MatrixCheckBox"
-
+import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
+import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBulletedTwoTone';
+import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
+import LowPriorityTwoToneIcon from '@mui/icons-material/LowPriorityTwoTone';
+import PlaylistAddTwoToneIcon from '@mui/icons-material/PlaylistAddTwoTone';
 
 export default function CreatePatient() {
     const [firstName, setFirstName] = useState('')
@@ -96,28 +102,6 @@ export default function CreatePatient() {
         },
 });
 
-    const navStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Professional blue color
-        color: 'yellow', // White text for better contrast
-        padding: '10px',
-        display: 'flex',
-        justifyContent: 'center',
-      };
-      const buttonStyle = {
-        margin: '5px',
-        padding: '10px 20px',
-        backgroundColor: 'white', // Light blue background
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        color: 'yellow', // White text
-        fontWeight: 'bold', // Bold text
-        textDecoration: 'none',
-      };
       const gridItemStyle = {
         backgroundColor: 'white',
         padding: '20px',
@@ -128,16 +112,6 @@ export default function CreatePatient() {
       };
       const gridItemHoverStyle = {
         backgroundColor: '#F0F0F0', // Light gray background on hover
-      };
-      const footerStyle = {
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#0055A4', // Match the top navigation bar
-        color: 'white',
-        padding: '10px',
-        textAlign: 'center',
       };
       const formContainerStyle = {
         marginTop: '80px',
@@ -151,7 +125,7 @@ export default function CreatePatient() {
           color: 'white',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          animation: 'marquee 30s linear infinite', // Adjust the duration to 30 seconds
+          animation: 'marquee 990s linear infinite', // Adjust the duration to 30 seconds
         };
 
     const handleGender = (event) => {
@@ -211,37 +185,27 @@ export default function CreatePatient() {
 
   return (
     <>
-     <marquee behavior="scroll" direction="left" style={{ backgroundColor: 'red', color: 'white' }}>
-      This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
+
+     <marquee className="marquee" behavior="scroll" direction="left">
+     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
       </marquee>
 
-      <nav style={navStyle}>
-        <button style={buttonStyle}>
-          <a href="/">Home</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/about">About</a>
-        </button>
-        <button style={buttonStyle}>
-          <a href="/contact">Contact</a>
-        </button>
-      </nav>
-
-        <Container >
-            <Typography variant="h5">Create Patient</Typography>
-            <form onSubmit={handleSubmit} action={<Link to="/" />}>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
-                    <TextField
-                        size="medium"
-                        type="text"
-                        variant='outlined'
-                        color='secondary'
-                        label="First Name"
-                        onChange={e => setFirstName(e.target.value)}
-                        value={firstName}
-                        fullWidth
-                        required
-                    />
+      <Container className="form-container" >
+        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Create Patient <CreateTwoToneIcon /></b></Typography>
+        <form onSubmit={handleSubmit} action={<Link to="/" />}>
+          <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
+            <TextField
+              size="medium"
+              type="text"
+              variant='outlined'
+              color='secondary'
+              label="First Name"
+              onChange={e => setFirstName(e.target.value)}
+              value={firstName}
+              fullWidth
+              required
+            />
+            <br></br>
                     <TextField
                         size="medium"
                         type="text"
@@ -253,8 +217,8 @@ export default function CreatePatient() {
                         fullWidth
                         required
                     />
-
-                    <FormControl fullWidth size="medium">
+            <br></br>
+                    <FormControl fullWidth size="medium" >
                         <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
@@ -268,6 +232,8 @@ export default function CreatePatient() {
                         </Select>
                     </FormControl>
                 </Stack>
+
+                <br></br>
 
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}>  
 
@@ -306,7 +272,6 @@ export default function CreatePatient() {
                         <MenuItem value={'routeC'}>C</MenuItem>
                         </Select>
                     </FormControl>      
-                      
                 </Stack>
                 
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }} >
@@ -335,6 +300,9 @@ export default function CreatePatient() {
                         required
                     />
                 </Stack>
+
+                <br></br>
+
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
                     <TextField
                         size="medium"
@@ -370,9 +338,11 @@ export default function CreatePatient() {
                         required
                     />
                 </Stack>
-                <Typography variant="h5">Patient Daily Visting Task</Typography>
+                <br></br>
+                <Typography variant="h5" className="h5"><b> <FormatListBulletedTwoToneIcon/> Patient Daily Visiting Task <TaskAltTwoToneIcon /></b></Typography>
+                <br></br>
                 <hr />
-                <Box>
+                <Box className="custom-box">
                     <div className="grid">
                         <span></span>
                         <span>Monday</span>
@@ -398,8 +368,10 @@ export default function CreatePatient() {
                         )} 
                     </div>
                 </Box>
-
-                <Typography variant="h5">Other Task</Typography>
+                <br></br>
+                <br></br>
+                <Typography variant="h5" className="h5"><b><LowPriorityTwoToneIcon /> Other Task <PlaylistAddTwoToneIcon /></b></Typography>
+                <br></br>
                 <hr />         
                 <Box>
                     <FormControl>
@@ -438,41 +410,48 @@ export default function CreatePatient() {
                     </FormControl>
                 </Box>
                 
-                
+                <br></br>
 
-                <Typography variant="h7">Insulin Injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}} justifyContent="center" alignItems="center">
+                <Typography variant="h7"><b>Insulin Injection</b></Typography>
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
                     <TextField 
                         label="Insulin Name"
                         value={insulinName}
                         onChange={e => setInsulinName(e.target.value)}
                     />
+
+                    
                     <TextField
                         label="Insulin Dose"
                         value={insulinDose}
                         onChange={e => setInsulinDose(e.target.value)}
                     />
-                            
                 </Stack>
-                <Typography variant="h7">Anticoagulant injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}} justifyContent="center" alignItems="center"> 
-                                   
-                    <TextField 
-                        label="Anticoagulant Name"
-                        value={anticoagulantName}
-                        onChange={e => setAnticoagulantName(e.target.value)}
-                    />
-                    <TextField
-                        label="Anticoagulant Dose"
-                        value={anticoagulantDose}
-                        onChange={e => setAnticoagulantDose(e.target.value)}
-                    />
-                            
-                </Stack>
+                
+                <br></br>
+
+                <Typography variant="h7" sx={{ textAlign: 'Left' }}><b>Anticoagulant injection</b></Typography>
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
 
-                <Button 
+                    
+    <TextField 
+        label="Anticoagulant Name"
+        value={anticoagulantName}
+        onChange={e => setAnticoagulantName(e.target.value)}
+    />
+
+    
+    <TextField
+        label="Anticoagulant Dose"
+        value={anticoagulantDose}
+        onChange={e => setAnticoagulantDose(e.target.value)}
+    />
+</Stack>
+
+<br></br>
+                <Button className="button-73"
                 variant="outlined" color="secondary" type="submit">Submit</Button>
                 
             </form>
