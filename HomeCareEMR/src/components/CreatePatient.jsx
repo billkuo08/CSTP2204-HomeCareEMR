@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
+import '../CSS/CreatePatient.css';
 import { Link } from 'react-router-dom'
 // import { addDoc, collection } from 'firebase/firestore';
 // import { db} from '../config/config';
@@ -217,26 +218,25 @@ export default function CreatePatient() {
 
   return (
     <>
-     <marquee behavior="scroll" direction="left" style={{ backgroundColor: 'red', color: 'white' }}>
-      This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
+     <marquee className="marquee" behavior="scroll" direction="left">
+        This page is off-limits to the public as it is a company pipeline tool, and it is for admin access only; unauthorized access will result in consequences.
       </marquee>
 
-
-        <Container >
-            <Typography variant="h5">Create Patient</Typography>
-            <form onSubmit={handleSubmit} action={<Link to="/" />}>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
-                    <TextField
-                        size="medium"
-                        type="text"
-                        variant='outlined'
-                        color='secondary'
-                        label="First Name"
-                        onChange={e => setFirstName(e.target.value)}
-                        value={firstName}
-                        fullWidth
-                        required
-                    />
+      <Container className="form-container">
+        <Typography variant="h5">Create Patient</Typography>
+        <form onSubmit={handleSubmit} action={<Link to="/" />}>
+          <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
+            <TextField
+              size="medium"
+              type="text"
+              variant='outlined'
+              color='secondary'
+              label="First Name"
+              onChange={e => setFirstName(e.target.value)}
+              value={firstName}
+              fullWidth
+              required
+            />
                     <TextField
                         size="medium"
                         type="text"
