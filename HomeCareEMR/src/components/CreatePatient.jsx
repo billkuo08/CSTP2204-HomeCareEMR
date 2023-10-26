@@ -2,8 +2,6 @@
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormLabel, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
 import { useState} from 'react'
 import { Link } from 'react-router-dom'
-// import { addDoc, collection } from 'firebase/firestore';
-// import { db} from '../config/config';
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -76,7 +74,17 @@ export default function CreatePatient() {
             sunday: false,
             daily: false,
         },
-    "Aanticoagulant Injection":{
+        "Aanticoagulant Injection":{
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false,
+            sunday: false,
+            daily: false,
+        },
+        "Insulin Injection":{
             monday: false,
             tuesday: false,
             wednesday: false,
@@ -163,52 +171,6 @@ export default function CreatePatient() {
         }
     }
 
-    const handleBloodPress =(event)=>{
-        const index = bloodPressure.indexOf(event.target.value)
-        if (index === -1) {
-            setBloodPressure([...bloodPressure, event.target.value])
-        } else {
-            setBloodPressure(bloodPressure.filter(task => task !== event.target.value))
-        }
-    }
- 
-    const handlePulse =(event)=>{
-        const index = pulse.indexOf(event.target.value)
-        if (index === -1) {
-            setPulse([...pulse, event.target.value])
-        } else {
-            setPulse(pulse.filter(task => task !== event.target.value))
-        }
-    }
-
-    const handlespo =(event)=>{
-        const index = spo.indexOf(event.target.value)
-        if (index === -1) {
-            setSpo([...spo, event.target.value])
-        } else {
-            setSpo(spo.filter(task => task !== event.target.value))
-        }
-    }
-
-    const handleGlocuse =(event)=>{
-        const index = bloodGlucose.indexOf(event.target.value)
-        if (index === -1) {
-            setBloodGlucose([...bloodGlucose, event.target.value])
-        } else {
-            setBloodGlucose(bloodGlucose.filter(task => task !== event.target.value))
-        }
-    }
-
-    const handleAnticoagulant =(event)=>{
-        const index = anticoagulant.indexOf(event.target.value)
-        if (index === -1) {
-            setAnticoagulant([...anticoagulant, event.target.value])
-        } else {
-            setAnticoagulant(anticoagulant.filter(task => task !== event.target.value))
-        }
-    }
-
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         const patient = { 
@@ -233,7 +195,7 @@ export default function CreatePatient() {
             insulinDose,
             spo,
             permission,
-            createdAt: Date.now(),
+            createdAt: new Date().toISOString(),
 
         }
         try {
@@ -347,7 +309,7 @@ export default function CreatePatient() {
                       
                 </Stack>
                 
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }} >
                     <TextField
                         size="medium"
                         type="text"
@@ -479,7 +441,7 @@ export default function CreatePatient() {
                 
 
                 <Typography variant="h7">Insulin Injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}} justifyContent="center" alignItems="center">
 
                     <TextField 
                         label="Insulin Name"
@@ -494,7 +456,7 @@ export default function CreatePatient() {
                             
                 </Stack>
                 <Typography variant="h7">Anticoagulant injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}} justifyContent="center" alignItems="center"> 
                                    
                     <TextField 
                         label="Anticoagulant Name"
