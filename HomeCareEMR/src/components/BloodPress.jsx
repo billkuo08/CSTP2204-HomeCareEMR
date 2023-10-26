@@ -1,9 +1,22 @@
+/* eslint-disable react/display-name */
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { Box, TextField, Typography } from '@mui/material'
+import { forwardRef, useImperativeHandle } from 'react'
 
-export default function BloodPress() {
+const BloodPress= forwardRef((props, _ref)=> {
     const [sbp, setSbp] = useState('')
     const [dbp, setDbp] = useState('')
+
+    useImperativeHandle(_ref, () => ({
+        getChildState() {
+          return {
+            sbp,
+            dbp
+          }
+        }
+      }))
+      
   return (
     <>
   
@@ -17,5 +30,7 @@ export default function BloodPress() {
     </>
 
 
-  )
-}
+  );
+});
+
+export default BloodPress;

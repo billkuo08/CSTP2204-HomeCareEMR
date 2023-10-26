@@ -1,13 +1,22 @@
+/* eslint-disable react/display-name */
 import { useState } from 'react'
 import { Box, TextField, Typography, FormControl, InputLabel, Select, MenuItem} from '@mui/material'
-
-export default function BloodGlucose() {
+import { forwardRef, useImperativeHandle } from 'react'
+const BloodGlucose = forwardRef((props, _ref) =>  {
     const [bloodGlucoseLevel, setBloodGlucoseLevel] = useState('')
     const [fasting, setfasting] = useState('')
 
     const handlefasting = (event) => {
         setfasting(event.target.value);
       };
+    useImperativeHandle(_ref, () => ({
+        getChildState() {
+          return {
+            bloodGlucoseLevel,
+            fasting
+          }
+        }
+      }))
 
   return (
     <>
@@ -39,4 +48,6 @@ export default function BloodGlucose() {
 
 
   )
-}
+})
+
+export default BloodGlucose;

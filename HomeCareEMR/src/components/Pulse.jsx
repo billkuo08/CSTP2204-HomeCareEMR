@@ -1,8 +1,18 @@
+/* eslint-disable react/display-name */
+/* eslint-disable no-unused-vars */
 import { Box, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
+import { forwardRef, useImperativeHandle } from 'react'
 
-export default function Pulse() {
+const Pulse = forwardRef((props, _ref) => {
     const [pulse, setPulse] = useState('')
+    useImperativeHandle(_ref, () => ({
+        getChildState() {
+          return {
+            pulse
+          }
+        }
+      }))
   return (
         <>
     
@@ -14,4 +24,6 @@ export default function Pulse() {
 
     </>
   )
-}
+})
+
+export default Pulse;

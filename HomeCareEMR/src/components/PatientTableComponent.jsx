@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 
 import '../CSS/PatientTableComponent.css';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
