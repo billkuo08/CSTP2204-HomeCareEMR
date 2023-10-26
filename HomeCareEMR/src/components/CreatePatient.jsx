@@ -301,7 +301,6 @@ export default function CreatePatient() {
                         <MenuItem value={'routeC'}>C</MenuItem>
                         </Select>
                     </FormControl>      
-                      
                 </Stack>
                 
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
@@ -365,9 +364,11 @@ export default function CreatePatient() {
                         required
                     />
                 </Stack>
+                <br></br>
                 <Typography variant="h5">Patient Daily Visting Task</Typography>
+                <br></br>
                 <hr />
-                <Box>
+                <Box className="custom-box">
                     <div className="grid">
                         <span></span>
                         <span>Monday</span>
@@ -393,7 +394,8 @@ export default function CreatePatient() {
                         )} 
                     </div>
                 </Box>
-
+                <br></br>
+                <br></br>
                 <Typography variant="h5">Other Task</Typography>
                 <hr />         
                 <Box>
@@ -450,21 +452,21 @@ export default function CreatePatient() {
                     />
                             
                 </Stack>
-                <Typography variant="h7">Anticoagulant injection</Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1}}> 
-                                   
-                    <TextField 
-                        label="Anticoagulant Name"
-                        value={anticoagulantName}
-                        onChange={e => setAnticoagulantName(e.target.value)}
-                    />
-                    <TextField
-                        label="Anticoagulant Dose"
-                        value={anticoagulantDose}
-                        onChange={e => setAnticoagulantDose(e.target.value)}
-                    />
-                            
-                </Stack>
+                
+                <Typography variant="h7" sx={{ textAlign: 'Center' }}>Anticoagulant injection</Typography>
+<Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginLeft: 'auto' }}>
+    <TextField 
+        label="Anticoagulant Name"
+        value={anticoagulantName}
+        onChange={e => setAnticoagulantName(e.target.value)}
+    />
+    <TextField
+        label="Anticoagulant Dose"
+        value={anticoagulantDose}
+        onChange={e => setAnticoagulantDose(e.target.value)}
+    />
+</Stack>
+
 
 
                 <Button 
