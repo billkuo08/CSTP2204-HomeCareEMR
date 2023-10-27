@@ -6,7 +6,7 @@ import {
     Polyline
 } from "@react-google-maps/api";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { dbMap } from "../config/config"
+import { dbMap, mapAPIKey } from "../config/config"
 import car from '../images/car.png';
 import { DirectionsService } from "@react-google-maps/api";
 import { DirectionsRenderer } from "@react-google-maps/api";
@@ -23,7 +23,7 @@ function RouteDirection() {
 
     const { isLoaded, google } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyBK803PmGUbHyFmiVyc2mVa83cC1NW8KsI",
+        googleMapsApiKey: mapAPIKey,
     });
 
     const [currentLocation, setCurrentLocation] = useState([]);

@@ -18,6 +18,8 @@ const firebaseConfig = {
   measurementId: "G-K0BWER8TTS"
 };
 
+const mapAPIKey = "AIzaSyBK803PmGUbHyFmiVyc2mVa83cC1NW8KsI";
+
 
 // Initialize Firebase
 const adminAccountId = 'VGYHycwkzES0GJwNUIKHm0OtRuH2';
@@ -29,4 +31,4 @@ const facebookProvider = new FacebookAuthProvider();
 const auth = getAuth();
 const storage = getStorage(app);
 const db = getFirestore(app);
-export { adminAccountId, app, firestore, auth, googleProvider, facebookProvider, storage, db, dbMap };
+export { mapAPIKey, adminAccountId, app, firestore, auth, googleProvider, facebookProvider, storage, db, dbMap };
