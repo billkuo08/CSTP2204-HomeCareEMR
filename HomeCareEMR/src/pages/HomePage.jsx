@@ -111,7 +111,7 @@ export default function HomePage() {
               <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
             </li>
             <li>
-              <a href="/log"><GpsFixedTwoToneIcon/> Routes Direction</a>
+              <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
