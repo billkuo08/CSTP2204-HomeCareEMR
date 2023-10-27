@@ -8,6 +8,7 @@ import { getAllPatients } from './API/patients';
 import {PatientsContext} from './context/PatientsContext';
 import { useState, useEffect } from 'react';
 import CheckboxComponent from './components/CheckboxComponent';
+import RouteMapPage from './pages/RouteMapPage'
 
 function App() {
   const [patients, setPatients] = useState([]);
@@ -26,7 +27,6 @@ function App() {
     <>
       <PatientsContext.Provider 
       value={patients}>
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/patients" element={<PatientListPage />} />
@@ -35,6 +35,7 @@ function App() {
           <Route path="/visiting" element={<PatientVisitingPage />} />
           <Route path="checkbox" element={<CheckboxComponent />} />
           <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/direction" element={<RouteMapPage/>} />
         </Routes>
       </PatientsContext.Provider>
       
