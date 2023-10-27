@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "@firebase/storage";
@@ -9,19 +10,25 @@ import { getStorage } from "@firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyDS9nLcJyoLcNH_4BpuV1nK0v3lqdwN_os",
   authDomain: "cstp2107-wecare.firebaseapp.com",
+  databaseURL: "https://cstp2107-wecare-default-rtdb.firebaseio.com",
   projectId: "cstp2107-wecare",
   storageBucket: "cstp2107-wecare.appspot.com",
   messagingSenderId: "779900322667",
-  appId: "1:779900322667:web:6002731a751e9017ba022e"
+  appId: "1:779900322667:web:6002731a751e9017ba022e",
+  measurementId: "G-K0BWER8TTS"
 };
+
+const mapAPIKey = "AIzaSyBK803PmGUbHyFmiVyc2mVa83cC1NW8KsI";
+
 
 // Initialize Firebase
 const adminAccountId = 'VGYHycwkzES0GJwNUIKHm0OtRuH2';
 const app = initializeApp(firebaseConfig);
+const dbMap = getDatabase(app);
 const firestore = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 const auth = getAuth();
 const storage = getStorage(app);
 const db = getFirestore(app);
-export { adminAccountId, app, firestore, auth, googleProvider, facebookProvider, storage, db };
+export { mapAPIKey, adminAccountId, app, firestore, auth, googleProvider, facebookProvider, storage, db, dbMap };

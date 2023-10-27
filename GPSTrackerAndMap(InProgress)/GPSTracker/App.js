@@ -10,15 +10,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
 
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyAT1LP9vPMVgCcS-WhvH9bxnQ6JNqZIr5Y",
+  //   authDomain: "cstp2107finalproject.firebaseapp.com",
+  //   databaseURL: "https://cstp2107finalproject-default-rtdb.firebaseio.com",
+  //   projectId: "cstp2107finalproject",
+  //   storageBucket: "cstp2107finalproject.appspot.com",
+  //   messagingSenderId: "734450003257",
+  //   appId: "1:734450003257:web:3ca7395653d58a16accce8",
+  //   measurementId: "G-DLC7VP6MRE"
+  // };
+
   const firebaseConfig = {
-    apiKey: "AIzaSyAT1LP9vPMVgCcS-WhvH9bxnQ6JNqZIr5Y",
-    authDomain: "cstp2107finalproject.firebaseapp.com",
-    databaseURL: "https://cstp2107finalproject-default-rtdb.firebaseio.com",
-    projectId: "cstp2107finalproject",
-    storageBucket: "cstp2107finalproject.appspot.com",
-    messagingSenderId: "734450003257",
-    appId: "1:734450003257:web:3ca7395653d58a16accce8",
-    measurementId: "G-DLC7VP6MRE"
+    apiKey: "AIzaSyDS9nLcJyoLcNH_4BpuV1nK0v3lqdwN_os",
+    authDomain: "cstp2107-wecare.firebaseapp.com",
+    databaseURL: "https://cstp2107-wecare-default-rtdb.firebaseio.com",
+    projectId: "cstp2107-wecare",
+    storageBucket: "cstp2107-wecare.appspot.com",
+    messagingSenderId: "779900322667",
+    appId: "1:779900322667:web:6002731a751e9017ba022e"
   };
 
   initializeApp(firebaseConfig);
