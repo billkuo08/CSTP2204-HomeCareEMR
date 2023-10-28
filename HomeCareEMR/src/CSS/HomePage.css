@@ -27,8 +27,8 @@
 /* Grid container styles */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 109px;
   padding: 20px;
 }
 
