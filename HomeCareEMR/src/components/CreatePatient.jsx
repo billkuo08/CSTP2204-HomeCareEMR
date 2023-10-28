@@ -17,6 +17,7 @@ import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
 import LowPriorityTwoToneIcon from '@mui/icons-material/LowPriorityTwoTone';
 import PlaylistAddTwoToneIcon from '@mui/icons-material/PlaylistAddTwoTone';
 
+
 export default function CreatePatient() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -25,18 +26,13 @@ export default function CreatePatient() {
     const [emergencyContactName, setEmergencyContactName] = useState('')
     const [emergencyContactRelationship, setEmergencyContactRelationship] = useState('')
     const [emergencyContactPhone, setEmergencyContactPhone] = useState('')
-    const [bloodPressure, setBloodPressure] = useState('')
     const [tasks, setTasks] = useState([])
     const [gender, setGender] = useState('')
     const [birthDate, setBirthDate] = useState(dayjs())
     const [healthCardNumber, setHealthCardNumber] = useState('')
-    const [pulse, setPulse] = useState('')
-    const [spo, setSpo] = useState('')
-    const [bloodGlucose, setBloodGlucose] = useState('')
     const [route, setRoute] = useState('')
     const [insulinName, setInsulinName] = useState('')
     const [insulinDose, setInsulinDose] = useState('')
-    const [anticoagulant, setAnticoagulant] = useState('')
     const [anticoagulantName, setAnticoagulantName] = useState('')
     const [anticoagulantDose, setAnticoagulantDose] = useState('')
     const [permission, setPermission] = useState({
@@ -158,16 +154,11 @@ export default function CreatePatient() {
             emergencyContactName,
             emergencyContactRelationship,
             emergencyContactPhone,
-            bloodPressure,
-            bloodGlucose,
-            pulse,
             tasks,
-            anticoagulant,
             anticoagulantName,
             anticoagulantDose,
             insulinName,
             insulinDose,
-            spo,
             permission,
             createdAt: new Date().toISOString(),
 
@@ -178,6 +169,86 @@ export default function CreatePatient() {
         } catch (err) {
             console.log(err)
         }
+
+        setFirstName("")
+        setLastName("")
+        setPhone("")
+        setAddress("")
+        setEmergencyContactName("")
+        setEmergencyContactRelationship("")
+        setEmergencyContactPhone("")
+        setTasks([])
+        setGender("")
+        setBirthDate(dayjs())
+        setHealthCardNumber("")
+        setRoute("")
+        setInsulinName("")
+        setInsulinDose("")
+        setAnticoagulantName("")
+        setAnticoagulantDose("")
+        setPermission({
+            "Blood Pressure":{            
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+            "Pulse":{
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+            "Spo2":{
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+            "Blood Glucose":{
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+            "Aanticoagulant Injection":{
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+            "Insulin Injection":{
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                daily: false,
+            },
+        });
+        
     }
 
 
@@ -192,7 +263,7 @@ export default function CreatePatient() {
 
       <Container className="form-container" >
         <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Create Patient <CreateTwoToneIcon /></b></Typography>
-        <form onSubmit={handleSubmit} action={<Link to="/" />}>
+        <form onSubmit={handleSubmit} action={<Link to="/" />} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
             <TextField
               size="medium"

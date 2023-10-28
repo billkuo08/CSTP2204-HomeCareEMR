@@ -9,6 +9,7 @@ import {PatientsContext} from './context/PatientsContext';
 import { useState, useEffect } from 'react';
 import CheckboxComponent from './components/CheckboxComponent';
 
+
 function App() {
   const [patients, setPatients] = useState([]);
     console.log(patients);
