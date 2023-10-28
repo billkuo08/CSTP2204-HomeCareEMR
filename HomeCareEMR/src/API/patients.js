@@ -21,6 +21,15 @@ export const addPatient = async (patient) => {
   }
 }
 
+export const updatePatient = async (patient) => {
+  try {
+    const docRef = await updateDoc(doc(db, "patients", patient.id), patient);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
 export const addDailyTask = async (dailyTask) => {
   try {
     const docRef = await addDoc(collection(db, "dailyTask", ), dailyTask);

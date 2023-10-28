@@ -24,7 +24,7 @@ const BloodGlucose = forwardRef((props, _ref) =>  {
     <Box>
       <Typography variant="h5">Blood Glucose</Typography>
       <TextField value={bloodGlucoseLevel} onChange={(event)=> setBloodGlucoseLevel(event.target.value)} id="pulse" placeholder = "Enter Pulse" label="pulse" variant="outlined" />
-      <FormControl size="medium" sx={{width:"50%"}}>
+      <FormControl size="medium" sx={{width:"12%"}}>
         <InputLabel id="demo-simple-select-label">having meal?</InputLabel>
         <Select
         labelId="demo-simple-select-label"
