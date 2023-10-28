@@ -10,6 +10,7 @@ import { dbMap, mapAPIKey } from "../config/config"
 import car from '../images/car.png';
 import { DirectionsService } from "@react-google-maps/api";
 import { DirectionsRenderer } from "@react-google-maps/api";
+import "../CSS/Map.css"
 
 
 const center = {
@@ -58,16 +59,20 @@ function RouteDirection() {
         } else {
             console.error('Directions request failed. Response is null.');
         }
+        
     };
 
     return isLoaded ? (
-        <>
+        <div className="map-container">
             <GoogleMap
                 center={center}
                 zoom={12}
-                mapContainerStyle={{ width: "100%", height: "100vh" }}
+                mapContainerStyle={{
+                    width: "100%",
+                    height: "65vh",
+                }}
                 options={{
-                    zoomControl: false,
+                    zoomControl: true,
                     streetViewControl: false,
                     mapTypeControl: false,
                     fullscreenControl: false,
@@ -105,18 +110,22 @@ function RouteDirection() {
                         callback={directionsCallback}
                     />
                 ) : null}
-
+                
                 {directions && (
                     <DirectionsRenderer
-                        directions={directions}
+                        directions={directions}                        
                         options={{
+                            preserveViewport: true,
                             suppressMarkers: true,
+
                         }}
                     />
                 )}
+                             
 
             </GoogleMap>
-        </>
+        </div>
+
     ) : null;
 
 
