@@ -1,15 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 import { Container, Typography, Stack, TextField, Button, Box, FormControlLabel, Checkbox, FormControl, FormGroup, InputLabel, MenuItem, Select} from '@mui/material'
-import { useState} from 'react'
+import { useState, useContext} from 'react'
 import '../CSS/CreatePatient.css';
-import { Link } from 'react-router-dom'
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { addPatient } from '../API/patients';
+import { updatePatient } from '../API/patients';
 import MitrixCheckBox from "./MatrixCheckBox"
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
@@ -17,9 +16,17 @@ import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBullete
 import TaskAltTwoToneIcon from '@mui/icons-material/TaskAltTwoTone';
 import LowPriorityTwoToneIcon from '@mui/icons-material/LowPriorityTwoTone';
 import PlaylistAddTwoToneIcon from '@mui/icons-material/PlaylistAddTwoTone';
+import { useParams, Link } from "react-router-dom";
+import { PatientsContext } from '../context/PatientsContext';
+import { useEffect } from 'react';
+
+
+
 
 
 export default function CreatePatient() {
+    const {id} = useParams();
+    const patients = useContext(PatientsContext);    
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phone, setPhone] = useState('')
@@ -99,32 +106,6 @@ export default function CreatePatient() {
         },
 });
 
-    //   const gridItemStyle = {
-    //     backgroundColor: 'white',
-    //     padding: '20px',
-    //     border: '1px solid #E0E0E0', // Light gray border
-    //     borderRadius: '5px',
-    //     transition: 'background-color 0.3s',
-    //     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Subtle box shadow
-    //   };
-    //   const gridItemHoverStyle = {
-    //     backgroundColor: '#F0F0F0', // Light gray background on hover
-    //   };
-    //   const formContainerStyle = {
-    //     marginTop: '80px',
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     alignItems: 'center',
-    //   };
-      
-    //   const marqueeStyle = {
-    //       backgroundColor: 'red',
-    //       color: 'white',
-    //       overflow: 'hidden',
-    //       whiteSpace: 'nowrap',
-    //       animation: 'marquee 990s linear infinite', // Adjust the duration to 30 seconds
-    //     };
-
     const handleGender = (event) => {
         setGender(event.target.value);
         };  
@@ -142,9 +123,35 @@ export default function CreatePatient() {
         }
     }
 
+    useEffect(() => {
+        patients.map((patient) => {
+            if(patient.id === id){
+                setFirstName(patient.firstName)
+                setLastName(patient.lastName)
+                setGender(patient.gender)
+                setBirthDate(dayjs(patient.birthDate))
+                setHealthCardNumber(patient.healthCardNumber)
+                setRoute(patient.route)
+                setPhone(patient.phone)
+                setAddress(patient.address)
+                setEmergencyContactName(patient.emergencyContactName)
+                setEmergencyContactRelationship(patient.emergencyContactRelationship)
+                setEmergencyContactPhone(patient.emergencyContactPhone)
+                setTasks(patient.tasks)
+                setPermission(patient.permission)
+                setInsulinDose(patient.insulinDose)
+                setInsulinName(patient.insulinName)
+                setAnticoagulantName(patient.anticoagulantName)
+                setAnticoagulantDose(patient.anticoagulantDose)
+                
+            }
+        })
+    }, [id, patients])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const patient = { 
+            id,
             firstName, 
             lastName,
             birthDate: birthDate.format('YYYY-MM-DD'),
@@ -163,93 +170,15 @@ export default function CreatePatient() {
             insulinDose,
             permission,
             createdAt: new Date().toISOString(),
-
         }
         try {
-            await addPatient(patient)
-            alert("Doctor information submitted successfully.");
+            await updatePatient(patient)
+            alert("Patient information update successfully.");
         } catch (err) {
             console.log(err)
         }
 
-        setFirstName("")
-        setLastName("")
-        setPhone("")
-        setAddress("")
-        setEmergencyContactName("")
-        setEmergencyContactRelationship("")
-        setEmergencyContactPhone("")
-        setTasks([])
-        setGender("")
-        setBirthDate(dayjs())
-        setHealthCardNumber("")
-        setRoute("")
-        setInsulinName("")
-        setInsulinDose("")
-        setAnticoagulantName("")
-        setAnticoagulantDose("")
-        setPermission({
-            "Blood Pressure":{            
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-            "Pulse":{
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-            "Spo2":{
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-            "Blood Glucose":{
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-            "Aanticoagulant Injection":{
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-            "Insulin Injection":{
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                daily: false,
-            },
-        });
+        
         
     }
 
@@ -525,7 +454,9 @@ export default function CreatePatient() {
 
 <br></br>
                 <Button className="button-73"
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+                variant="outlined" color="secondary" type="submit">Update</Button>
+                <Button component={Link} to={"/patients"} className="button-73"
+                variant="outlined" color="secondary" type="reset">Back To List</Button>
                 
             </form>
         </Container>
