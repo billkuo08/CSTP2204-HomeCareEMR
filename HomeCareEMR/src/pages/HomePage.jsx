@@ -167,6 +167,36 @@ export default function HomePage() {
         </div>
     </div>
 </div>
+
+
+<div className="flip-card">
+    <div className="flip-card-inner">
+        <div className="flip-card-front">
+            <p className="title">Is this  right for me?</p>
+            <p><FlipCameraAndroidTwoToneIcon /></p>
+        </div>
+        <div className="flip-card-back">
+            <p className="title"><InfoTwoToneIcon/></p>
+            <p>Personal assistance and/or respite for a caregiver through a clinical assessment conducted by a health care professional from your regional health authority.
+</p>
+        </div>
+    </div>
+</div>
+
+
+<div className="flip-card">
+    <div className="flip-card-inner">
+        <div className="flip-card-front">
+            <p className="title">Improves Quality of Life</p>
+            <p><FlipCameraAndroidTwoToneIcon /></p>
+        </div>
+        <div className="flip-card-back">
+            <p className="title"><InfoTwoToneIcon/></p>
+            <p>By encouraging independence and self-care, aging parents stay in charge of their own lives for as long as possible</p>
+        </div>
+    </div>
+</div>
+
           </div>
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             We are committed to your well-being.
@@ -178,6 +208,9 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      
+      <br></br>
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
       </footer>
