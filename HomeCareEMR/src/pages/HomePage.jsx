@@ -197,6 +197,8 @@ export default function HomePage() {
     </div>
 </div>
 
+
+
           </div>
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
             We are committed to your well-being.
