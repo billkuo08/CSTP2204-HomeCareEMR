@@ -193,7 +193,7 @@ export default function CreatePatient() {
       </marquee>
 
       <Container className="form-container" >
-        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Create Patient <CreateTwoToneIcon /></b></Typography>
+        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Edit Patient <CreateTwoToneIcon /></b></Typography>
         <form onSubmit={handleSubmit} action={<Link to="/" />} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
             <TextField
