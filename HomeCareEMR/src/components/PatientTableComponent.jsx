@@ -38,6 +38,7 @@ function ResponsiveTable() {
               <th>Date of Birth</th>
               <th>HealthCare Number</th>
               <th>Link</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +50,9 @@ function ResponsiveTable() {
                 <td>{patient.healthCardNumber}</td>
                 <td>
                     <Link to={`/visiting/${patient.id}`} className="a" >Visit</Link>
+                </td>
+                <td>
+                    <Link to={`/edit/${patient.id}`} className="a" >Edit</Link>
                 </td>
             </tr>
             ))}

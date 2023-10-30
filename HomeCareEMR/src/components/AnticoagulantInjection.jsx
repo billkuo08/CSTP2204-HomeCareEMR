@@ -28,7 +28,7 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
           <>
             <Box>
               <Typography variant="h5">Anticoagulant Injection</Typography>
-              <Stack direction="row" spacing={5}>
+              <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
                 <Typography variant="h6">Drug Name: {patient.anticoagulantName}</Typography>
                 <Typography variant="h6">Dose:{patient.anticoagulantDose} mg</Typography>
               </Stack>
