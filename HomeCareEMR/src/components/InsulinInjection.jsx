@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { Typography, Box, Stack, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material'
 import { useContext, useState, forwardRef, useImperativeHandle} from 'react'
+import '../CSS/InsulinInjection.css';
 import { PatientsContext } from '../context/PatientsContext'
 
 const InsulinInjection = forwardRef(({id}, _ref)=> {

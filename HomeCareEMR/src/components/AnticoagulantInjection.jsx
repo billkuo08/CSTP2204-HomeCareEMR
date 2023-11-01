@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Typography, Box, Stack, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material'
 import { useContext, useState, forwardRef, useImperativeHandle} from 'react'
+import '../CSS/AnticoagulantInjection.css';
 import { PatientsContext } from '../context/PatientsContext'
 
 // eslint-disable-next-line react/display-name
