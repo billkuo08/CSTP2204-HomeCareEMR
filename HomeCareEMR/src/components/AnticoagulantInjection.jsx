@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Typography, Box, Stack, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material'
+import '../CSS/AnticoagulantInjection.css';
 import { useContext, useState, forwardRef, useImperativeHandle} from 'react'
 import { PatientsContext } from '../context/PatientsContext'
 
@@ -32,7 +33,7 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
                 <Typography variant="h6">Drug Name: {patient.anticoagulantName}</Typography>
                 <Typography variant="h6">Dose:{patient.anticoagulantDose} mg</Typography>
               </Stack>
-              <FormControl>
+              <FormControl >
                 <FormLabel id="demo-controlled-radio-buttons-group">Injection Site</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-controlled-radio-buttons-group"
