@@ -3,6 +3,7 @@
 import { useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import BloodPress from "../components/BloodPress";
+import '../CSS/PatientVisitingPage.css';
 import Spo from "../components/Spo";
 import Pulse from "../components/Pulse";
 import AnticoagulantInjection from "../components/AnticoagulantInjection";
@@ -60,21 +61,26 @@ export default function PatientVisitingPage() {
 
   return (
     <>
-    <Box>
-        <Typography variant="h5">Patient Visiting Page</Typography>
+    <Box className="custom-box">
+        <Typography className="h6" variant="h5">Patient Visiting Page</Typography>
         {patients.map((patient) => {
             if(patient.id === id){
                 return(
                     <>
-                        <Typography variant="h6">Patient Name : {patient.firstName} {patient.lastName}</Typography>
-                        <Typography variant="h6">Patient Date of Birth : {patient.birthDate}</Typography>
-                        <Typography variant="h6">Patient Health Card Number : {patient.healthCardNumber}</Typography>
+                        <br></br>
+                        <Typography className="sub-h6" variant="h6">Patient Name : {patient.firstName} {patient.lastName}</Typography>
+                        <br></br>
+                        <Typography className="sub-h6" variant="h6">Patient Date of Birth : {patient.birthDate}</Typography>
+                        <br></br>
+                        <Typography className="sub-h6" variant="h6">Patient Health Card Number : {patient.healthCardNumber}</Typography>
 
+                        <br></br>
                         {
                             Object.keys(patient?.permission['Blood Pressure']).map((key)=>
                                 patient?.permission['Blood Pressure'][key] && dayNames[day] === key ? <BloodPress ref={ChildStateRefBloodPressure} />: null
                             )
                         }
+                        
 
                         {
                             Object.keys(patient?.permission['Pulse']).map((key)=>
@@ -87,18 +93,19 @@ export default function PatientVisitingPage() {
                                 patient?.permission['Spo2'][key] && dayNames[day] === key ? <Spo ref={ChildStateRefSpo}/>: null
                             )
                         }
-
+                        
                         {
                             Object.keys(patient?.permission['Blood Glucose']).map((key)=>
                                 patient?.permission['Blood Glucose'][key] && dayNames[day] === key ? <BloodGlucose ref={ChildStateRefBloodGlucose} />: null
                             )
                         }
-
+                        <br></br>
                         {
                             Object.keys(patient?.permission['Insulin Injection']).map((key)=>
                                 patient?.permission['Insulin Injection'][key] && dayNames[day] === key ? <InsulinInjection id={id} ref={ChildStateRefInsulinInjection}  />: null
                             )
                         }
+                                                <br></br>
 
                         {
                             Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>
@@ -114,8 +121,9 @@ export default function PatientVisitingPage() {
         })}
         
     </Box>
+    <br></br>
 
-    <Button variant="outlined" onClick={handleClick} >submit</Button>
+    <Button variant="outlined" className="button-73" onClick={handleClick} >submit</Button>
 
     </>
   )
