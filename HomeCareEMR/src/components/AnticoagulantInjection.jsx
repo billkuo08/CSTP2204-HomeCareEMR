@@ -60,7 +60,7 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
               <br></br>
               <br></br>
             </Box>
-            
+            <br></br>
           </>
         )
       }
