@@ -3,6 +3,9 @@ import { Typography, Box, Stack, FormControl, FormLabel, RadioGroup, FormControl
 import '../CSS/AnticoagulantInjection.css';
 import { useContext, useState, forwardRef, useImperativeHandle} from 'react'
 import { PatientsContext } from '../context/PatientsContext'
+import VaccinesTwoToneIcon from '@mui/icons-material/VaccinesTwoTone';
+import MedicationLiquidTwoToneIcon from '@mui/icons-material/MedicationLiquidTwoTone';
+import EqualizerTwoToneIcon from '@mui/icons-material/EqualizerTwoTone';
 
 // eslint-disable-next-line react/display-name
 const AnticoagulantInjection = forwardRef(({id}, _ref) => {
@@ -27,12 +30,18 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
       if(patient.id === id){
         return(
           <>
-            <Box>
-              <Typography variant="h5">Anticoagulant Injection</Typography>
+          <br></br>
+            <Box className="insu-box">
+            <br></br>
+              <Typography variant="h5"><b><VaccinesTwoToneIcon></VaccinesTwoToneIcon> Anticoagulant Injection <VaccinesTwoToneIcon></VaccinesTwoToneIcon></b></Typography>
+              <br></br>
               <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-                <Typography variant="h6">Drug Name: {patient.anticoagulantName}</Typography>
-                <Typography variant="h6">Dose:{patient.anticoagulantDose} mg</Typography>
+                
+                <Typography variant="h6"> <MedicationLiquidTwoToneIcon></MedicationLiquidTwoToneIcon> Drug Name: {patient.anticoagulantName}</Typography>
+                <Typography variant="h6">Dose: {patient.anticoagulantDose} mg <EqualizerTwoToneIcon></EqualizerTwoToneIcon></Typography>
+                <br></br>
               </Stack>
+              <br></br>
               <FormControl >
                 <FormLabel id="demo-controlled-radio-buttons-group">Injection Site</FormLabel>
                 <RadioGroup
@@ -48,8 +57,8 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
                   <FormControlLabel value="leftLeg" control={<Radio />} label="Left Leg" />
                 </RadioGroup>
               </FormControl>
-
-              
+              <br></br>
+              <br></br>
             </Box>
             
           </>
