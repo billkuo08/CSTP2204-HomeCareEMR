@@ -26,6 +26,7 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
       if(patient.id === id){
         return(
           <>
+          {/* <Box className="injection-box"></Box> */}
             <Box>
               <Typography variant="h5">Anticoagulant Injection</Typography>
               <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
