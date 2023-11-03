@@ -82,74 +82,75 @@ function RouteDirection() {
     };
 
     return isLoaded ? (
+        <>
+            <div className="map-container">
+                <GoogleMap
+                    center={center}
+                    zoom={12}
+                    mapContainerStyle={{
+                        width: "100%",
+                        height: "65vh",
+                    }}
+                    options={{
+                        zoomControl: true,
+                        streetViewControl: false,
+                        mapTypeControl: false,
+                        fullscreenControl: false,
+                    }}
+                >
 
-        <div className="map-container">
-            <GoogleMap
-                center={center}
-                zoom={12}
-                mapContainerStyle={{
-                    width: "100%",
-                    height: "65vh",
-                }}
-                options={{
-                    zoomControl: true,
-                    streetViewControl: false,
-                    mapTypeControl: false,
-                    fullscreenControl: false,
-                }}
-            >
-
-                <Marker
-                    position={
-                        typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
-                            ? currentLocation
-                            : null // Set a default position or null if currentLocation is invalid
-                    }
-                    icon={car}
-                />
-
-
-                {locations.map((location, index) => (
                     <Marker
-                        key={index}
-                        position={location}
-                        icon={{
-                            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // URL to the red location icon
-                            scaledSize: new window.google.maps.Size(32, 32), // Adjust the size as needed
-                        }}
+                        position={
+                            typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
+                                ? currentLocation
+                                : null // Set a default position or null if currentLocation is invalid
+                        }
+                        icon={car}
                     />
-                ))}
-
-                {currentLocation.lat && currentLocation.lng && locations[0] && locations[1] ? (
-                    <DirectionsService
-                        options={{
-                            destination: locations[0], // Destination marker coordinates
-                            origin: locations[1], // Current location marker coordinates
-                            travelMode: "DRIVING", // You can change this to your preferred travel mode
-                        }}
-                        callback={directionsCallback}
-                    />
-                ) : null}
-
-                {directions && (
-                    <DirectionsRenderer
-                        directions={directions}
-                        options={{
-                            preserveViewport: true,
-                            suppressMarkers: true,
-
-                        }}
-                    />
-                )}
 
 
-            </GoogleMap>
+                    {locations.map((location, index) => (
+                        <Marker
+                            key={index}
+                            position={location}
+                            icon={{
+                                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // URL to the red location icon
+                                scaledSize: new window.google.maps.Size(32, 32), // Adjust the size as needed
+                            }}
+                        />
+                    ))}
+
+                    {currentLocation.lat && currentLocation.lng && locations[0] && locations[1] ? (
+                        <DirectionsService
+                            options={{
+                                destination: locations[0], // Destination marker coordinates
+                                origin: locations[1], // Current location marker coordinates
+                                travelMode: "DRIVING", // You can change this to your preferred travel mode
+                            }}
+                            callback={directionsCallback}
+                        />
+                    ) : null}
+
+                    {directions && (
+                        <DirectionsRenderer
+                            directions={directions}
+                            options={{
+                                preserveViewport: true,
+                                suppressMarkers: true,
+
+                            }}
+                        />
+                    )}
+
+
+                </GoogleMap>
+            </div>
 
             <div className="patient-mainbox">
                 {patientData ? (
                     patientData.map((patient, index) => (
                         <div className="patient-box" key={index}>
-                            <h3>Full Name: {patient.firstName + " " + patient.lastName }</h3>
+                            <h3>Full Name: {patient.firstName + " " + patient.lastName}</h3>
                             <h4>Address: {patient.address}</h4>
                             <button className="btn-locate">Locate</button>
                         </div>
@@ -158,8 +159,7 @@ function RouteDirection() {
                     <p>No patient data available</p>
                 )}
             </div>
-
-        </div>
+        </>
 
 
     ) : null;
