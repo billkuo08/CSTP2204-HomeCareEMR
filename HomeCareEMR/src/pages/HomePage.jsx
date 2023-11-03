@@ -124,7 +124,7 @@ export default function HomePage() {
         <div className="main-content">
           <div className="header">
             <h1>Welcome to HomeCare EMR</h1>
-            <p><Diversity1TwoToneIcon /> our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
+            <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
           <div className="grid-container">
 
@@ -158,12 +158,13 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Home Support Services</p>
+            <p className="title">Teamwork!</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>Home support services are intended to promote independence for those with chronic health conditions, disabilities or terminal illness.</p>
+            <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
+              - Mattie Stepanek</p>
         </div>
     </div>
 </div>
@@ -172,12 +173,12 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Is this  right for me?</p>
+            <p className="title">Care <br></br> & <br></br>Kindness</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>Personal assistance and/or respite for a caregiver through a clinical assessment conducted by a health care professional from your regional health authority.
+            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> - Jackie Chan
 </p>
         </div>
     </div>
@@ -187,12 +188,12 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Improves Quality of Life</p>
+            <p className="title">Pay Attention!</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>By encouraging independence and self-care, aging parents stay in charge of their own lives for as long as possible</p>
+            <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
         </div>
     </div>
 </div>
@@ -201,7 +202,7 @@ export default function HomePage() {
 
           </div>
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
-            We are committed to your well-being.
+            We are committed to their well-being.
           </p>
           <br></br>
           <div>
