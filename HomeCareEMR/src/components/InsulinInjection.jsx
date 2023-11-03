@@ -3,7 +3,11 @@
 /* eslint-disable no-unused-vars */
 import { Typography, Box, Stack, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@mui/material'
 import { useContext, useState, forwardRef, useImperativeHandle} from 'react'
+import '../CSS/InsulinInjection.css'
 import { PatientsContext } from '../context/PatientsContext'
+import VaccinesTwoToneIcon from '@mui/icons-material/VaccinesTwoTone';
+import MedicationLiquidTwoToneIcon from '@mui/icons-material/MedicationLiquidTwoTone';
+import EqualizerTwoToneIcon from '@mui/icons-material/EqualizerTwoTone';
 
 const InsulinInjection = forwardRef(({id}, _ref)=> {
   const [injectjionSite, setInjectionSite] = useState('');
@@ -27,14 +31,25 @@ const InsulinInjection = forwardRef(({id}, _ref)=> {
       if(patient.id === id){
         return(
           <>
-            <Box>
-              <Typography variant="h5">Insulin Injection</Typography>
+          <br></br>
+            <Box className="insu-box">
+            <br></br>
+              <Typography variant="h5"><b><VaccinesTwoToneIcon></VaccinesTwoToneIcon> Insulin Injection <VaccinesTwoToneIcon></VaccinesTwoToneIcon></b>
+              </Typography>
+              <br></br>
               <Stack direction="row" spacing={5} justifyContent="center" alignItems="center">
-                <Typography variant="h6">Drug Name: {patient.insulinName}</Typography>
-                <Typography variant="h6">Dose:{patient.insulinDose} mg</Typography>
+                <Typography variant="h6"><MedicationLiquidTwoToneIcon></MedicationLiquidTwoToneIcon> Drug Name: {patient.insulinName}</Typography>
+                
+                <Typography variant="h6">Dose: {patient.insulinDose} mg <EqualizerTwoToneIcon></EqualizerTwoToneIcon></Typography>
+                <br></br>
               </Stack>
+              <br></br>
+              
               <FormControl>
+              <br></br>
+              
                 <FormLabel id="demo-controlled-radio-buttons-group">Injection Site</FormLabel>
+                
                 <RadioGroup
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
@@ -48,8 +63,8 @@ const InsulinInjection = forwardRef(({id}, _ref)=> {
                   <FormControlLabel value="leftLeg" control={<Radio />} label="Left Leg" />
                 </RadioGroup>
               </FormControl>
-
-              
+              <br></br>
+              <br></br>
             </Box>
             
           </>
