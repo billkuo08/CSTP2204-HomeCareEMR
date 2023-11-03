@@ -4,3 +4,17 @@
     overflow: hidden;
 }
 
+.patient-mainbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.patient-box {
+    margin-bottom: 10px; /* Adjust the margin as needed to separate objects */
+}
+
+.btn-locate {
+    margin-top: 10px; /* Add spacing between button and other content */
+}
+
