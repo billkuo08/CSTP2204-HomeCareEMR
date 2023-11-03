@@ -1,13 +1,17 @@
 .map-container {
     border: 3px solid #3a3b41;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: hidden; 
+    margin-bottom: 20px;    
+
 }
 
 .patient-mainbox {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+    max-height: 300px; /* Set a maximum height for the box; adjust as needed */
 }
 
 .patient-box {
