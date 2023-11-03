@@ -35,6 +35,8 @@ export default function CreatePatient() {
     const [insulinName, setInsulinName] = useState('')
     const [insulinDose, setInsulinDose] = useState('')
     const [anticoagulantName, setAnticoagulantName] = useState('')
+    const [lat, setLat] = useState('')
+    const [lng, setLng] = useState('')
     const [anticoagulantDose, setAnticoagulantDose] = useState('')
     const [permission, setPermission] = useState({
         "Blood Pressure":{            
@@ -153,6 +155,8 @@ export default function CreatePatient() {
             route,
             phone, 
             address,
+            lat,
+            lng,
             emergencyContactName,
             emergencyContactRelationship,
             emergencyContactPhone,
@@ -176,6 +180,8 @@ export default function CreatePatient() {
         setLastName("")
         setPhone("")
         setAddress("")
+        setLat("")
+        setLng("")
         setEmergencyContactName("")
         setEmergencyContactRelationship("")
         setEmergencyContactPhone("")
@@ -369,6 +375,30 @@ export default function CreatePatient() {
                         label="Address"
                         onChange={e => setAddress(e.target.value)}
                         value={address}
+                        fullWidth
+                        required
+                    />
+                </Stack>
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
+                    <TextField
+                        size="medium"
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        label="Latitude"
+                        onChange={e => setLat(e.target.value)}
+                        value={lat}
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        size="medium"
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        label="Longitude"
+                        onChange={e => setLng(e.target.value)}
+                        value={lng}
                         fullWidth
                         required
                     />
