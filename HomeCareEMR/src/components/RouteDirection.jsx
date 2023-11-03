@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import {
     useJsApiLoader,
     GoogleMap,
     Marker,
-    Polyline
 } from "@react-google-maps/api";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { dbMap, mapAPIKey } from "../config/config"
@@ -21,6 +21,8 @@ const center = {
 function RouteDirection() {
 
     const dbMap = getDatabase();
+    const firestoredb = getFirestore();
+
 
     const { isLoaded, google } = useJsApiLoader({
         id: "google-map-script",
@@ -29,6 +31,7 @@ function RouteDirection() {
 
     const [currentLocation, setCurrentLocation] = useState([]);
     const [directions, setDirections] = useState(null); // Add this state for DirectionsRenderer
+    const [patientData, setPatientData] = useState();
 
     const locations = [
         { lat: 49.33473336980647, lng: -123.15846009191421 }, // First set of coordinates
@@ -36,18 +39,34 @@ function RouteDirection() {
     ];
 
     const fetchdata = async () => {
+
         const starCountRef = ref(dbMap, "location/");
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
             setCurrentLocation(data);
             console.log(data);
         });
+
+        // Fetch "patients" collection data
+        const patientsCollectionRef = collection(firestoredb, 'patients');
+        const patientsCollectionSnapshot = await getDocs(patientsCollectionRef);
+        const patientsData = patientsCollectionSnapshot.docs.map((doc) => doc.data());
+        setPatientData(patientsData);
+
+        // patientsData.map((patient) => {
+        //     const patientAddress = patient.address;
+        //     const firstName = patient.firstname;
+        //     const lastName = patient.lastname;
+        // });
+
+
     };
 
     useEffect(() => {
         fetchdata();
 
     }, []);
+
 
     const directionsCallback = (response) => {
         if (response !== null) {
@@ -59,10 +78,11 @@ function RouteDirection() {
         } else {
             console.error('Directions request failed. Response is null.');
         }
-        
+
     };
 
     return isLoaded ? (
+
         <div className="map-container">
             <GoogleMap
                 center={center}
@@ -110,10 +130,10 @@ function RouteDirection() {
                         callback={directionsCallback}
                     />
                 ) : null}
-                
+
                 {directions && (
                     <DirectionsRenderer
-                        directions={directions}                        
+                        directions={directions}
                         options={{
                             preserveViewport: true,
                             suppressMarkers: true,
@@ -121,10 +141,26 @@ function RouteDirection() {
                         }}
                     />
                 )}
-                             
+
 
             </GoogleMap>
+
+            <div className="patient-mainbox">
+                {patientData ? (
+                    patientData.map((patient, index) => (
+                        <div className="patient-box" key={index}>
+                            <h3>Full Name: {patient.firstName + " " + patient.lastName }</h3>
+                            <h4>Address: {patient.address}</h4>
+                            <button className="btn-locate">Locate</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No patient data available</p>
+                )}
+            </div>
+
         </div>
+
 
     ) : null;
 
