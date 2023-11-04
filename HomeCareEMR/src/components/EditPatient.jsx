@@ -31,6 +31,8 @@ export default function CreatePatient() {
     const [lastName, setLastName] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
+    const [lat, setLat] = useState('')
+    const [lng, setLng] = useState('')
     const [emergencyContactName, setEmergencyContactName] = useState('')
     const [emergencyContactRelationship, setEmergencyContactRelationship] = useState('')
     const [emergencyContactPhone, setEmergencyContactPhone] = useState('')
@@ -134,6 +136,8 @@ export default function CreatePatient() {
                 setRoute(patient.route)
                 setPhone(patient.phone)
                 setAddress(patient.address)
+                setLat(patient.lat)
+                setLng(patient.lng)
                 setEmergencyContactName(patient.emergencyContactName)
                 setEmergencyContactRelationship(patient.emergencyContactRelationship)
                 setEmergencyContactPhone(patient.emergencyContactPhone)
@@ -160,6 +164,8 @@ export default function CreatePatient() {
             route,
             phone, 
             address,
+            lat,
+            lng,
             emergencyContactName,
             emergencyContactRelationship,
             emergencyContactPhone,
@@ -298,6 +304,31 @@ export default function CreatePatient() {
                         label="Address"
                         onChange={e => setAddress(e.target.value)}
                         value={address}
+                        fullWidth
+                        required
+                    />
+                </Stack>
+
+                <Stack spacing={1} direction="row" sx={{ marginBottom: 1 }}>
+                    <TextField
+                        size="medium"
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        label="Latitude"
+                        onChange={e => setLat(e.target.value)}
+                        value={lat}
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        size="medium"
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        label="Longitude"
+                        onChange={e => setLng(e.target.value)}
+                        value={lng}
                         fullWidth
                         required
                     />
