@@ -194,12 +194,8 @@ export default function CreatePatient() {
   return (
     <>
 
-     <marquee className="marquee" behavior="scroll" direction="left">
-     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
-      </marquee>
-
       <Container className="form-container" >
-        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Edit Patient <CreateTwoToneIcon /></b></Typography>
+        <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /><em> Edit Patient </em><CreateTwoToneIcon /></b></Typography>
         <form onSubmit={handleSubmit} action={<Link to="/" />} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: 0, marginTop: 1 }}>
             <TextField
@@ -372,7 +368,7 @@ export default function CreatePatient() {
                     />
                 </Stack>
                 <br></br>
-                <Typography variant="h5" className="h5"><b> <FormatListBulletedTwoToneIcon/> Patient Daily Visiting Task <TaskAltTwoToneIcon /></b></Typography>
+                <Typography variant="h5" className="h5"><b> <FormatListBulletedTwoToneIcon/><em> Patient Daily Visiting Task </em><TaskAltTwoToneIcon /></b></Typography>
                 <br></br>
                 <hr />
                 <Box className="custom-box">
@@ -403,7 +399,7 @@ export default function CreatePatient() {
                 </Box>
                 <br></br>
                 <br></br>
-                <Typography variant="h5" className="h5"><b><LowPriorityTwoToneIcon /> Other Task <PlaylistAddTwoToneIcon /></b></Typography>
+                <Typography variant="h5" className="h5"><b><LowPriorityTwoToneIcon /><em> Other Task </em><PlaylistAddTwoToneIcon /></b></Typography>
                 <br></br>
                 <hr />         
                 <Box>

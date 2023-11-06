@@ -30,6 +30,10 @@ function App() {
 
   return (
     <>
+
+    <div className="body">
+</div>
+
       <PatientsContext.Provider 
       value={patients}>
         <Routes>

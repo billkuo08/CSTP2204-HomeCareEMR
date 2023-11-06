@@ -68,16 +68,8 @@ export default function PatientVisitingPage() {
 
   return (
     <>
-<marquee className="marquee" behavior="scroll" direction="left">
-     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
-      </marquee>
-
-        <br></br>
-        <br></br>
-
-
     <Box className="custom-box">
-        <Typography className="h6" variant="h5"><b><TourTwoToneIcon></TourTwoToneIcon> Patient Visiting Page <PreviewTwoToneIcon></PreviewTwoToneIcon></b></Typography>
+        <Typography className="h6" variant="h5"><em><b><TourTwoToneIcon></TourTwoToneIcon>  Patient Visiting Page <PreviewTwoToneIcon></PreviewTwoToneIcon></b></em></Typography>
         
         {patients.map((patient) => {
             if(patient.id === id){
