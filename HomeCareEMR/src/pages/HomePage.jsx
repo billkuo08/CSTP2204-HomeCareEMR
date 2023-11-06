@@ -17,6 +17,7 @@ import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismT
 import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
+import CameraAltTwoToneIcon from '@mui/icons-material/CameraAltTwoTone';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -219,10 +220,16 @@ export default function HomePage() {
         </div>
       </div>
 
-      
+      <br></br>
+      <br></br>
       <br></br>
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
+        <div  className="CameraAltTwoToneIcon">
+          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank">
+            <CameraAltTwoToneIcon />
+          </a>
+        </div>
       </footer>
     </div>
   );
