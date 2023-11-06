@@ -87,35 +87,44 @@ export default function HomePage() {
   };
 
   return (
-    <div>
+    <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
       </button>
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+
           <ul>
+          <br></br>
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
+            <br></br>
             <li>
               <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
             </li>
+            <br></br>
             <li>
               <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
             </li>
+            <br></br>
             <li>
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
+            <br></br>
             <li>
               <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
             </li>
+            <br></br>
             <li>
               <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
+            <br></br>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
             </li>
+            <br></br>
             <li>
               <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
             </li>
@@ -123,7 +132,7 @@ export default function HomePage() {
         </div>
         <div className="main-content">
           <div className="header">
-            <h1>Welcome to HomeCare EMR</h1>
+            <h1><em>Welcome to HomeCare EMR</em></h1>
             <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
           <div className="grid-container">
@@ -201,9 +210,7 @@ export default function HomePage() {
 
 
           </div>
-          <p style={{ textAlign: 'center', marginTop: '20px' }}>
-            We are committed to their well-being.
-          </p>
+
           <br></br>
           <div>
             <CanvasJSChart options={options} />

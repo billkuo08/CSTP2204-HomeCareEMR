@@ -45,3 +45,9 @@
   display: grid;
   grid-template-columns: repeat(9, 1fr);
 }
+
+.body{
+  background-color: #4e35a3;
+  background-attachment: fixed;
+background-size: cover;
+  }
