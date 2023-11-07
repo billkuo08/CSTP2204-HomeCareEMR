@@ -15,6 +15,11 @@ import FollowTheSignsTwoToneIcon from '@mui/icons-material/FollowTheSignsTwoTone
 import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
 import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 
+const navigateToHomepage = () => {
+    window.location.href = '/';
+  };
+  
+
 const center = {
     lat: 49.33473336980647,
     lng: -123.15846009191421,
@@ -233,7 +238,9 @@ function RouteDirection() {
 
 
                 </GoogleMap>
-                <button className="btn-reset" onClick={resetCurrentLocation} >Reset</button>
+                <button className="btn-reset" onClick={resetCurrentLocation}>Reset</button>
+<button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
+
 
             </div>
 
