@@ -99,40 +99,48 @@ export default function HomePage() {
 
           <ul>
           <br></br>
+          <br></br>
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
+            <br></br>
             <br></br>
             <li>
               <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
             </li>
             <br></br>
+            <br></br>
             <li>
               <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
             </li>
+            <br></br>
             <br></br>
             <li>
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
             <br></br>
+            <br></br>
             <li>
               <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
             </li>
+            <br></br>
             <br></br>
             <li>
               <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
             <br></br>
+            <br></br>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
             </li>
+            <br></br>
             <br></br>
             <li>
               <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
             </li>
           </ul>
         </div>
-        
+
         <div className="main-content">
           <div className="header">
             <h1><em>Welcome to HomeCare EMR</em></h1>

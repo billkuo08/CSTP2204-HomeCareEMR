@@ -238,11 +238,9 @@ function RouteDirection() {
 
 
                 </GoogleMap>
-                <button className="btn-reset" onClick={resetCurrentLocation}>Reset</button>
-<button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
-
-
-            </div>
+        <button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
+        <button className="btn-reset" onClick={resetCurrentLocation}>Reset</button>
+        </div>
 
 <form className="form-container"> 
             <div className="patient-mainbox">
