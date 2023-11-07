@@ -12,7 +12,8 @@ import { DirectionsRenderer } from "@react-google-maps/api";
 import "../CSS/Map.css"
 import ShareLocationTwoToneIcon from '@mui/icons-material/ShareLocationTwoTone';
 import FollowTheSignsTwoToneIcon from '@mui/icons-material/FollowTheSignsTwoTone';
-
+import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
+import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 
 const center = {
     lat: 49.33473336980647,
@@ -234,12 +235,13 @@ function RouteDirection() {
 
             </div>
 
+<form className="form-container"> 
             <div className="patient-mainbox">
                 {patientData ? (
                     patientData.map((patient, index) => (
                         <div className="patient-box" key={index}>
-                            <h3>Full Name: {patient.firstName + " " + patient.lastName}</h3>
-                            <h4>Address: {patient.address}</h4>
+                            <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
+                            <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
                             <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
                             <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
                         </div>
@@ -248,6 +250,7 @@ function RouteDirection() {
                     <p>No patient data available</p>
                 )}
             </div>
+            </form>
         </>
 
 
