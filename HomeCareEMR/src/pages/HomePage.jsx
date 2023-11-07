@@ -36,7 +36,9 @@ export default function HomePage() {
     exportEnabled: true,
     theme: "light2",
     title: {
-      text: "Highest Diagnostic Test Results"
+      text: "Highest Diagnostic Test Results",
+      // Set the background color here
+      backgroundColor: "rgba(255, 255, 255, 0.691)"
     },
     axisY: {
       includeZero: true
@@ -62,13 +64,15 @@ export default function HomePage() {
       ]
     }]
   };
-
+  
   const options2 = {
     exportEnabled: true,
     animationEnabled: true,
     title: {
       text: "Medical Traffic Sources",
       className: "custom-title-class", // Custom class for the title
+      // Set the background color here
+      backgroundColor: "rgba(255, 255, 255, 0.691)"
     },
     data: [{
       type: "pie",
@@ -87,8 +91,10 @@ export default function HomePage() {
       ]
     }]
   };
+  
 
   return (
+    
     <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
@@ -96,6 +102,7 @@ export default function HomePage() {
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+          
 
           <ul>
           <br></br>
@@ -218,8 +225,6 @@ export default function HomePage() {
     </div>
 </div>
 
-
-
           </div>
 
           <br></br>
@@ -233,6 +238,9 @@ export default function HomePage() {
       <br></br>
       <br></br>
       <br></br>
+      <br></br>
+      <br></br>
+      
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
         <div  className="CameraAltTwoToneIcon">
