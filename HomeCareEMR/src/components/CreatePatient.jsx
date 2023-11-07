@@ -101,31 +101,7 @@ export default function CreatePatient() {
         },
 });
 
-    //   const gridItemStyle = {
-    //     backgroundColor: 'white',
-    //     padding: '20px',
-    //     border: '1px solid #E0E0E0', // Light gray border
-    //     borderRadius: '5px',
-    //     transition: 'background-color 0.3s',
-    //     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Subtle box shadow
-    //   };
-    //   const gridItemHoverStyle = {
-    //     backgroundColor: '#F0F0F0', // Light gray background on hover
-    //   };
-    //   const formContainerStyle = {
-    //     marginTop: '80px',
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     alignItems: 'center',
-    //   };
-      
-    //   const marqueeStyle = {
-    //       backgroundColor: 'red',
-    //       color: 'white',
-    //       overflow: 'hidden',
-    //       whiteSpace: 'nowrap',
-    //       animation: 'marquee 990s linear infinite', // Adjust the duration to 30 seconds
-    //     };
+
 
     const handleGender = (event) => {
         setGender(event.target.value);
@@ -264,10 +240,6 @@ export default function CreatePatient() {
 
   return (
     <>
-
-     <marquee className="marquee" behavior="scroll" direction="left">
-     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
-      </marquee>
 
       <Container className="form-container" >
         <Typography variant="h5" className="h5"><b><CreateNewFolderTwoToneIcon /> Create Patient <CreateTwoToneIcon /></b></Typography>
@@ -476,12 +448,12 @@ export default function CreatePatient() {
                 <Typography variant="h5" className="h5"><b><LowPriorityTwoToneIcon /> Other Task <PlaylistAddTwoToneIcon /></b></Typography>
                 <br></br>
                 <hr />         
-                <Box>
-                    <FormControl>
-                        <FormGroup row>
-                            <FormControlLabel
+                <Box className="custom-box">
+                    <FormControl className="whitefam">
+                        <FormGroup className="whitefam" row >
+                            <FormControlLabel className="whitefam"
                                 control={
-                                    <Checkbox
+                                    <Checkbox className="whitefam"
                                         value='medicationAdministration'
                                         checked={tasks.includes('medicationAdministration')}
                                         onChange={handleDayChange}
@@ -489,9 +461,9 @@ export default function CreatePatient() {
                                 }
                                 label='Medication Administration'
                             />
-                            <FormControlLabel
+                            <FormControlLabel className="whitefam"
                                 control={
-                                    <Checkbox
+                                    <Checkbox className="whitefam"
                                         value='edmaAssessment'
                                         checked={tasks.includes('edmaAssessment')}
                                         onChange={handleDayChange}
@@ -499,7 +471,7 @@ export default function CreatePatient() {
                                 }
                                 label='Edema Assessment'
                             />
-                            <FormControlLabel
+                            <FormControlLabel className="whitefam"
                                 control={
                                     <Checkbox
                                         value='additionalInstruction'
@@ -515,17 +487,17 @@ export default function CreatePatient() {
                 
                 <br></br>
 
-                <Typography variant="h7"><b>Insulin Injection</b></Typography>
-                <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
+                <Typography className="whitefam" variant="h7"><b>Insulin Injection</b></Typography>
+                <Stack className="whitefam" spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
-                    <TextField 
+                    <TextField className="whitefam"
                         label="Insulin Name"
                         value={insulinName}
                         onChange={e => setInsulinName(e.target.value)}
                     />
 
                     
-                    <TextField
+                    <TextField className="whitefam"
                         label="Insulin Dose"
                         value={insulinDose}
                         onChange={e => setInsulinDose(e.target.value)}
@@ -534,19 +506,19 @@ export default function CreatePatient() {
                 
                 <br></br>
 
-                <Typography variant="h7" sx={{ textAlign: 'Left' }}><b>Anticoagulant injection</b></Typography>
+                <Typography className="whitefam" variant="h7" sx={{ textAlign: 'Left' }}><b>Anticoagulant injection</b></Typography>
                 <Stack spacing={1} direction="row" sx={{ marginBottom: 1, marginTop: 1}} justifyContent="center" alignItems="center">
 
 
                     
-    <TextField 
+    <TextField className="whitefam"
         label="Anticoagulant Name"
         value={anticoagulantName}
         onChange={e => setAnticoagulantName(e.target.value)}
     />
 
     
-    <TextField
+    <TextField className="whitefam"
         label="Anticoagulant Dose"
         value={anticoagulantDose}
         onChange={e => setAnticoagulantDose(e.target.value)}
@@ -554,7 +526,7 @@ export default function CreatePatient() {
 </Stack>
 
 <br></br>
-                <Button className="button-73"
+                <Button className="button-73 , custom-box" 
                 variant="outlined" color="secondary" type="submit">Submit</Button>
                 
             </form>

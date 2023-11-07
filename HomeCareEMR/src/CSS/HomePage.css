@@ -165,7 +165,7 @@
   border: none;
   cursor: pointer;
   position: relative;
-  border-radius: 0 0 85% 85% / 30%;
+  border-radius: 85% 85% 100% 85% / 30%;
   width: 25%;
   height: auto;
 }
