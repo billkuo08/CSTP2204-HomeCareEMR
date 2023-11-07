@@ -132,6 +132,7 @@ export default function HomePage() {
             </li>
           </ul>
         </div>
+        
         <div className="main-content">
           <div className="header">
             <h1><em>Welcome to HomeCare EMR</em></h1>

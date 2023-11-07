@@ -163,6 +163,8 @@ function RouteDirection() {
 
     return isLoaded ? (
         <>
+
+        
         <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
             <div className="map-container">
                 <GoogleMap
@@ -245,7 +247,6 @@ function RouteDirection() {
                             <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
                             <br></br>
                             <br></br>
-                            
                             <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
                         </div>
                     ))
