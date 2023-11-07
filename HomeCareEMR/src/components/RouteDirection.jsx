@@ -10,6 +10,8 @@ import { dbMap, mapAPIKey } from "../config/config"
 import car from '../images/car.png';
 import { DirectionsRenderer } from "@react-google-maps/api";
 import "../CSS/Map.css"
+import ShareLocationTwoToneIcon from '@mui/icons-material/ShareLocationTwoTone';
+import FollowTheSignsTwoToneIcon from '@mui/icons-material/FollowTheSignsTwoTone';
 
 
 const center = {
@@ -160,6 +162,7 @@ function RouteDirection() {
 
     return isLoaded ? (
         <>
+        <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
             <div className="map-container">
                 <GoogleMap
                     center={center}
