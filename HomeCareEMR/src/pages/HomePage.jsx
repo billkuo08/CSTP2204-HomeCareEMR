@@ -19,6 +19,7 @@ import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
 import CameraAltTwoToneIcon from '@mui/icons-material/CameraAltTwoTone';
 
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
