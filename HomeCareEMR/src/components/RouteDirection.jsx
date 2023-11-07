@@ -243,6 +243,9 @@ function RouteDirection() {
                             <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
                             <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
                             <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
+                            <br></br>
+                            <br></br>
+                            
                             <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
                         </div>
                     ))
