@@ -1,6 +1,11 @@
 .map-container {
     border: 3px solid #3a3b41;
     border-radius: 20px;
+<<<<<<< HEAD
+    overflow: hidden; 
+    margin-bottom: 20px;    
+
+=======
     overflow: hidden;
     margin-bottom: 20px;
 
@@ -99,4 +104,22 @@ button:active {
 .form-container {
     background-color: rgba(255, 255, 255, 0.691) !important;
     border-radius: 120% 120% 100% 100% / 60%;
+>>>>>>> b0a374dcabdce05c2ff6452fddc5d1d19872849f
 }
+
+.patient-mainbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+    max-height: 300px; /* Set a maximum height for the box; adjust as needed */
+}
+
+.patient-box {
+    margin-bottom: 10px; /* Adjust the margin as needed to separate objects */
+}
+
+.btn-locate {
+    margin-top: 10px; /* Add spacing between button and other content */
+}
+
