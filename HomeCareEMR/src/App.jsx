@@ -10,6 +10,9 @@ import { useState, useEffect } from 'react';
 import CheckboxComponent from './components/CheckboxComponent';
 import RouteMapPage from './pages/RouteMapPage'
 import EditPatientPage from './pages/EditPatientPage';
+import CreateUserPage from './pages/CreateUserPage'
+import CreateNurse from './components/CreateNurse'
+import LoginPage from './pages/LoginPage'
 
 
 function App() {
@@ -36,9 +39,13 @@ function App() {
           <Route path="/edit/:id" element={<EditPatientPage />} />
           <Route path="/createpatient" element={<CreatePatientPage />} />
           <Route path="/visiting" element={<PatientVisitingPage />} />
-          <Route path="checkbox" element={<CheckboxComponent />} />
+          <Route path="/checkbox" element={<CheckboxComponent />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/direction" element={<RouteMapPage/>} />
+          <Route path="/createuser" element={<CreateUserPage/>} />
+          <Route path="/createnurse" element={<CreateNurse/>} />
+          <Route path="/login" element={<LoginPage/>} />
+
         </Routes>
       </PatientsContext.Provider>
       
