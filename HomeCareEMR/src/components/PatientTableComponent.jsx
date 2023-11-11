@@ -9,13 +9,6 @@ import { PatientsContext } from '../context/PatientsContext';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 
-const marqueeStyle = {
-  backgroundColor: 'red',
-  color: 'white',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  animation: 'marquee 990s linear infinite', // Adjust the duration to 30 seconds
-};
 
 // Define the ResponsiveTable component here
 function ResponsiveTable() {
@@ -23,11 +16,8 @@ function ResponsiveTable() {
   return (
 
     <div>
-      <marquee className="marquee" behavior="scroll" direction="left">
-     Access to this page is strictly restricted to authorized personnel, exclusively designated for administrators within our organization. This particular web page serves as a vital component of our company's proprietary pipeline tool, and its contents are confidential in nature. Any attempt at unauthorized access, whether intentional or accidental, will not be taken lightly, and it will inevitably lead to severe consequences as we uphold stringent security protocols to safeguard our data and operations. We urge all users to respect these access limitations in the interest of maintaining the integrity and security of our systems.
-      </marquee>
       
-      <h2><PersonAddAltTwoToneIcon /> Patient List <PersonAddDisabledTwoToneIcon /></h2>
+      <h2><PersonAddAltTwoToneIcon /><em> Patient List </em> <PersonAddDisabledTwoToneIcon /></h2>
       <div className="table-wrapper" >
         
         <table className="fl-table">

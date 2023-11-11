@@ -113,7 +113,7 @@ button:active {
 
 /* styles.css */
 .grid-item {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.691);
   padding: 20px;
   border: 1px solid #E0E0E0;
   border-radius: 5px;
@@ -122,7 +122,7 @@ button:active {
 }
 
 .grid-item:hover {
-  background-color: #F0F0F0;
+  background-color: rgba(255, 255, 255, 0.691);
 }
 
 .form-container {
@@ -130,22 +130,12 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(255, 255, 255, 0.691) !important;
 }
 
-.marquee {
-  background-color: red;
-  color: white;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: marquee 30s linear infinite;
-}
 
 
 /* ////////////////////////// */
-
-.custom-box {
-  box-shadow: rgba(46, 240, 95, 0.772) -5px 5px, rgba(124, 240, 46, 0.3) -10px 10px, rgba(120, 240, 46, 0.2) -15px 15px, rgba(59, 240, 46, 0.1) -20px 20px, rgba(62, 240, 46, 0.05) -25px 25px;
-}
 
 
 .button-73 {
@@ -195,7 +185,7 @@ button:active {
 /* /////////////////////////// */
 
 .h5{
-  background-color: #006955;
+  background-color: #897dfacc;
   color: white;
   padding: 30px;
   text-align: center;
