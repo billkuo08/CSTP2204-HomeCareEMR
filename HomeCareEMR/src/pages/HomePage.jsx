@@ -17,6 +17,8 @@ import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismT
 import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
+import CameraAltTwoToneIcon from '@mui/icons-material/CameraAltTwoTone';
+
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -34,7 +36,9 @@ export default function HomePage() {
     exportEnabled: true,
     theme: "light2",
     title: {
-      text: "Highest Diagnostic Test Results"
+      text: "Highest Diagnostic Test Results",
+      // Set the background color here
+      backgroundColor: "rgba(255, 255, 255, 0.691)"
     },
     axisY: {
       includeZero: true
@@ -60,13 +64,15 @@ export default function HomePage() {
       ]
     }]
   };
-
+  
   const options2 = {
     exportEnabled: true,
     animationEnabled: true,
     title: {
       text: "Medical Traffic Sources",
       className: "custom-title-class", // Custom class for the title
+      // Set the background color here
+      backgroundColor: "rgba(255, 255, 255, 0.691)"
     },
     data: [{
       type: "pie",
@@ -85,46 +91,67 @@ export default function HomePage() {
       ]
     }]
   };
+  
 
   return (
-    <div>
+    
+    <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
       </button>
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+          
+
           <ul>
+          <br></br>
+          <br></br>
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
-              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
+              <a href="/mileagelog"><DoNotStepTwoToneIcon/> Mileage Log</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
             </li>
+            <br></br>
+            <br></br>
             <li>
               <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
             </li>
           </ul>
         </div>
+
         <div className="main-content">
           <div className="header">
-            <h1>Welcome to HomeCare EMR</h1>
-            <p><Diversity1TwoToneIcon /> our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
+            <h1><em>Welcome to HomeCare EMR</em></h1>
+            <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
           <div className="grid-container">
 
@@ -158,12 +185,13 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Home Support Services</p>
+            <p className="title">Teamwork!</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>Home support services are intended to promote independence for those with chronic health conditions, disabilities or terminal illness.</p>
+            <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
+              - Mattie Stepanek</p>
         </div>
     </div>
 </div>
@@ -172,12 +200,12 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Is this  right for me?</p>
+            <p className="title">Care <br></br> & <br></br>Kindness</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>Personal assistance and/or respite for a caregiver through a clinical assessment conducted by a health care professional from your regional health authority.
+            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> - Jackie Chan
 </p>
         </div>
     </div>
@@ -187,22 +215,18 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Improves Quality of Life</p>
+            <p className="title">Pay Attention!</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>By encouraging independence and self-care, aging parents stay in charge of their own lives for as long as possible</p>
+            <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
         </div>
     </div>
 </div>
 
-
-
           </div>
-          <p style={{ textAlign: 'center', marginTop: '20px' }}>
-            We are committed to your well-being.
-          </p>
+
           <br></br>
           <div>
             <CanvasJSChart options={options} />
@@ -211,10 +235,19 @@ export default function HomePage() {
         </div>
       </div>
 
-      
       <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
+        <div  className="CameraAltTwoToneIcon">
+          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank">
+            <CameraAltTwoToneIcon />
+          </a>
+        </div>
       </footer>
     </div>
   );

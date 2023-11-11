@@ -1,3 +1,7 @@
 .insu-box{
+<<<<<<< HEAD
+=======
+  background-color: rgba(255, 255, 255, 0.691);
+>>>>>>> b0a374dcabdce05c2ff6452fddc5d1d19872849f
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }

@@ -8,9 +8,18 @@ import {
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { dbMap, mapAPIKey } from "../config/config"
 import car from '../images/car.png';
-import { DirectionsService } from "@react-google-maps/api";
+import redMarker from '../images/red-dot_Marker.png';
+import yellowMarker from '../images/yellow-dot_Marker.png';
 import { DirectionsRenderer } from "@react-google-maps/api";
 import "../CSS/Map.css"
+import ShareLocationTwoToneIcon from '@mui/icons-material/ShareLocationTwoTone';
+import FollowTheSignsTwoToneIcon from '@mui/icons-material/FollowTheSignsTwoTone';
+import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
+import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
+
+const navigateToHomepage = () => {
+    window.location.href = '/';
+};
 
 
 const center = {
@@ -33,6 +42,7 @@ function RouteDirection() {
     const [directions, setDirections] = useState(null); // Store directions in state
     const [patientData, setPatientData] = useState();
     const [patientsLocationData, setPatientLocation] = useState([]);
+    const [originLocation, setOriginLocation] = useState();
 
 
 
@@ -73,8 +83,6 @@ function RouteDirection() {
     useEffect(() => {
 
         fetchdata();
-
-
     }, []);
 
 
@@ -92,9 +100,11 @@ function RouteDirection() {
     };
 
     const changeDestination = () => {
+        event.preventDefault();
 
-        const buttonId = event.target.id;
-        const patientWithSameId = patientsLocationData.find(patient => patient.id === buttonId);
+
+        const directionButtonId = event.target.id;
+        const patientWithSameId = patientsLocationData.find(patient => patient.id === directionButtonId);
 
         if (patientWithSameId) {
             // Update the destination in the DirectionsService to the patient's location
@@ -105,14 +115,26 @@ function RouteDirection() {
 
             // Create a new DirectionsService request with the updated destination
             const directionsService = new window.google.maps.DirectionsService();
-            directionsService.route(
-                {
-                    destination: updatedDestination,
-                    origin: currentLocation,
-                    travelMode: "DRIVING", // You can change this to your preferred travel mode
-                },
-                directionsCallback
-            );
+            if (!originLocation) {
+                directionsService.route(
+                    {
+                        destination: updatedDestination,
+                        origin: currentLocation,
+                        travelMode: "DRIVING", // You can change this to your preferred travel mode
+                    },
+                    directionsCallback
+                );
+            } else {
+                console.log(originLocation);
+                directionsService.route(
+                    {
+                        destination: updatedDestination,
+                        origin: originLocation,
+                        travelMode: "DRIVING", // You can change this to your preferred travel mode
+                    },
+                    directionsCallback
+                );
+            }
         } else {
             console.log(`No patient found with ID: ${buttonId}`);
         }
@@ -121,9 +143,39 @@ function RouteDirection() {
 
     };
 
+    const changeOrigin = () => {
+        event.preventDefault();
+
+
+        setDirections(null);
+
+        const originButtonId = event.target.id;
+        const patientWithSameIdOrigin = patientsLocationData.find(patient => patient.id === originButtonId);
+
+        if (patientWithSameIdOrigin) {
+            const updatedOrigin = {
+                lat: patientWithSameIdOrigin.lat,
+                lng: patientWithSameIdOrigin.lng,
+            };
+
+            setOriginLocation(updatedOrigin);
+        };
+    }
+
+    const resetCurrentLocation = () => {
+        event.preventDefault();
+
+        setDirections(null); // Remove DirectionsService
+        setOriginLocation(null); // Set originLocation to null
+
+    }
+
 
     return isLoaded ? (
         <>
+
+
+            <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
             <div className="map-container">
                 <GoogleMap
                     center={center}
@@ -149,29 +201,34 @@ function RouteDirection() {
                         icon={car}
                     />
 
+                    {originLocation ?
+                        <Marker
+                            position={
+                                typeof originLocation.lat === 'number' && typeof originLocation.lng === 'number'
+                                    ? originLocation
+                                    : null
+                            }
+                            icon={{
+                                url: yellowMarker,
+                                scaledSize: new window.google.maps.Size(32, 32),
+                            }}
+                        />
+                        : null
+                    }
+
                     {patientsLocationData ?
                         patientsLocationData.map((location, index) => (
                             <Marker
                                 key={index}
                                 position={location}
                                 icon={{
-                                    url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                    url: redMarker,
                                     scaledSize: new window.google.maps.Size(32, 32),
                                 }}
                             />
                         ))
                         : null
                     }
-
-                    {/* {patientsLocationData ?
-                        <DirectionsService
-                            options={{
-                                destination: patientsLocationData[1], // Destination marker coordinates
-                                origin: currentLocation, // Current location marker coordinates
-                                travelMode: "DRIVING", // You can change this to your preferred travel mode
-                            }}
-                        />
-                        : null} */}
 
                     {directions && (
                         <DirectionsRenderer
@@ -186,21 +243,28 @@ function RouteDirection() {
 
 
                 </GoogleMap>
+                <button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
+                <button className="btn-reset" onClick={resetCurrentLocation}>Reset</button>
             </div>
 
-            <div className="patient-mainbox">
-                {patientData ? (
-                    patientData.map((patient, index) => (
-                        <div className="patient-box" key={index}>
-                            <h3>Full Name: {patient.firstName + " " + patient.lastName}</h3>
-                            <h4>Address: {patient.address}</h4>
-                            <button className="btn-locate" id={patient.id} onClick={changeDestination}>Direction</button>
-                        </div>
-                    ))
-                ) : (
-                    <p>No patient data available</p>
-                )}
-            </div>
+            <form className="form-container">
+                <div className="patient-mainbox">
+                    {patientData ? (
+                        patientData.map((patient, index) => (
+                            <div className="patient-box" key={index}>
+                                <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
+                                <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
+                                <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
+                                <br></br>
+                                <br></br>
+                                <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No patient data available</p>
+                    )}
+                </div>
+            </form>
         </>
 
 

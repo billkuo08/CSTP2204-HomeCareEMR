@@ -1,25 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, set , push ,update   } from 'firebase/database';
+import { getDatabase, ref, onValue, set, push, update } from 'firebase/database';
 import * as Location from "expo-location";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function App() {
 
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyAT1LP9vPMVgCcS-WhvH9bxnQ6JNqZIr5Y",
-  //   authDomain: "cstp2107finalproject.firebaseapp.com",
-  //   databaseURL: "https://cstp2107finalproject-default-rtdb.firebaseio.com",
-  //   projectId: "cstp2107finalproject",
-  //   storageBucket: "cstp2107finalproject.appspot.com",
-  //   messagingSenderId: "734450003257",
-  //   appId: "1:734450003257:web:3ca7395653d58a16accce8",
-  //   measurementId: "G-DLC7VP6MRE"
-  // };
 
   const firebaseConfig = {
     apiKey: "AIzaSyDS9nLcJyoLcNH_4BpuV1nK0v3lqdwN_os",
@@ -32,43 +22,102 @@ export default function App() {
   };
 
   initializeApp(firebaseConfig);
-
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
   const [errorMsg, setErrorMsg] = useState(null);
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [previousLocation, setPreviousLocation] = useState(null);
 
-  const saveLocation = async () => {
-  
-    const intervalId = setInterval(async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-      }
-    
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    
-      const db = getDatabase();
-      const referenceFuel = ref(db, 'location/');
-      update(referenceFuel, {
-        lat: location.coords.latitude,
-        lng: location.coords.longitude,
-      });
-      
-    }, 5000);
-    
-    return () => clearInterval(intervalId);
+  useEffect(() => {
+    let intervalId; // Declare intervalId outside the trackLocation function
+
+    const trackLocation = async () => {   
+        intervalId = setInterval(async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+        }
+
+        let currentLocation = await Location.getCurrentPositionAsync({});
+        setLocation(currentLocation);
+        const db = getDatabase();
+        const referenceFuel = ref(db, 'location/');
+
+        update(referenceFuel, {
+          lat: location.coords.latitude,
+          lng: location.coords.longitude,
+        });
+
+        if (previousLocation && previousLocation.coords) { // Check if previousLocation and its coords exist
+          console.log('previousLocation has been updated:', previousLocation.coords.latitude, previousLocation.coords.longitude);
+          if (
+            previousLocation.coords.latitude !== currentLocation.coords.latitude ||
+            previousLocation.coords.longitude !== currentLocation.coords.longitude
+          ) {
+            const distance = calculateDistance(
+              previousLocation.coords.latitude,
+              previousLocation.coords.longitude,
+              currentLocation.coords.latitude,
+              currentLocation.coords.longitude
+            );
+            setTotalDistance(totalDistance + distance);
+          }
+        }
+
+        setPreviousLocation(currentLocation);
+
+
+      }, 5000);
+
+
+      return () => clearInterval(intervalId); // Clear interval using the outer variable
+    };
+
+    trackLocation();
+
+    return () => clearInterval(intervalId);// Make sure to clear interval when unmounting
+
+  }, [previousLocation]);
+
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+
+    // Haversine formula to calculate distance between two points
+    // const earthRadius = 6371; // Earth's radius in kilometers
+    const earthRadius = 6371000; // Earth's radius in meters
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadius * c;
+
+    console.log('CalculateDistance is being called. Total Distance:', distance);
+
+    return distance;
   };
-    
-  return (
-    <SafeAreaView style={styles.container}>
-    <View>
-      <Text>Latitude: {location?.coords.latitude}</Text>
-      <Text>Longitude: {location?.coords.longitude}</Text>
-      {errorMsg ? <Text>{errorMsg}</Text> : null}
-      <Button title="Share Location" onPress={saveLocation} />
-    </View>
-    </SafeAreaView>
 
+  const resetDistance = () => {
+    setTotalDistance(0); // Reset the total distance to 0
+    setPreviousLocation(null); 
+  };
+
+
+
+  return (
+
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text>Latitude: {location?.coords.latitude}</Text>
+        <Text>Longitude: {location?.coords.longitude}</Text>
+        <Text>Total Distance Traveled: {totalDistance.toFixed(2)} m</Text>
+        <Button title="Reset Distance" onPress={resetDistance} />
+        {errorMsg ? <Text>{errorMsg}</Text> : null}
+      </View>
+    </SafeAreaView>
   );
 
 }
@@ -82,39 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// import React, { useEffect, useState } from 'react';
-// import { Text, View } from 'react-native';
-// import * as Location from 'expo-location';
-
-// export default function App() {
-//   const [location, setLocation] = useState(null);
-//   const [errorMsg, setErrorMsg] = useState(null);
-
-//   useEffect(() => {
-//     (async () => {
-//       let { status } = await Location.requestForegroundPermissionsAsync();
-//       if (status !== 'granted') {
-//         setErrorMsg('Permission to access location was denied');
-//         return;
-//       }
-
-//       let location = await Location.getCurrentPositionAsync({});
-//       setLocation(location);
-//     })();
-//   }, []);
-
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       {errorMsg ? (
-//         <Text>{errorMsg}</Text>
-//       ) : location ? (
-//         <Text>
-//           Latitude: {location.coords.latitude}, Longitude: {location.coords.longitude}
-//         </Text>
-//       ) : (
-//         <Text>Loading location...</Text>
-//       )}
-//     </View>
-//   );
-// }
 

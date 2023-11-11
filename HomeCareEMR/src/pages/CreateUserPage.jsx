@@ -93,8 +93,7 @@ export default function CreateUserPage() {
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
 
-        <Button className="button-73"
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+        <Button type="submit">Submit</Button>
         </form>
     </Container>
 
