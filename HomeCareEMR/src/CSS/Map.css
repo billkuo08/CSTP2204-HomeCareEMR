@@ -1,11 +1,6 @@
 .map-container {
     border: 3px solid #3a3b41;
     border-radius: 20px;
-<<<<<<< HEAD
-    overflow: hidden; 
-    margin-bottom: 20px;    
-
-=======
     overflow: hidden;
     margin-bottom: 20px;
 
@@ -104,7 +99,6 @@ button:active {
 .form-container {
     background-color: rgba(255, 255, 255, 0.691) !important;
     border-radius: 120% 120% 100% 100% / 60%;
->>>>>>> b0a374dcabdce05c2ff6452fddc5d1d19872849f
 }
 
 .patient-mainbox {

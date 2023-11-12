@@ -6,6 +6,8 @@ import * as Location from "expo-location";
 import React, { useState, useEffect } from "react";
 import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getFirestore, collection, doc, getDoc, addDoc } from 'firebase/firestore';
+
 
 
 export default function App() {
@@ -27,12 +29,17 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [totalDistance, setTotalDistance] = useState(0);
   const [previousLocation, setPreviousLocation] = useState(null);
+  const [nurstFirstName, setFirstName] = useState("");
+  const [nurseLastName, setLastName] = useState("");
+  const nurseID = "7uHyjpsQ8piFi7bQ5ox7";
 
   useEffect(() => {
+    fetchNurseData();
+
     let intervalId; // Declare intervalId outside the trackLocation function
 
-    const trackLocation = async () => {   
-        intervalId = setInterval(async () => {
+    const trackLocation = async () => {
+      intervalId = setInterval(async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
 
         if (status !== 'granted') {
@@ -50,7 +57,7 @@ export default function App() {
         });
 
         if (previousLocation && previousLocation.coords) { // Check if previousLocation and its coords exist
-          console.log('previousLocation has been updated:', previousLocation.coords.latitude, previousLocation.coords.longitude);
+          // console.log('previousLocation has been updated:', previousLocation.coords.latitude, previousLocation.coords.longitude);
           if (
             previousLocation.coords.latitude !== currentLocation.coords.latitude ||
             previousLocation.coords.longitude !== currentLocation.coords.longitude
@@ -95,14 +102,68 @@ export default function App() {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = earthRadius * c;
 
-    console.log('CalculateDistance is being called. Total Distance:', distance);
+    // console.log('CalculateDistance is being called. Total Distance:', distance);
 
     return distance;
   };
 
+  const fetchNurseData = async () => {
+    const db = getFirestore();
+    const nursesCollection = collection(db, 'nurses');
+    const docRef = doc(nursesCollection, nurseID);
+    
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log('Nurse data:', docSnap.data());
+        const data = docSnap.data();
+        const firstName = data.firstName;
+        const lastName = data.lastName;
+
+        // Use the retrieved first and last names in your code
+        // For example, set these values to state variables for use in the app
+        setFirstName(firstName);
+        setLastName(lastName);
+      } else {
+        console.log('No such document!');
+      }
+    } catch (error) {
+      console.error('Error getting document:', error);
+    }
+  };
+
+  const addMileageDocument = async (data) => {
+    const db = getFirestore();
+    const mileageCollection = collection(db, 'mileage');
+
+    try {
+    // Use addDoc to generate a new document with an auto-generated unique ID instead of setDoc with requires custom document ID
+      const newMileageDocRef = await addDoc(mileageCollection, data);
+      console.log('Document added with Data:', data);
+
+    } catch (error) {
+      console.error('Error adding document:', error);
+    }
+  };
+
+
   const resetDistance = () => {
+
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().slice(0, 16).replace('T', ' '); // Get the date in "year-month-day-hour-minute" format
+
+    const mileageData = {
+      Date: formattedDate,
+      DistanceTraveled: `${totalDistance.toFixed(2)} km`,
+      FirstName: nurstFirstName,
+      LastName: nurseLastName,
+      NurseID: nurseID,
+    };
+
+    addMileageDocument(mileageData);
+
     setTotalDistance(0); // Reset the total distance to 0
-    setPreviousLocation(null); 
+    setPreviousLocation(null);
   };
 
 
@@ -113,7 +174,7 @@ export default function App() {
       <View>
         <Text>Latitude: {location?.coords.latitude}</Text>
         <Text>Longitude: {location?.coords.longitude}</Text>
-        <Text>Total Distance Traveled: {totalDistance.toFixed(2)} m</Text>
+        <Text>Total Distance Traveled: {totalDistance.toFixed(2)} km</Text>
         <Button title="Reset Distance" onPress={resetDistance} />
         {errorMsg ? <Text>{errorMsg}</Text> : null}
       </View>
