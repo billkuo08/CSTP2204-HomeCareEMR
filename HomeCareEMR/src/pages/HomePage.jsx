@@ -128,7 +128,7 @@ export default function HomePage() {
             <br></br>
             <br></br>
             <li>
-              <a href="/log"><DoNotStepTwoToneIcon/> Mileage Log</a>
+              <a href="/mileagelog"><DoNotStepTwoToneIcon/> Mileage Log</a>
             </li>
             <br></br>
             <br></br>
