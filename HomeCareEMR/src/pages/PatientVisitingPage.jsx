@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 import { useContext, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import BloodPress from "../components/BloodPress";
 import '../CSS/PatientVisitingPage.css';
 import Spo from "../components/Spo";
@@ -15,6 +15,10 @@ import PreviewTwoToneIcon from '@mui/icons-material/PreviewTwoTone';
 import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
 import CakeTwoToneIcon from '@mui/icons-material/CakeTwoTone';
 import NumbersTwoToneIcon from '@mui/icons-material/NumbersTwoTone';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import IconButton from '@mui/material/IconButton';
+import CallIcon from '@mui/icons-material/Call';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 // import { collection, getDocs } from 'firebase/firestore';
 // import { db } from '../config/config';
 
@@ -26,6 +30,7 @@ import InsulinInjection from "../components/InsulinInjection";
 export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
     const {id} = useParams();
+    const navigate = useNavigate();
     console.log(patients[3]?.permission["Blood Pressure"]);
     const today = new Date();
     const day = today.getDay();
@@ -63,6 +68,10 @@ export default function PatientVisitingPage() {
             console.log(err)
         }
     }
+
+    const handlecall = (phone) => {
+        window.open(`tel:${phone}`);
+    }
     
    
 
@@ -70,11 +79,20 @@ export default function PatientVisitingPage() {
     <>
     <Box className="custom-box">
         <Typography className="h6" variant="h5"><em><b><TourTwoToneIcon></TourTwoToneIcon>  Patient Visiting Page <PreviewTwoToneIcon></PreviewTwoToneIcon></b></em></Typography>
-        
+
         {patients.map((patient) => {
             if(patient.id === id){
                 return(
                     <>
+                    <IconButton color="primary" aria-label="add to shopping cart">
+                        <AddShoppingCartIcon onClick={()=> navigate(`/order/${patient.id}`)}/>
+                    </IconButton>
+                    <IconButton color="primary" aria-label="">
+                        <CallIcon onClick={()=>handlecall(patient.phone)} />
+                    </IconButton>
+                    <IconButton color="primary" aria-label="">
+                        <ContactPhoneIcon />
+                    </IconButton>
                     <Box className="custom-box">
                         <br></br>
                         <Typography variant="h6"><b><BadgeTwoToneIcon></BadgeTwoToneIcon> Patient Name :</b> {patient.firstName} {patient.lastName}</Typography>
