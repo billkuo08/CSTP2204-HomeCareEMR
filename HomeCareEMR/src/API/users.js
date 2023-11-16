@@ -7,12 +7,17 @@ import {
     setDoc,
     collection,
 } from "firebase/firestore";
-
+import CryptoJS from "crypto-js";
 import { db } from "../config/config";
 
 export const createUser= async (payload) => {
     console.log(payload);
     try{
+        const hashedPassword = CryptoJS.AES.encrypt(
+            payload.password,
+            "secret key 123"
+        ).toString();
+        payload.password = hashedPassword;
         const docRef = await addDoc(collection(db, "users"), payload);
         console.log("Document written with ID: ", docRef.id);
         const qry = query(
@@ -68,9 +73,11 @@ export const loginUser = async (payload) => {
 
     const user = userSnapshots.docs[0].data();
     user.id = userSnapshots.docs[0].id;
-    
+    const bytes = CryptoJS.AES.decrypt(user.password, "secret key 123");
+    const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
+    console.log(originalPassword);
 
-    if(user.password === payload.password){
+    if(originalPassword === payload.password){
         return {
         success: true,
         message: "User logged in successfully",
