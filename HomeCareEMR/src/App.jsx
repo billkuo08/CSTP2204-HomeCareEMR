@@ -15,6 +15,7 @@ import EditPatientPage from './pages/EditPatientPage';
 import CreateUserPage from './pages/CreateUserPage'
 import CreateNurse from './components/CreateNurse'
 import LoginPage from './pages/LoginPage'
+import OrderPage from './pages/OrderPage'
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="/createuser" element={<CreateUserPage/>} />
           <Route path="/createnurse" element={<CreateNurse/>} />
           <Route path="/login" element={<LoginPage/>} />
+          <Route path="/order/:id" element={<OrderPage/>} />
         </Routes>
       </PatientsContext.Provider>
       
