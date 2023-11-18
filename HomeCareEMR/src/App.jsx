@@ -17,6 +17,7 @@ import CreateNurse from './components/CreateNurse'
 import LoginPage from './pages/LoginPage'
 import OrderPage from './pages/OrderPage'
 import EmergencyContact from './pages/EmergencyContact'
+import TestAPIFunction from './__tests__/TestAPIFunction'
 
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/order/:id" element={<OrderPage/>} />
           <Route path="/emergency/:id" element={<EmergencyContact />} />
+          <Route path="/test" element={<TestAPIFunction />} />
+
 
         </Routes>
       </PatientsContext.Provider>
