@@ -91,7 +91,7 @@ export default function PatientVisitingPage() {
                         <CallIcon onClick={()=>handlecall(patient.phone)} />
                     </IconButton>
                     <IconButton color="primary" aria-label="">
-                        <ContactPhoneIcon />
+                        <ContactPhoneIcon onClick={()=>navigate(`/emergency/${patient.id}`)} />
                     </IconButton>
                     <Box className="custom-box">
                         <br></br>

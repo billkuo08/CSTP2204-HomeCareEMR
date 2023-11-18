@@ -94,3 +94,23 @@ export const loginUser = async (payload) => {
     }
 }
 
+export const getAllUsers = async () => {
+    try {
+        const users = await getDocs(collection(db, "users"));
+        console.log("users", users)
+        if(users){
+        const usersData = users.docs.map((doc) => {
+            return{
+            ...doc.data(),
+            id: doc.id,
+            };
+        });
+        return usersData;
+        }else{
+        console.log("No such document!");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    }
+
