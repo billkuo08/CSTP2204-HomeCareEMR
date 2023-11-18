@@ -10,9 +10,7 @@ export default function TestAPIFunction() {
             role: "admin",
         };
         const response = await createUser(payload);
-        console.log(response);
-
-        
+        console.log(response);       
         
     }
 
