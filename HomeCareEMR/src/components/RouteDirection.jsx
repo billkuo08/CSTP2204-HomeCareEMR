@@ -73,8 +73,7 @@ function RouteDirection() {
         console.log(latlngPatientLocationData)
 
         // Fetch "patients" collection data
-        const patientsCollectionRef = collection(firestoredb, 'patients');
-        const patientsCollectionSnapshot = await getDocs(patientsCollectionRef);
+        const patientsCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
         const patientsData = patientsCollectionSnapshot.docs.map((doc) => doc.data());
         setPatientData(patientsData);
 
@@ -101,7 +100,6 @@ function RouteDirection() {
 
     const changeDestination = () => {
         event.preventDefault();
-
 
         const directionButtonId = event.target.id;
         const patientWithSameId = patientsLocationData.find(patient => patient.id === directionButtonId);
@@ -139,18 +137,16 @@ function RouteDirection() {
             console.log(`No patient found with ID: ${buttonId}`);
         }
 
-
-
     };
 
     const changeOrigin = () => {
         event.preventDefault();
 
-
         setDirections(null);
 
         const originButtonId = event.target.id;
         const patientWithSameIdOrigin = patientsLocationData.find(patient => patient.id === originButtonId);
+        console.log("button id: " + originButtonId);
 
         if (patientWithSameIdOrigin) {
             const updatedOrigin = {
@@ -171,8 +167,7 @@ function RouteDirection() {
     }
 
 
-    return isLoaded ? (
-        <>
+    return isLoaded ? (        <>
 
 
             <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
