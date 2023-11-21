@@ -58,13 +58,3 @@ export const getAllPatients = async () => {
         console.log(error);
     }
     }
-
-    // src/API/patients.js
-export const addPatient = (patient) => {
-  // Implementation of addPatient function
-};
-
-// src/__tests__/CreatePatient.test.jsx
-jest.mock('../../src/API/patients', () => ({
-  addPatient: jest.fn(),
-}));
