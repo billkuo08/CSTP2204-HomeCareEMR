@@ -1,7 +1,7 @@
 // TestAPIFunctionJericho.js
 
 import React, { useEffect } from 'react';
-import { addNurse, deleteNurse } from '../API/users';
+import { addNurse, deleteNurse, getAllNurses, getLPNNurses, getRNNurses } from '../API/users';
 
 export default function TestAPIFunctionJericho() {
   const testCreation = async () => {
@@ -27,6 +27,21 @@ export default function TestAPIFunctionJericho() {
     }
   };
 
+
+// Call the getAllNurses function wherever you need it
+const displayAllNurses = async () => {
+  await getAllNurses();
+};
+
+const displayLPNNurses = async () => {
+  await getLPNNurses();
+};
+
+const displayRNNurses = async () => {
+  await getRNNurses();
+};
+
+
   useEffect(() => {
     testCreation();
     // Assuming you want to delete the nurse after a delay (for testing purposes)
@@ -35,6 +50,18 @@ export default function TestAPIFunctionJericho() {
     }, 5000); // 5 seconds delay
 
     return () => clearTimeout(deleteTimeout); // Cleanup timeout on component unmount
+  }, []);
+
+  useEffect(() => {
+    displayAllNurses();
+  }, []);
+
+  useEffect(() => {
+    displayLPNNurses();
+  }, []);
+
+  useEffect(() => {
+    displayRNNurses();
   }, []);
 
   return <div>TestAPIFunctionJericho</div>;
