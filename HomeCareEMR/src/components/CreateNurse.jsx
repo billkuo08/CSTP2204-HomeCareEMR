@@ -6,6 +6,9 @@ import '../CSS/PatientTableComponent.css';
 import '../CSS/CreatePatient.css';
 import MasksTwoToneIcon from '@mui/icons-material/MasksTwoTone'; 
 import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
+import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
+import WomanTwoToneIcon from '@mui/icons-material/WomanTwoTone';
 
 export default function CreateNurse() {
     const {
@@ -44,7 +47,7 @@ export default function CreateNurse() {
         <Container className="form-container" >
         <form onSubmit={handleSubmit(onSubmit)} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: -1, marginTop: 1}}>
-            <TextField
+            <TextField 
               size="medium"
               type="text"
               variant='outlined'
@@ -69,7 +72,7 @@ export default function CreateNurse() {
             <TextField
                 fullWidth
                 select            
-                label="Select"
+                label="Gender (Select)"
                 defaultValue=''
                 inputProps={register('gender', {
                     required: 'Please enter the gender',
@@ -77,8 +80,8 @@ export default function CreateNurse() {
                 error={errors.gender}
                 helperText={errors.gender?.message}
                 >
-                <MenuItem value='male'>Male</MenuItem>
-                <MenuItem value='female'>Female</MenuItem>
+                <MenuItem value='male'>Male <ManTwoToneIcon></ManTwoToneIcon></MenuItem>
+                <MenuItem value='female'>Female <WomanTwoToneIcon></WomanTwoToneIcon></MenuItem>
             </TextField>
 
             </Stack>
@@ -126,7 +129,7 @@ export default function CreateNurse() {
                 
                 <br></br>
                 
-                <Button className="btn-homepage" type="submit">Submit</Button>
+                <Button className="btn-homepage" type="submit"><DriveFileRenameOutlineTwoToneIcon></DriveFileRenameOutlineTwoToneIcon>Submit</Button>
                 
             </form>
         </Container>

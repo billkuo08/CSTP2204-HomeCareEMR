@@ -19,6 +19,7 @@ import PlaylistAddTwoToneIcon from '@mui/icons-material/PlaylistAddTwoTone';
 import { useParams, Link } from "react-router-dom";
 import { PatientsContext } from '../context/PatientsContext';
 import { useEffect } from 'react';
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
 
 
 
@@ -481,7 +482,7 @@ export default function CreatePatient() {
 
 <br></br>
                 <Button className="button-73"
-                variant="outlined" color="secondary" type="submit">Update</Button>
+                variant="outlined" color="secondary" type="submit"> <DriveFileRenameOutlineTwoToneIcon></DriveFileRenameOutlineTwoToneIcon>Update</Button>
                 <Button component={Link} to={"/patients"} className="button-73"
                 variant="outlined" color="secondary" type="reset">Back To List</Button>
                 
