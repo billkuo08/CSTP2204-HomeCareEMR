@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form"
 import { Container, Typography, TextField, Stack, Button, Box, FormControl, FormGroup, FormControlLabel, Checkbox, InputLabel, Select, MenuItem } from "@mui/material"
 import { addNurse } from "../API/users";
+import "../CSS/Map.css"
+import '../CSS/PatientTableComponent.css';
+import '../CSS/CreatePatient.css';
 
 export default function CreateNurse() {
     const {
@@ -34,9 +37,9 @@ export default function CreateNurse() {
         }
 
   return (
-    <>
+    <>        
+    <Typography variant="h5" className="h5"><em><b>Create Nurse</b></em></Typography>
         <Container className="form-container" >
-        <Typography variant="h5" className="h5">Create Nurse</Typography>
         <form onSubmit={handleSubmit(onSubmit)} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: -1, marginTop: 1}}>
             <TextField
@@ -121,8 +124,7 @@ export default function CreateNurse() {
                 
                 <br></br>
                 
-                <Button className="button-73"
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+                <Button className="btn-homepage" type="submit">Submit</Button>
                 
             </form>
         </Container>
