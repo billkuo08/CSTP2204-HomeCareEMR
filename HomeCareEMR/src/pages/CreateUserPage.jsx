@@ -1,9 +1,11 @@
 import { useForm} from "react-hook-form"
-import "./CreateUserPage.css"
 import { useNavigate } from "react-router-dom"
 // import Select from "react-select"
 import { TextField, MenuItem, Stack, Typography, Container } from '@mui/material'
-import { Button } from "semantic-ui-react"
+import Button from '@mui/material/Button';
+import "../CSS/Map.css"
+import '../CSS/PatientTableComponent.css';
+import '../CSS/CreatePatient.css';
 import { createUser } from "../API/users"
 export default function CreateUserPage() {
     const navigate = useNavigate();
@@ -93,7 +95,7 @@ export default function CreateUserPage() {
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
 
-        <Button type="submit">Submit</Button>
+        <Button className="btn-homepage" type="submit">Submit</Button>
         </form>
     </Container>
 
