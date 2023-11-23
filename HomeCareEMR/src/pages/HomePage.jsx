@@ -187,7 +187,7 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Teamwork!</p>
+            <p className="title">Teamwork !</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
@@ -218,7 +218,7 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Pay Attention!</p>
+            <p className="title">Pay Attention !</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
