@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import "../CSS/LoginPage.css";
 import { useNavigate } from "react-router-dom";
 import { TextField, Stack, Typography, Container } from "@mui/material";
-import { Button } from "semantic-ui-react";
 import { loginUser } from "../API/users";
 
 export default function LoginPage() {
@@ -39,8 +38,11 @@ export default function LoginPage() {
       <div className="form-wrapper">
         <div className="form-column">
           <Typography variant="h5" className="h5">
-            Login
+            <em><b>Login</b></em>
           </Typography>
+          <br></br>
+          <br></br>
+          <br></br>
           <form onSubmit={handleSubmit(onSubmit)} className="p-2">
             <Stack className="TextField">
               <TextField
@@ -50,7 +52,10 @@ export default function LoginPage() {
                 required
                 {...register("username", { required: true })}
               />
+
             </Stack>
+            <br></br>
+            <br></br>
             <Stack className="TextField">
               <TextField
                 label="Password"
@@ -62,7 +67,7 @@ export default function LoginPage() {
             </Stack>
             {errors.username && <span className="error-text">Username is required</span>}
             {errors.password && <span className="error-text">Password is required</span>}
-            <Button type="submit">Submit</Button>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>

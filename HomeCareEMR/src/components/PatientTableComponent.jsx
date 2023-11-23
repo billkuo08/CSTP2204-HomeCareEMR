@@ -8,8 +8,7 @@ import { useContext, useState } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
-import {TextField} from '@mui/material'
-import PersonSearchTwoToneIcon from '@mui/icons-material/PersonSearchTwoTone';
+import {TextField} from '@mui/material';
 
 
 // Define the ResponsiveTable component here
