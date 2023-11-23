@@ -1,7 +1,7 @@
 // TestAPIFunctionJericho.js
 
 import React, { useEffect } from 'react';
-import { addNurse, deleteNurse, getAllNurses } from '../API/users';
+import { addNurse, deleteNurse, getAllNurses, getLPNNurses } from '../API/users';
 
 export default function TestAPIFunctionJericho() {
   const testCreation = async () => {
@@ -27,11 +27,15 @@ export default function TestAPIFunctionJericho() {
     }
   };
 
+
 // Call the getAllNurses function wherever you need it
 const displayAllNurses = async () => {
   await getAllNurses();
 };
 
+const displayLPNNurses = async () => {
+  await getLPNNurses();
+};
 
   useEffect(() => {
     testCreation();
@@ -45,6 +49,10 @@ const displayAllNurses = async () => {
 
   useEffect(() => {
     displayAllNurses();
+  }, []);
+
+  useEffect(() => {
+    displayLPNNurses();
   }, []);
 
   return <div>TestAPIFunctionJericho</div>;
