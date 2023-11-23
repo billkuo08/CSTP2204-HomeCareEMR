@@ -5,8 +5,14 @@ import { TextField, MenuItem, Stack, Typography, Container } from '@mui/material
 import Button from '@mui/material/Button';
 import "../CSS/Map.css"
 import '../CSS/PatientTableComponent.css';
-import '../CSS/CreatePatient.css';
+import '../CSS/CreateUserPage.css';
 import { createUser } from "../API/users"
+import AdminPanelSettingsTwoToneIcon from '@mui/icons-material/AdminPanelSettingsTwoTone';
+import AccessibilityNewTwoToneIcon from '@mui/icons-material/AccessibilityNewTwoTone';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import MedicalInformationTwoToneIcon from '@mui/icons-material/MedicalInformationTwoTone';
+import SupervisorAccountTwoToneIcon from '@mui/icons-material/SupervisorAccountTwoTone';
+import SupervisedUserCircleTwoToneIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
 export default function CreateUserPage() {
     const navigate = useNavigate();
     const {
@@ -50,10 +56,11 @@ export default function CreateUserPage() {
 
     return (
     <Container className="flex justify-center items-cengter form-container" sx={{width:'50%'}}>
-        <Typography variant="h5" className="h5"> Create User</Typography>
+        <Typography variant="h5" className="h5"> <em><b> <AdminPanelSettingsTwoToneIcon></AdminPanelSettingsTwoToneIcon> Create User <AccessibilityNewTwoToneIcon></AccessibilityNewTwoToneIcon></b></em></Typography>
         <form onSubmit={handleSubmit(onSubmit)} className=" p-2 ">
         {/* register your input into the hook by invoking the "register" function */}
         {/* <input defaultValue="test" {...register("example")} /> */}
+        <br></br>
         <Stack sx={{marginBottom:'10px'}}>
             <TextField
                 label="Username"
@@ -65,7 +72,7 @@ export default function CreateUserPage() {
         </Stack>
         <Stack sx={{marginBottom:'10px'}}>
                         <TextField
-            label="Passward"
+            label="Password"
             variant="outlined"
             type="password"
             required
@@ -76,7 +83,7 @@ export default function CreateUserPage() {
             <TextField
                 fullWidth
                 select            
-                label="Select"
+                label="Role (Select)"
                 defaultValue=''
                 inputProps={register('role', {
                     required: 'Please enter the role',
@@ -84,9 +91,9 @@ export default function CreateUserPage() {
                 error={errors.role}
                 helperText={errors.role?.message}
                 >
-                <MenuItem value='nurse'>Nurse</MenuItem>
-                <MenuItem value='assistant'>Assistant</MenuItem>
-                <MenuItem value='manager'>Manager</MenuItem>
+                <MenuItem value='nurse'>Nurse <MedicalInformationTwoToneIcon></MedicalInformationTwoToneIcon></MenuItem>
+                <MenuItem value='assistant'>Assistant <SupervisorAccountTwoToneIcon></SupervisorAccountTwoToneIcon></MenuItem>
+                <MenuItem value='manager'>Manager <SupervisedUserCircleTwoToneIcon></SupervisedUserCircleTwoToneIcon></MenuItem>
             </TextField>
         </Stack>
 
@@ -95,7 +102,7 @@ export default function CreateUserPage() {
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
 
-        <Button className="btn-homepage" type="submit">Submit</Button>
+        <Button className="btn-homepage" type="submit"><DrawTwoToneIcon></DrawTwoToneIcon>Submit</Button>
         </form>
     </Container>
 
