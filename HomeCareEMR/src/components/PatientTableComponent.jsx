@@ -9,6 +9,7 @@ import { PatientsContext } from '../context/PatientsContext';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 import {TextField} from '@mui/material'
+import PersonSearchTwoToneIcon from '@mui/icons-material/PersonSearchTwoTone';
 
 
 // Define the ResponsiveTable component here
@@ -40,7 +41,7 @@ function ResponsiveTable() {
       
       <h2><PersonAddAltTwoToneIcon /><em> Patient List </em> <PersonAddDisabledTwoToneIcon /></h2>
       <div className="table-wrapper" >
-        <TextField
+        <TextField 
           sx={{marginBottom:'20px' , width:'50%'}}
           size="medium"
           type="text"
