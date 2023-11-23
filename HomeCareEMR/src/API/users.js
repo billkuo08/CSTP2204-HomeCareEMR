@@ -5,6 +5,7 @@ import {
     query,
     where,
     setDoc,
+    deleteDoc,
     collection,
 } from "firebase/firestore";
 import CryptoJS from "crypto-js";
@@ -117,11 +118,11 @@ export const getAllUsers = async () => {
 
     export const deleteNurse = async (userId) => {
         try {
-          const nurseRef = firestore.collection('nurses').doc(userId);
-          await nurseRef.delete();
+          const nurseRef =doc(db,'nurses', userId);
+          await deleteDoc(nurseRef);
           return { success: true, message: `Nurse with userId ${userId} deleted successfully` };
         } catch (error) {
           console.error("Error deleting nurse:", error);
           return { success: false, message: "Error deleting nurse" };
         }
-      };
+    };
