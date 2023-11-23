@@ -4,6 +4,8 @@ import { addNurse } from "../API/users";
 import "../CSS/Map.css"
 import '../CSS/PatientTableComponent.css';
 import '../CSS/CreatePatient.css';
+import MasksTwoToneIcon from '@mui/icons-material/MasksTwoTone'; 
+import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
 
 export default function CreateNurse() {
     const {
@@ -38,7 +40,7 @@ export default function CreateNurse() {
 
   return (
     <>        
-    <Typography variant="h5" className="h5"><em><b>Create Nurse</b></em></Typography>
+    <Typography variant="h5" className="h5"> <em> <b> <MasksTwoToneIcon></MasksTwoToneIcon> Create Nurse <GroupAddTwoToneIcon></GroupAddTwoToneIcon></b> </em></Typography>
         <Container className="form-container" >
         <form onSubmit={handleSubmit(onSubmit)} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: -1, marginTop: 1}}>
