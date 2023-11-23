@@ -18,7 +18,8 @@ import LoginPage from './pages/LoginPage'
 import OrderPage from './pages/OrderPage'
 import EmergencyContact from './pages/EmergencyContact'
 import TestAPIFunction from './__tests__/TestAPIFunction'
-
+import TestCreateOrderFunction from './__tests__/TestCreateOrderFunction'
+import TestAPIFunctionJericho from './__tests__/TestAPIFunctionJericho'
 
 function App() {
   const [patients, setPatients] = useState([]);
@@ -59,6 +60,8 @@ function App() {
           <Route path="/order/:id" element={<OrderPage/>} />
           <Route path="/emergency/:id" element={<EmergencyContact />} />
           <Route path="/test" element={<TestAPIFunction />} />
+          <Route path="/billtest" element={<TestCreateOrderFunction />} />
+          <Route path="/jerichotest" element={<TestAPIFunctionJericho />} />
 
 
         </Routes>

@@ -15,8 +15,7 @@ export default function TestAPIFunction() {
         const user = await getUserById(id);
         console.log(user);
 
-        await deleteUser(id);
-
+        await deleteUser(id);   
 
         
     }
