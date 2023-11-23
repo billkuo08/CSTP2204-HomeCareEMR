@@ -156,20 +156,22 @@ export default function HomePage() {
           <div className="grid-container">
 
 {/* ////////////////////////// FLIP CARDS ////////////////////////// */}
-            {/* <div className="flip-card">
+            <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Community Care Clinics</p>
+            <p className="title">Willpower.</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
         <p className="title"><InfoTwoToneIcon/></p>
-            <p>Community care clinics provide a range of nursing care and other professional health services in your community.</p>
+            <p>Willpower, strength and determination, it will take you places.</p>
+            <br></br>
+              - Julianna Pena
         </div>
     </div>
 </div>
 
-<div className="flip-card">
+{/* <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
             <p className="title">Home Care Nursing</p>
@@ -180,7 +182,7 @@ export default function HomePage() {
             <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
         </div>
     </div>
-</div> */}
+</div>  */}
 
 <div className="flip-card">
     <div className="flip-card-inner">
@@ -191,6 +193,7 @@ export default function HomePage() {
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
             <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
+            <br></br>
               - Mattie Stepanek</p>
         </div>
     </div>
@@ -200,12 +203,12 @@ export default function HomePage() {
 <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
-            <p className="title">Care <br></br> & <br></br>Kindness</p>
+            <p className="title">Care <br></br> & <br></br>Kindness.</p>
             <p><FlipCameraAndroidTwoToneIcon /></p>
         </div>
         <div className="flip-card-back">
             <p className="title"><InfoTwoToneIcon/></p>
-            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> - Jackie Chan
+            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> <br></br> - Jackie Chan
 </p>
         </div>
     </div>
