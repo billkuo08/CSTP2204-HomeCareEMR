@@ -10,6 +10,7 @@ import {
 import CryptoJS from "crypto-js";
 import { db } from "../config/config";
 
+
 export const createUser= async (payload) => {
     console.log(payload);
     try{
@@ -114,3 +115,13 @@ export const getAllUsers = async () => {
     }
     }
 
+    export const deleteNurse = async (userId) => {
+        try {
+          const nurseRef = firestore.collection('nurses').doc(userId);
+          await nurseRef.delete();
+          return { success: true, message: `Nurse with userId ${userId} deleted successfully` };
+        } catch (error) {
+          console.error("Error deleting nurse:", error);
+          return { success: false, message: "Error deleting nurse" };
+        }
+      };
