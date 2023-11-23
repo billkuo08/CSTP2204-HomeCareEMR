@@ -156,7 +156,7 @@ export default function HomePage() {
           <div className="grid-container">
 
 {/* ////////////////////////// FLIP CARDS ////////////////////////// */}
-            <div className="flip-card">
+            {/* <div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
             <p className="title">Community Care Clinics</p>
@@ -180,7 +180,7 @@ export default function HomePage() {
             <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
         </div>
     </div>
-</div>
+</div> */}
 
 <div className="flip-card">
     <div className="flip-card-inner">
@@ -229,8 +229,9 @@ export default function HomePage() {
 
           <br></br>
           <div>
-            <CanvasJSChart options={options} />
-            <CanvasJSChart options={options2} />
+            {/* lets not use for now */}
+            {/* <CanvasJSChart options={options} />
+            <CanvasJSChart options={options2} /> */}
           </div>
         </div>
       </div>
@@ -238,8 +239,7 @@ export default function HomePage() {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
+
       
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
