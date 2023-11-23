@@ -1,5 +1,6 @@
 import {
     addDoc,
+    getDoc,
     getDocs,
     doc,
     query,
@@ -7,6 +8,7 @@ import {
     setDoc,
     deleteDoc,
     collection,
+    deleteDoc,
 } from "firebase/firestore";
 import CryptoJS from "crypto-js";
 import { db } from "../config/config";
@@ -15,6 +17,16 @@ import { db } from "../config/config";
 export const createUser= async (payload) => {
     console.log(payload);
     try{
+        const qry = query(
+            collection(db, "users"),
+            where("username", "==", payload.username)
+        );
+        const userSnapshots = await getDocs(qry);
+        if(userSnapshots.size > 0){
+            throw new Error("User already exists");
+        }
+
+        // hash password
         const hashedPassword = CryptoJS.AES.encrypt(
             payload.password,
             "secret key 123"
@@ -22,23 +34,20 @@ export const createUser= async (payload) => {
         payload.password = hashedPassword;
         const docRef = await addDoc(collection(db, "users"), payload);
         console.log("Document written with ID: ", docRef.id);
-        const qry = query(
+
+        const qryUser = query(
             collection(db, "users"),
             where("username", "==", payload.username)
         );
-        console.log(qry);
-    const userSnapshots = await getDocs(qry);
-    console.log(userSnapshots);
-    const user = userSnapshots.docs[0].data();
-    console.log(user);
-
-
+        const userSnapshots1 = await getDocs(qryUser);
+        const user = userSnapshots1.docs[0].data();
+        console.log(user);
         return {
         success: true,
         message: "User logged in successfully",
         data:{
             ...user,
-            userId: userSnapshots.docs[0].id,
+            userId: docRef.id,
         },
         };
 
@@ -115,6 +124,38 @@ export const getAllUsers = async () => {
         console.log(error);
     }
     }
+
+
+    export const getUserById = async (id) => {
+        console.log(id);
+        try {
+            const user = await getDoc(doc(db, "users", id));
+            console.log(user.data());
+            if(user.exists()){
+                return {
+                    success: true,
+                    data:{
+                        ...user.data(),
+                        id: user.id,
+                    },
+                    };
+                }else{
+                console.log("No such document!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+export const deleteUser = async (id) => {
+    try {
+        await deleteDoc(doc(db, "users", id));
+        console.log("Document successfully deleted!");
+    } catch (error) {
+        console.error("Error removing document: ", error);
+    }
+}
+
 
     export const getAllNurses = async () => {
         try {
@@ -201,3 +242,4 @@ export const getAllUsers = async () => {
           return { success: false, message: "Error deleting nurse" };
         }
     };
+

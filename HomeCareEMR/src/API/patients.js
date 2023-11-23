@@ -58,3 +58,29 @@ export const getAllPatients = async () => {
         console.log(error);
     }
     }
+
+    export const getPatientById = async (id) => {
+        try {
+            const patient = await getDoc(doc(db, "patients", id));
+            console.log("patient", patient)
+            if(patient){
+            const patientData = patient.data();
+            return patientData;
+            }else{
+            console.log("No such document!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        }
+
+        export const deletePatient = async (id) => {
+            try {
+                await deleteDoc(doc(db, "patients", id));
+                console.log("patient deleted");
+            } catch (error) {
+                console.log(error);
+            }
+            }
+
+            
