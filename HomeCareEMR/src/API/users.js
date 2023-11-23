@@ -163,7 +163,32 @@ export const getAllUsers = async () => {
           console.error("Error fetching LPN nurses:", error);
         }
       };
+
+      export const getRNNurses = async () => {
+        try {
+          const qry = query(
+            collection(db, "nurses"),
+            where("position", "==", "RN")
+          );
       
+          const nurseSnapshots = await getDocs(qry);
+      
+          if (!nurseSnapshots.empty) {
+            const RNNurses = nurseSnapshots.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            });
+      
+            console.log("RN Nurses:", RNNurses);
+          } else {
+            console.log("No RN nurses found!");
+          }
+        } catch (error) {
+          console.error("Error fetching RN nurses:", error);
+        }
+      };
 
 
     export const deleteNurse = async (userId) => {
