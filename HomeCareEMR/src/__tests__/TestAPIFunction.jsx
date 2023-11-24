@@ -17,9 +17,16 @@ export default function TestAPIFunction() {
 
         await deleteUser(id);
 
-
         
     }
+
+    const testCreatePatient = async() =>{
+        const payload = {
+            name: "test57",
+            address: "test",
+            phone: "1234567890",
+        };
+        const response = await createUser(payload);
 
     useEffect(() => {
         testCreationUser();

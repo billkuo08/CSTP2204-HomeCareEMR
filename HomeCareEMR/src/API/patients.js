@@ -7,6 +7,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  deleteDoc,
   where,
 } from "firebase/firestore";
 
@@ -77,10 +78,9 @@ export const getAllPatients = async () => {
         export const deletePatient = async (id) => {
             try {
                 await deleteDoc(doc(db, "patients", id));
-                console.log("patient deleted");
+                console.log("Document successfully deleted!");
             } catch (error) {
-                console.log(error);
+                console.error("Error removing document: ", error);
             }
             }
 
-            
