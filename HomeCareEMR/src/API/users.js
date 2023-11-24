@@ -8,7 +8,6 @@ import {
     setDoc,
     deleteDoc,
     collection,
-    deleteDoc,
 } from "firebase/firestore";
 import CryptoJS from "crypto-js";
 import { db } from "../config/config";
