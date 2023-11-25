@@ -6,11 +6,12 @@ import {
     query,
     where,
     setDoc,
-    collection,
     deleteDoc,
+    collection,
 } from "firebase/firestore";
 import CryptoJS from "crypto-js";
 import { db } from "../config/config";
+
 
 export const createUser= async (payload) => {
     console.log(payload);
@@ -123,6 +124,7 @@ export const getAllUsers = async () => {
     }
     }
 
+
     export const getUserById = async (id) => {
         console.log(id);
         try {
@@ -152,4 +154,91 @@ export const deleteUser = async (id) => {
         console.error("Error removing document: ", error);
     }
 }
+
+
+    export const getAllNurses = async () => {
+        try {
+          const nurses = await getDocs(collection(db, "nurses"));
+      
+          if (!nurses.empty) {
+            const nursesData = nurses.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            });
+      
+            console.log("All Nurses:", nursesData);
+          } else {
+            console.log("No nurses found!");
+          }
+        } catch (error) {
+          console.error("Error fetching nurses:", error);
+        }
+      };
+      
+
+      export const getLPNNurses = async () => {
+        try {
+          const qry = query(
+            collection(db, "nurses"),
+            where("position", "==", "LPN")
+          );
+      
+          const nurseSnapshots = await getDocs(qry);
+      
+          if (!nurseSnapshots.empty) {
+            const LPNNurses = nurseSnapshots.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            });
+      
+            console.log("LPN Nurses:", LPNNurses);
+          } else {
+            console.log("No LPN nurses found!");
+          }
+        } catch (error) {
+          console.error("Error fetching LPN nurses:", error);
+        }
+      };
+
+      export const getRNNurses = async () => {
+        try {
+          const qry = query(
+            collection(db, "nurses"),
+            where("position", "==", "RN")
+          );
+      
+          const nurseSnapshots = await getDocs(qry);
+      
+          if (!nurseSnapshots.empty) {
+            const RNNurses = nurseSnapshots.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            });
+      
+            console.log("RN Nurses:", RNNurses);
+          } else {
+            console.log("No RN nurses found!");
+          }
+        } catch (error) {
+          console.error("Error fetching RN nurses:", error);
+        }
+      };
+
+
+    export const deleteNurse = async (userId) => {
+        try {
+          const nurseRef =doc(db,'nurses', userId);
+          await deleteDoc(nurseRef);
+          return { success: true, message: `Nurse with userId ${userId} deleted successfully` };
+        } catch (error) {
+          console.error("Error deleting nurse:", error);
+          return { success: false, message: "Error deleting nurse" };
+        }
+    };
 

@@ -1,4 +1,6 @@
 import { createUser, getUserById, deleteUser } from '../API/users';
+import { addPatient, getPatientById, deletePatient, getDailyTask, addDailyTask, deleteDailyTask } from '../API/patients';
+
 import { useEffect } from 'react';
 
 
@@ -26,10 +28,35 @@ export default function TestAPIFunction() {
             address: "test",
             phone: "1234567890",
         };
-        const response = await createUser(payload);
+        const response = await addPatient(payload);
+        console.log(response.data.id);
+
+        const id=response.data.id;
+        const patient = await getPatientById(id);
+        console.log(patient);
+        
+        await deletePatient(id);
+    }
+
+    const testDailyTask = async() =>{
+        const payload = {
+            patientId: "1234567890",
+            date: "2021-10-15",
+            task: "test",
+            status: "test",
+        };
+        const response = await addDailyTask(payload);
+        console.log(response.data.id);
+        const id=response.data.id;
+        const dailyTask = await getDailyTask(id);
+        console.log({dailyTask})
+        await deleteDailyTask(id);
+    }
 
     useEffect(() => {
-        testCreationUser();
+        // testCreationUser();
+        //testCreatePatient(); 
+        //testDailyTask();
 });
 
   return (

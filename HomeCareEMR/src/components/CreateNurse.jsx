@@ -1,6 +1,14 @@
 import { useForm } from "react-hook-form"
 import { Container, Typography, TextField, Stack, Button, Box, FormControl, FormGroup, FormControlLabel, Checkbox, InputLabel, Select, MenuItem } from "@mui/material"
 import { addNurse } from "../API/users";
+import "../CSS/Map.css"
+import '../CSS/PatientTableComponent.css';
+import '../CSS/CreatePatient.css';
+import MasksTwoToneIcon from '@mui/icons-material/MasksTwoTone'; 
+import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
+import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
+import WomanTwoToneIcon from '@mui/icons-material/WomanTwoTone';
 
 export default function CreateNurse() {
     const {
@@ -34,12 +42,12 @@ export default function CreateNurse() {
         }
 
   return (
-    <>
+    <>        
+    <Typography variant="h5" className="h5"> <em> <b> <MasksTwoToneIcon></MasksTwoToneIcon> Create Nurse <GroupAddTwoToneIcon></GroupAddTwoToneIcon></b> </em></Typography>
         <Container className="form-container" >
-        <Typography variant="h5" className="h5">Create Nurse</Typography>
         <form onSubmit={handleSubmit(onSubmit)} >
           <Stack spacing={1} direction="row" sx={{ marginBottom: -1, marginTop: 1}}>
-            <TextField
+            <TextField 
               size="medium"
               type="text"
               variant='outlined'
@@ -64,7 +72,7 @@ export default function CreateNurse() {
             <TextField
                 fullWidth
                 select            
-                label="Select"
+                label="Gender (Select)"
                 defaultValue=''
                 inputProps={register('gender', {
                     required: 'Please enter the gender',
@@ -72,8 +80,8 @@ export default function CreateNurse() {
                 error={errors.gender}
                 helperText={errors.gender?.message}
                 >
-                <MenuItem value='male'>Male</MenuItem>
-                <MenuItem value='female'>Female</MenuItem>
+                <MenuItem value='male'>Male <ManTwoToneIcon></ManTwoToneIcon></MenuItem>
+                <MenuItem value='female'>Female <WomanTwoToneIcon></WomanTwoToneIcon></MenuItem>
             </TextField>
 
             </Stack>
@@ -121,8 +129,7 @@ export default function CreateNurse() {
                 
                 <br></br>
                 
-                <Button className="button-73"
-                variant="outlined" color="secondary" type="submit">Submit</Button>
+                <Button className="btn-homepage" type="submit"><DriveFileRenameOutlineTwoToneIcon></DriveFileRenameOutlineTwoToneIcon>Submit</Button>
                 
             </form>
         </Container>

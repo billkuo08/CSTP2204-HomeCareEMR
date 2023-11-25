@@ -8,7 +8,7 @@ import { useContext, useState } from 'react';
 import { PatientsContext } from '../context/PatientsContext';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
-import {TextField} from '@mui/material'
+import {TextField} from '@mui/material';
 
 
 // Define the ResponsiveTable component here
@@ -40,7 +40,7 @@ function ResponsiveTable() {
       
       <h2><PersonAddAltTwoToneIcon /><em> Patient List </em> <PersonAddDisabledTwoToneIcon /></h2>
       <div className="table-wrapper" >
-        <TextField
+        <TextField 
           sx={{marginBottom:'20px' , width:'50%'}}
           size="medium"
           type="text"
@@ -62,6 +62,7 @@ function ResponsiveTable() {
               <th>Route</th>
               <th>Link</th>
               <th>Edit</th>
+              <th>History</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +78,9 @@ function ResponsiveTable() {
                   </td>
                   <td>
                       <Link to={`/edit/${patient.id}`} className="a" >Edit</Link>
+                  </td>
+                  <td>
+                      <Link to={`/history/${patient.id}`} className="a" >History</Link>
                   </td>
               </tr>
               ))
