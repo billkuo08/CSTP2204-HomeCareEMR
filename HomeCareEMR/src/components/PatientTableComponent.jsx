@@ -62,6 +62,7 @@ function ResponsiveTable() {
               <th>Route</th>
               <th>Link</th>
               <th>Edit</th>
+              <th>History</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +78,9 @@ function ResponsiveTable() {
                   </td>
                   <td>
                       <Link to={`/edit/${patient.id}`} className="a" >Edit</Link>
+                  </td>
+                  <td>
+                      <Link to={`/history/${patient.id}`} className="a" >History</Link>
                   </td>
               </tr>
               ))

@@ -38,27 +38,63 @@ export default function PatientVisitingPage() {
     const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     console.log(dayNames[day]);
 
-    const ChildStateRef = useRef();
+    const ChildStateRefAnticoagulantInjection = useRef();
     const ChildStateRefBloodPressure = useRef();
     const ChildStateRefPulse = useRef();
     const ChildStateRefSpo = useRef();
     const ChildStateRefBloodGlucose = useRef();
     const ChildStateRefInsulinInjection = useRef();
+    let childStateBloodPressure= "";
+    let childStatePulse= "";
+    let childStateSpo= "";
+    let childStateBloodGlucose= "";
+    let childStateInsulinInjection= "";
+    let childStateAnticoagulantInjection= "";
     const handleClick = async (e) => {
-        const childState = ChildStateRef.current.getChildState();
-        const childStateBloodPressure = ChildStateRefBloodPressure.current.getChildState();
-        const childStatePulse = ChildStateRefPulse.current.getChildState();
-        const childStateSpo = ChildStateRefSpo.current.getChildState();
-        const childStateBloodGlucose = ChildStateRefBloodGlucose.current.getChildState();
-        const childStateInsulinInjection = ChildStateRefInsulinInjection.current.getChildState();
-        console.log(childState, childStateBloodPressure, childStatePulse, childStateSpo, childStateBloodGlucose, childStateInsulinInjection);
+        patients.map((patient) => {
+            if(patient.id === id){
+                console.log(patient);
+                Object.keys(patient?.permission['Blood Pressure']).map((key)=>{
+                    if(patient?.permission['Blood Pressure'][key] && dayNames[day] === key){
+                        childStateBloodPressure = ChildStateRefBloodPressure.current.getChildState();
+                    }
+                })
+                Object.keys(patient?.permission['Pulse']).map((key)=>{
+                    if(patient?.permission['Pulse'][key] && dayNames[day] === key){
+                        childStatePulse = ChildStateRefPulse.current.getChildState();
+                    }
+                })
+                Object.keys(patient?.permission['Spo2']).map((key)=>{
+                    if(patient?.permission['Spo2'][key] && dayNames[day] === key){
+                        childStateSpo = ChildStateRefSpo.current.getChildState();
+                    }
+                })
+                Object.keys(patient?.permission['Blood Glucose']).map((key)=>{
+                    if(patient?.permission['Blood Glucose'][key] && dayNames[day] === key){
+                        childStateBloodGlucose = ChildStateRefBloodGlucose.current.getChildState();
+                    }
+                })
+                Object.keys(patient?.permission['Insulin Injection']).map((key)=>{
+                    if(patient?.permission['Insulin Injection'][key] && dayNames[day] === key){
+                        childStateInsulinInjection = ChildStateRefInsulinInjection.current.getChildState();
+                    }
+                })
+                Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>{
+                    if(patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key){
+                        childStateAnticoagulantInjection = ChildStateRefAnticoagulantInjection.current.getChildState();
+                    }
+                })
+            }
+        }
+        )
+
         const data = {
-            id,
+            patientId: id,
             childStateBloodPressure,
             childStatePulse,
             childStateSpo,
             childStateBloodGlucose,
-            childState,
+            childStateAnticoagulantInjection,
             childStateInsulinInjection,
             createDateTime: new Date().toISOString(),
         }
@@ -110,7 +146,7 @@ export default function PatientVisitingPage() {
                         
                         {
                             Object.keys(patient?.permission['Blood Pressure']).map((key)=>
-                                patient?.permission['Blood Pressure'][key] && dayNames[day] === key ? <BloodPress ref={ChildStateRefBloodPressure} />: null
+                                patient?.permission['Blood Pressure'][key] && dayNames[day] === key ? <BloodPress ref={ChildStateRefBloodPressure} />: ""
                             )
                         }
                         <br></br>
@@ -118,14 +154,14 @@ export default function PatientVisitingPage() {
                         
                         {
                             Object.keys(patient?.permission['Pulse']).map((key)=>
-                                patient?.permission['Pulse'][key] && dayNames[day] === key ? <Pulse ref={ChildStateRefPulse} />: null
+                                patient?.permission['Pulse'][key] && dayNames[day] === key ? <Pulse ref={ChildStateRefPulse} />: ""
                             )
                         }
                         <br></br>
                             
                         {
                             Object.keys(patient?.permission['Spo2']).map((key)=>
-                                patient?.permission['Spo2'][key] && dayNames[day] === key ? <Spo ref={ChildStateRefSpo}/>: null
+                                patient?.permission['Spo2'][key] && dayNames[day] === key ? <Spo ref={ChildStateRefSpo}/>: ""
                             )
                         }
 
@@ -133,13 +169,13 @@ export default function PatientVisitingPage() {
 
                         {
                             Object.keys(patient?.permission['Blood Glucose']).map((key)=>
-                                patient?.permission['Blood Glucose'][key] && dayNames[day] === key ? <BloodGlucose ref={ChildStateRefBloodGlucose} />: null
+                                patient?.permission['Blood Glucose'][key] && dayNames[day] === key ? <BloodGlucose ref={ChildStateRefBloodGlucose} />: ""
                             )
                         }
                         <br></br>
                         {
                             Object.keys(patient?.permission['Insulin Injection']).map((key)=>
-                                patient?.permission['Insulin Injection'][key] && dayNames[day] === key ? <InsulinInjection id={id} ref={ChildStateRefInsulinInjection}  />: null
+                                patient?.permission['Insulin Injection'][key] && dayNames[day] === key ? <InsulinInjection id={id} ref={ChildStateRefInsulinInjection}  />: ""
                             )
                         }
                         
@@ -147,7 +183,7 @@ export default function PatientVisitingPage() {
 
                         {
                             Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>
-                                patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key ? <AnticoagulantInjection id={id} ref={ChildStateRef}  />: null
+                                patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key ? <AnticoagulantInjection id={id} ref={ChildStateRefAnticoagulantInjection}  />: ""
                             )
                         }
                     </>
