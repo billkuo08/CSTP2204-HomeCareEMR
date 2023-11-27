@@ -48,30 +48,29 @@ function RouteDirection() {
     const [totalDistanceForUpload, setTotalDistanceForUpload] = useState(0); // Store total distance traveled in state
 
 
-    const fetchRealTimeLocationdata = async () => {
+    // const fetchRealTimeLocationdata = async () => {
+    //     // Get the user's current location
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 console.log("Got user's current location:", position);
+    //                 const userLocation = {
+    //                     lat: position.coords.latitude,
+    //                     lng: position.coords.longitude,
+    //                 };
+    //                 setCurrentLocation(userLocation);
+    //             },
+    //             (error) => {
+    //                 console.error("Error getting user's location:", error);
+    //             }
+    //         );
+    //     }
+    //     //clean up the unique watchID to prevent memory leaks
+    //     return () => {
+    //         navigator.geolocation.clearWatch(watchId);
+    //     };
 
-
-        // Get the user's current location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const userLocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-                    setCurrentLocation(userLocation);
-                },
-                (error) => {
-                    console.error("Error getting user's location:", error);
-                }
-            );
-        }
-        //clean up the unique watchID to prevent memory leaks
-        return () => {
-            navigator.geolocation.clearWatch(watchId);
-        };
-
-    };
+    // };
 
     const fetchPatientsData = async () => {
 
@@ -97,10 +96,28 @@ function RouteDirection() {
 
 
     useEffect(() => {
-        fetchRealTimeLocationdata();
+        // fetchRealTimeLocationdata();
         fetchPatientsData();
-    }, []);
-
+        
+        const watchId = navigator.geolocation.watchPosition(
+            (position) => {
+                const userLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                setCurrentLocation(userLocation);
+            },
+            (error) => {
+                console.error("Error getting user's location:", error);
+            }
+        );
+    
+        // Clean up the watchId on component unmount
+        return () => {
+            navigator.geolocation.clearWatch(watchId);
+        };
+    }, []); // Empty dependency array to run it only once when the component mounts
+    
 
     const directionsCallback = (response) => {
         if (response !== null) {
