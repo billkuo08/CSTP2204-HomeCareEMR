@@ -25,10 +25,21 @@
     margin-left: 8%;
 }
 
+.btn-upload{
+    margin-left: 8%;
+}
+
+.btn-trackAndPause{
+    margin-left: 8%;
+}
+
+
+
 .btn-direction {
     margin-top: 10px;
     /* Add spacing between button and other content */
 }
+
 
 .btn-current {
     margin-top: 10px;

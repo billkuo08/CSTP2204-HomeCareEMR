@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc } from "firebase/firestore";
 import {
     useJsApiLoader,
     GoogleMap,
     Marker,
 } from "@react-google-maps/api";
-import { getDatabase, ref, onValue, set } from "firebase/database";
-import { dbMap, mapAPIKey } from "../config/config"
+import { mapAPIKey } from "../config/config"
 import car from '../images/car.png';
 import redMarker from '../images/red-dot_Marker.png';
 import yellowMarker from '../images/yellow-dot_Marker.png';
@@ -29,8 +28,10 @@ const center = {
 
 function RouteDirection() {
 
-    const dbMap = getDatabase();
     const firestoredb = getFirestore();
+    const userInfoFromLoacl = localStorage.getItem('user');
+    const userInfo = JSON.parse(userInfoFromLoacl);
+    const userId = userInfo.userId;
 
 
     const { isLoaded, google } = useJsApiLoader({
@@ -43,45 +44,61 @@ function RouteDirection() {
     const [patientData, setPatientData] = useState();
     const [patientsLocationData, setPatientLocation] = useState([]);
     const [originLocation, setOriginLocation] = useState();
+    const [trackingState, setTrackingState] = useState('idle');//Track the track, pause, stop state for mileage tracking
+    const [totalDistanceForUpload, setTotalDistanceForUpload] = useState(0); // Store total distance traveled in state
 
 
+    const fetchRealTimeLocationdata = async () => {
 
-    // const myLocations = [
-    //     { lat: 49.33473336980647, lng: -123.15846009191421 }, // First set of coordinates
-    //     { lat: 49.27679087948593, lng: -123.11163668254494 }, // Second set of coordinates
-    // ];
 
-    const fetchdata = async () => {
+        // Get the user's current location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    setCurrentLocation(userLocation);
+                },
+                (error) => {
+                    console.error("Error getting user's location:", error);
+                }
+            );
+        }
+        //clean up the unique watchID to prevent memory leaks
+        return () => {
+            navigator.geolocation.clearWatch(watchId);
+        };
 
-        const starCountRef = ref(dbMap, "location/");
-        onValue(starCountRef, (snapshot) => {
-            const data = snapshot.val();
-            setCurrentLocation(data);
-        });
+    };
 
-        //Fetch "location" data
+    const fetchPatientsData = async () => {
+
+        //Fetch "patients' location" data
         const patientsLocationCollectionRef = collection(firestoredb, 'patients');
         const patientsLocationCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
-        const patientsLocation = patientsLocationCollectionSnapshot.docs.map((doc) => doc.data());
-        const latlngPatientLocationData = patientsLocation.filter((data) => data.lat !== undefined && data.lng !== undefined).map((data) => ({
+        // const patientsLocation = patientsLocationCollectionSnapshot.docs.map((doc) => doc.data());
+        const patientsData = patientsLocationCollectionSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        const latlngPatientLocationData = patientsData.filter((data) => data.lat !== undefined && data.lng !== undefined).map((data) => ({
             id: data.id,
             lat: Number(data.lat),
             lng: Number(data.lng)
         }));
 
         setPatientLocation(latlngPatientLocationData);
-        console.log(latlngPatientLocationData)
-
-        // Fetch "patients" collection data
-        const patientsCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
-        const patientsData = patientsCollectionSnapshot.docs.map((doc) => doc.data());
         setPatientData(patientsData);
+        console.log(patientsData);
 
     };
 
-    useEffect(() => {
 
-        fetchdata();
+    useEffect(() => {
+        fetchRealTimeLocationdata();
+        fetchPatientsData();
     }, []);
 
 
@@ -158,7 +175,7 @@ function RouteDirection() {
         };
     }
 
-    const resetCurrentLocation = () => {
+    const resetRouteocation = () => {
         event.preventDefault();
 
         setDirections(null); // Remove DirectionsService
@@ -166,101 +183,235 @@ function RouteDirection() {
 
     }
 
+    const trackMileage = () => {
+        let totalDistance = 0;
+        let previousPosition = null;
+        let watchId;
 
-    return isLoaded ? (        <>
+        const startTracking = () => {
+            console.log('Start tracking');
+            watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    console.log('Got user\'s location:', position);
+                    const currentPosition = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    if (previousPosition) {
+                        // Calculate the distance between the current and previous positions
+                        console.log('currentPosition:', currentPosition);
+                        const distance = calculateDistance(previousPosition, currentPosition);
+                        totalDistance += distance;
+                        setTotalDistanceForUpload(totalDistance);
+                        console.log('totalDistance:', totalDistance);
+                    }
+
+                    // Update the previous position for the next calculation
+                    previousPosition = currentPosition;
+                },
+                (error) => {
+                    console.error('Error getting user\'s location:', error);
+                }
+            );
+        };
+
+        const pauseTracking = () => {
+            console.log('Pause tracking');
+            // Pause the tracking by clearing the watch
+            navigator.geolocation.clearWatch(watchId);
+        };
+
+        const stopTracking = async () => {
+            //Fetch Nurse's data for mileage log
+            const nursesCollection = collection(firestoredb, 'nurses');
+            const nurseDocRef = doc(nursesCollection, userId);
+            const nurseDocSnap = await getDoc(nurseDocRef);
+
+            // Upload the total distance to the database
+            if (nurseDocSnap.exists()) {
+                console.log('Userdata:', nurseDocSnap.data());
+                const currentDate = new Date();
+                const formattedDate = currentDate.toISOString().slice(0, 16).replace('T', ' '); // Get the date in "year-month-day-hour-minute" format
+                const data = nurseDocSnap.data();
+                const firstName = data.firstName;
+                const lastName = data.lastName;
+                const mileageCollectionRef = collection(firestoredb, 'mileage');
+              
+
+                const mileageData = {
+                    Date: formattedDate,
+                    DistanceTraveled: `${totalDistanceForUpload.toFixed(2)} km`,
+                    FirstName: firstName,
+                    LastName: lastName,
+                    NurseID: userId,
+                };
+                addDoc(mileageCollectionRef, mileageData);
+                console.log('mileage uploaded', mileageData)
+
+                // Stop the tracking and reset values
+                navigator.geolocation.clearWatch(watchId);
+                totalDistance = 0;
+                previousPosition = null;
+
+            } else {
+                console.log('No such document!');
+            }
+        };
+
+        // Example function to calculate distance between two points using Haversine formula
+        const calculateDistance = (point1, point2) => {
+            const R = 6371; // Earth's radius in kilometers
+            const dLat = toRadians(point2.lat - point1.lat);
+            const dLng = toRadians(point2.lng - point1.lng);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRadians(point1.lat)) * Math.cos(toRadians(point2.lat)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c;
+
+            return distance;
+        };
+
+        const toRadians = (angle) => {
+            return (angle * Math.PI) / 180;
+        };
+
+        return {
+            startTracking,
+            pauseTracking,
+            stopTracking,
+            getTotalDistance: () => totalDistance,
+        };
+    };
+
+    const mileageTracker = trackMileage();
+
+    const handleTrackAndPauseClick = () => {
+        switch (trackingState) {
+            case 'idle':
+                mileageTracker.startTracking();
+                setTrackingState('tracking');
+                break;
+            case 'tracking':
+                mileageTracker.pauseTracking();
+                setTrackingState('paused');
+                break;
+            case 'paused':
+                mileageTracker.startTracking();
+                setTrackingState('tracking');
+                break;
+            default:
+                break;
+        }
+    };
 
 
-            <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
-            <div className="map-container">
-                <GoogleMap
-                    center={center}
-                    zoom={11}
-                    mapContainerStyle={{
-                        width: "100%",
-                        height: "65vh",
-                    }}
-                    options={{
-                        zoomControl: true,
-                        streetViewControl: false,
-                        mapTypeControl: false,
-                        fullscreenControl: false,
-                    }}
-                >
 
+
+    return isLoaded ? (<>
+
+
+        <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
+        <div className="map-container">
+            <GoogleMap
+                center={center}
+                zoom={11}
+                mapContainerStyle={{
+                    width: "100%",
+                    height: "65vh",
+                }}
+                options={{
+                    zoomControl: true,
+                    streetViewControl: false,
+                    mapTypeControl: false,
+                    fullscreenControl: false,
+                }}
+            >
+
+                <Marker
+                    position={
+                        typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
+                            ? currentLocation
+                            : null // Set a default position or null if currentLocation is invalid
+                    }
+                    icon={car}
+                />
+
+                {originLocation ?
                     <Marker
                         position={
-                            typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
-                                ? currentLocation
-                                : null // Set a default position or null if currentLocation is invalid
+                            typeof originLocation.lat === 'number' && typeof originLocation.lng === 'number'
+                                ? originLocation
+                                : null
                         }
-                        icon={car}
+                        icon={{
+                            url: yellowMarker,
+                            scaledSize: new window.google.maps.Size(32, 32),
+                        }}
                     />
+                    : null
+                }
 
-                    {originLocation ?
+                {patientsLocationData ?
+                    patientsLocationData.map((location, index) => (
                         <Marker
-                            position={
-                                typeof originLocation.lat === 'number' && typeof originLocation.lng === 'number'
-                                    ? originLocation
-                                    : null
-                            }
+                            key={index}
+                            position={location}
                             icon={{
-                                url: yellowMarker,
+                                url: redMarker,
                                 scaledSize: new window.google.maps.Size(32, 32),
                             }}
                         />
-                        : null
-                    }
+                    ))
+                    : null
+                }
 
-                    {patientsLocationData ?
-                        patientsLocationData.map((location, index) => (
-                            <Marker
-                                key={index}
-                                position={location}
-                                icon={{
-                                    url: redMarker,
-                                    scaledSize: new window.google.maps.Size(32, 32),
-                                }}
-                            />
-                        ))
-                        : null
-                    }
+                {directions && (
+                    <DirectionsRenderer
+                        directions={directions} // Display directions based on stored state
+                        options={{
+                            preserveViewport: true,
+                            suppressMarkers: true,
 
-                    {directions && (
-                        <DirectionsRenderer
-                            directions={directions} // Display directions based on stored state
-                            options={{
-                                preserveViewport: true,
-                                suppressMarkers: true,
-
-                            }}
-                        />
-                    )}
+                        }}
+                    />
+                )}
 
 
-                </GoogleMap>
-                <button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
-                <button className="btn-reset" onClick={resetCurrentLocation}>Reset</button>
+            </GoogleMap>
+            <button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
+            <button className="btn-reset" onClick={resetRouteocation}>Reset Map</button>
+            {/* <button className="btn-trackAndPause" onClick={handleTrackAndPauseClick}>
+                {trackingState === 'idle' && 'Track Mileage'}
+                {trackingState === 'tracking' && 'Pause Tracking'}
+                {trackingState === 'paused' && 'Resume Tracking'}
+            </button> */}
+            <button className="btn-trackAndPause" onClick={mileageTracker.startTracking}>Track Mileage</button>
+            <button className="btn-upload" onClick={mileageTracker.stopTracking}>Stop & Upload Mileage</button>
+
+        </div>
+
+        <form className="form-container">
+            <div className="patient-mainbox">
+                {patientData ? (
+                    patientData.map((patient, index) => (
+                        <div className="patient-box" key={index}>
+                            <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
+                            <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
+                            <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
+                            <br></br>
+                            <br></br>
+                            <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
+
+                        </div>
+                    ))
+                ) : (
+                    <p>No patient data available</p>
+                )}
             </div>
-
-            <form className="form-container">
-                <div className="patient-mainbox">
-                    {patientData ? (
-                        patientData.map((patient, index) => (
-                            <div className="patient-box" key={index}>
-                                <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
-                                <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
-                                <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
-                                <br></br>
-                                <br></br>
-                                <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No patient data available</p>
-                    )}
-                </div>
-            </form>
-        </>
+        </form>
+    </>
 
 
     ) : null;
