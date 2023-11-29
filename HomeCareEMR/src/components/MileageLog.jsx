@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 
+
 function DisplayMileageLog(){
     const [mileageLog, setMileageLog] = useState([]);
 
