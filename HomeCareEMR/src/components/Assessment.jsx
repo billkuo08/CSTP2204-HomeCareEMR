@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 
 
-export default function VitalSign(props) {
+export default function Assessment(props) {
     const id = props.id;
     console.log(id);
     const vitalSign = props.data;
@@ -13,11 +13,8 @@ export default function VitalSign(props) {
             <thead>
                 <tr>
                     <th>Time</th>
-                    <th>Blood Pressure</th>
-                    <th>Pulse</th>
-                    <th>SPO2</th>
+                    <th>Edema Assessment</th>
 
-                    <th>Glucose Level</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +23,7 @@ export default function VitalSign(props) {
                         return(
                             <tr>
                                 <td>{vitalSign?.createDateTime}</td>
-                                <td>{vitalSign?.childStateBloodPressure.sbp}/{vitalSign?.childStateBloodPressure.dbp}</td>
-                                <td>{vitalSign?.childStatePulse.pulse}</td>
-                                <td>{vitalSign?.childStateSpo.spo2}</td>
-
-                                <td>{vitalSign?.childStateBloodGlucose.bloodGlucoseLevel}/{vitalSign?.childStateBloodGlucose.fasting}</td>
+                                <td>{vitalSign?.childStateOtherTasks.edemaAssessResult? vitalSign?.childStateOtherTasks.edemaAssessResult:"N/A"}</td>
                             </tr>
                         )
 
