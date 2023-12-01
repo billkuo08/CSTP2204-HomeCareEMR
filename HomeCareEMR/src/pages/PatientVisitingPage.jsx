@@ -27,12 +27,13 @@ import {PatientsContext} from "../context/PatientsContext";
 import { Typography, Box } from "@mui/material";
 import BloodGlucose from "../components/BloodGlucose";
 import InsulinInjection from "../components/InsulinInjection";
+import OtherTasks from "../components/OtherTasks.jsx";
 
 export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
     const {id} = useParams();
     const navigate = useNavigate();
-    console.log(patients[3]?.permission["Blood Pressure"]);
+    console.log(patients[0]?.tasks);
     const today = new Date();
     const day = today.getDay();
     const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -44,12 +45,14 @@ export default function PatientVisitingPage() {
     const ChildStateRefSpo = useRef();
     const ChildStateRefBloodGlucose = useRef();
     const ChildStateRefInsulinInjection = useRef();
+    const ChildStateRefOtherTasks = useRef();
     let childStateBloodPressure= "";
     let childStatePulse= "";
     let childStateSpo= "";
     let childStateBloodGlucose= "";
     let childStateInsulinInjection= "";
     let childStateAnticoagulantInjection= "";
+    let childStateOtherTasks= "";
     const handleClick = async (e) => {
         patients.map((patient) => {
             if(patient.id === id){
@@ -84,6 +87,10 @@ export default function PatientVisitingPage() {
                         childStateAnticoagulantInjection = ChildStateRefAnticoagulantInjection.current.getChildState();
                     }
                 })
+                console.log(patient?.tasks);
+                if(patient?.tasks){
+                    childStateOtherTasks = ChildStateRefOtherTasks.current.getChildState();
+                }
             }
         }
         )
@@ -96,6 +103,7 @@ export default function PatientVisitingPage() {
             childStateBloodGlucose,
             childStateAnticoagulantInjection,
             childStateInsulinInjection,
+            childStateOtherTasks,
             createDateTime: new Date().toISOString(),
         }
         try {
@@ -186,6 +194,13 @@ export default function PatientVisitingPage() {
                                 patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key ? <AnticoagulantInjection id={id} ref={ChildStateRefAnticoagulantInjection}  />: ""
                             )
                         }
+                     
+                        {
+                            patient?.tasks? <OtherTasks id={id} ref={ChildStateRefOtherTasks}/>: console.log("No")
+                        }
+
+                           <br></br>
+
                     </>
                     
                     

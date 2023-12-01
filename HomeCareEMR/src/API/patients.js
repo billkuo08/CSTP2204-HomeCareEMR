@@ -17,13 +17,6 @@ export const addPatient = async (patient) => {
   try {
     const docRef = await addDoc(collection(db, "patients"), patient);
     console.log("Document written with ID: ", docRef.id);
-    return {
-      success: true,
-      message: "Patient added successfully",
-      data: {
-        id: docRef.id,
-      },
-    };
     
   } catch (e) {
     console.error("Error adding document: ", e);

@@ -28,7 +28,7 @@ const AnticoagulantInjection = forwardRef(({id}, _ref) => {
   return (
     patients.map((patient) => {
       if(patient.id === id){
-        return(
+        return( 
           <>
           <br></br>
             <Box className="insu-box">

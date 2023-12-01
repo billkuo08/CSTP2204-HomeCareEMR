@@ -5,6 +5,7 @@ import { Typography, Container, Tab, Box} from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import VitalSign from "../components/VitalSign";
 import Medication from "../components/Medication";
+import Assessment from "../components/Assessment";
 
 export default function HistoryOfVisiting() {
     const {id} = useParams();
@@ -39,10 +40,12 @@ export default function HistoryOfVisiting() {
                 <TabList onChange={handleChange} aria-label="lab API tabs example">
                     <Tab label="Vital Sign" value="1" />
                     <Tab label="Medication" value="2" />
+                    <Tab label="Assessment" value="3" />
                 </TabList>
                 </Box>
                 <TabPanel value="1"><VitalSign data={dailyTasks} id={id}/></TabPanel>
                 <TabPanel value="2"><Medication data={dailyTasks} id={id}/></TabPanel>
+                <TabPanel value="3"><Assessment data={dailyTasks} id={id}/></TabPanel>
             </TabContext>
             </Box>
         </div>

@@ -454,8 +454,8 @@ export default function CreatePatient() {
                             <FormControlLabel className="whitefam"
                                 control={
                                     <Checkbox className="whitefam"
-                                        value='medicationAdministration'
-                                        checked={tasks.includes('medicationAdministration')}
+                                        value='Medication Administration'
+                                        checked={tasks.includes('Medication Administration')}
                                         onChange={handleDayChange}
                                     />
                                 }
@@ -464,8 +464,8 @@ export default function CreatePatient() {
                             <FormControlLabel className="whitefam"
                                 control={
                                     <Checkbox className="whitefam"
-                                        value='edmaAssessment'
-                                        checked={tasks.includes('edmaAssessment')}
+                                        value='Edma Assessment'
+                                        checked={tasks.includes('Edma Assessment')}
                                         onChange={handleDayChange}
                                     />
                                 }
@@ -474,8 +474,8 @@ export default function CreatePatient() {
                             <FormControlLabel className="whitefam"
                                 control={
                                     <Checkbox
-                                        value='additionalInstruction'
-                                        checked={tasks.includes('additionalInstruction')}
+                                        value='Additional Instruction'
+                                        checked={tasks.includes('Additional Instruction')}
                                         onChange={handleDayChange}
                                     />
                                 }
