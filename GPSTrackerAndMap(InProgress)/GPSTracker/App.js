@@ -12,7 +12,6 @@ import { getFirestore, collection, doc, getDoc, addDoc } from 'firebase/firestor
 
 export default function App() {
 
-
   const firebaseConfig = {
     apiKey: "AIzaSyDS9nLcJyoLcNH_4BpuV1nK0v3lqdwN_os",
     authDomain: "cstp2107-wecare.firebaseapp.com",
@@ -21,6 +20,7 @@ export default function App() {
     storageBucket: "cstp2107-wecare.appspot.com",
     messagingSenderId: "779900322667",
     appId: "1:779900322667:web:6002731a751e9017ba022e"
+    
   };
 
   initializeApp(firebaseConfig);

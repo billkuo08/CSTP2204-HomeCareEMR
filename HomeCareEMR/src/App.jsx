@@ -24,7 +24,7 @@ import HistoryOfVisiting from './pages/HistoryOfVisiting'
 
 function App() {
   const [patients, setPatients] = useState([]);
-    console.log(patients);
+    // console.log(patients);
       const getAllPatientData = async () => {
         const patientsData = await getAllPatients();
         setPatients(patientsData);  

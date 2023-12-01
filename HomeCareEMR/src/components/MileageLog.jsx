@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import '../CSS/PatientTableComponent.css';
+import '../CSS/CreatePatient.css';
+
 
 
 function DisplayMileageLog(){
@@ -17,8 +20,10 @@ function DisplayMileageLog(){
 
     return (
         <div>
-            <h1>Mileage Log</h1>
-            <table>
+            <h1 className="h5">Mileage Log</h1>
+            <br></br>
+            <br></br>
+            <table className="fl-table">
                 <thead>
                     <tr>
                         <th>First Name</th>

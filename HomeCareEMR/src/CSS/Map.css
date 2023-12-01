@@ -25,10 +25,21 @@
     margin-left: 8%;
 }
 
+.btn-upload{
+    margin-left: 8%;
+}
+
+.btn-trackAndPause{
+    margin-left: 8%;
+}
+
+
+
 .btn-direction {
     margin-top: 10px;
     /* Add spacing between button and other content */
 }
+
 
 .btn-current {
     margin-top: 10px;
@@ -99,6 +110,7 @@ button:active {
 .form-container {
     background-color: rgba(255, 255, 255, 0.691) !important;
     border-radius: 5% 5% 100% 100% / 60%;
+    margin-top: 0px;
 }
 
 .patient-mainbox {
@@ -116,4 +128,5 @@ button:active {
 .btn-locate {
     margin-top: 10px; /* Add spacing between button and other content */
 }
+
 

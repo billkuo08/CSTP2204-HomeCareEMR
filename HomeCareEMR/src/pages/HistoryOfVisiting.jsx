@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllDailyTasks } from "../API/patients"
+import '../CSS/PatientTableComponent.css';
+import '../CSS/CreatePatient.css';
 import {useParams} from "react-router-dom";
 import { Typography, Container, Tab, Box} from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
@@ -27,15 +29,17 @@ export default function HistoryOfVisiting() {
     }, []);
 
   return (
+    
     <Container className="flex justify-center items-center form-container" sx={{ width: '100%' }}>
+                <h1 className="h5">
+                    History of Visiting
+                </h1>
+                <br></br>
         <div className="form-wrapper">
             <div className="form-column">
-                <Typography variant="h5" className="h5">
-                    History of Visiting
-                </Typography>
             </div>
             <Box sx={{ width: '100%', typography: 'body1' }}>
-            <TabContext value={value}>
+            <TabContext value={value} >
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange} aria-label="lab API tabs example">
                     <Tab label="Vital Sign" value="1" />
