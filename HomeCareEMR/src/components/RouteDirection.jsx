@@ -16,6 +16,7 @@ import FollowTheSignsTwoToneIcon from '@mui/icons-material/FollowTheSignsTwoTone
 import BadgeTwoToneIcon from '@mui/icons-material/BadgeTwoTone';
 import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 
+
 const navigateToHomepage = () => {
     window.location.href = '/';
 };
@@ -31,7 +32,7 @@ function RouteDirection() {
     const firestoredb = getFirestore();
     const userInfoFromLoacl = localStorage.getItem('user');
     const userInfo = JSON.parse(userInfoFromLoacl);
-    const userId = userInfo.userId;
+    const userId = userInfo.id;
 
 
     const { isLoaded, google } = useJsApiLoader({
@@ -42,63 +43,34 @@ function RouteDirection() {
     const [currentLocation, setCurrentLocation] = useState([]);
     const [directions, setDirections] = useState(null); // Store directions in state
     const [patientData, setPatientData] = useState();
-    const [patientsLocationData, setPatientLocation] = useState([]);
+    // const [patientsLocationData, setPatientLocation] = useState([]);
     const [originLocation, setOriginLocation] = useState();
     const [trackingState, setTrackingState] = useState('idle');//Track the track, pause, stop state for mileage tracking
     const [totalDistanceForUpload, setTotalDistanceForUpload] = useState(0); // Store total distance traveled in state
+    const [selectedRoute, setSelectedRoute] = useState('routeA');
+    const patientsLocationCollectionRef = collection(firestoredb, 'patients');
+    const nursesCollection = collection(firestoredb, 'nurses');
+    const nurseDocRef = doc(nursesCollection, userId);
 
-
-    // const fetchRealTimeLocationdata = async () => {
-    //     // Get the user's current location
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(
-    //             (position) => {
-    //                 console.log("Got user's current location:", position);
-    //                 const userLocation = {
-    //                     lat: position.coords.latitude,
-    //                     lng: position.coords.longitude,
-    //                 };
-    //                 setCurrentLocation(userLocation);
-    //             },
-    //             (error) => {
-    //                 console.error("Error getting user's location:", error);
-    //             }
-    //         );
-    //     }
-    //     //clean up the unique watchID to prevent memory leaks
-    //     return () => {
-    //         navigator.geolocation.clearWatch(watchId);
-    //     };
-
-    // };
 
     const fetchPatientsData = async () => {
 
         //Fetch "patients' location" data
-        const patientsLocationCollectionRef = collection(firestoredb, 'patients');
         const patientsLocationCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
-        // const patientsLocation = patientsLocationCollectionSnapshot.docs.map((doc) => doc.data());
-        const patientsData = patientsLocationCollectionSnapshot.docs.map((doc) => ({
-            id: doc.id,
+        const allPatientsData = patientsLocationCollectionSnapshot.docs.map((doc) => ({
+            // id: doc.id,
             ...doc.data(),
         }));
-        const latlngPatientLocationData = patientsData.filter((data) => data.lat !== undefined && data.lng !== undefined).map((data) => ({
-            id: data.id,
-            lat: Number(data.lat),
-            lng: Number(data.lng)
-        }));
 
-        setPatientLocation(latlngPatientLocationData);
-        setPatientData(patientsData);
-        console.log(patientsData);
+        setPatientData(allPatientsData);
+        console.log(allPatientsData);
 
     };
 
 
     useEffect(() => {
-        // fetchRealTimeLocationdata();
         fetchPatientsData();
-        
+
         const watchId = navigator.geolocation.watchPosition(
             (position) => {
                 const userLocation = {
@@ -111,13 +83,13 @@ function RouteDirection() {
                 console.error("Error getting user's location:", error);
             }
         );
-    
+
         // Clean up the watchId on component unmount
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
     }, []); // Empty dependency array to run it only once when the component mounts
-    
+
 
     const directionsCallback = (response) => {
         if (response !== null) {
@@ -136,13 +108,13 @@ function RouteDirection() {
         event.preventDefault();
 
         const directionButtonId = event.target.id;
-        const patientWithSameId = patientsLocationData.find(patient => patient.id === directionButtonId);
+        const patientWithSameId = patientData.find(patient => patient.id === directionButtonId);
 
         if (patientWithSameId) {
             // Update the destination in the DirectionsService to the patient's location
             const updatedDestination = {
-                lat: patientWithSameId.lat,
-                lng: patientWithSameId.lng,
+                lat: Number(patientWithSameId.lat),
+                lng: Number(patientWithSameId.lng),
             };
 
             // Create a new DirectionsService request with the updated destination
@@ -179,13 +151,13 @@ function RouteDirection() {
         setDirections(null);
 
         const originButtonId = event.target.id;
-        const patientWithSameIdOrigin = patientsLocationData.find(patient => patient.id === originButtonId);
+        const patientWithSameIdOrigin = patientData.find(patient => patient.id === originButtonId);
         console.log("button id: " + originButtonId);
 
         if (patientWithSameIdOrigin) {
             const updatedOrigin = {
-                lat: patientWithSameIdOrigin.lat,
-                lng: patientWithSameIdOrigin.lng,
+                lat: Number(patientWithSameIdOrigin.lat),
+                lng: Number(patientWithSameIdOrigin.lng),
             };
 
             setOriginLocation(updatedOrigin);
@@ -241,8 +213,6 @@ function RouteDirection() {
 
         const stopTracking = async () => {
             //Fetch Nurse's data for mileage log
-            const nursesCollection = collection(firestoredb, 'nurses');
-            const nurseDocRef = doc(nursesCollection, userId);
             const nurseDocSnap = await getDoc(nurseDocRef);
 
             // Upload the total distance to the database
@@ -254,7 +224,7 @@ function RouteDirection() {
                 const firstName = data.firstName;
                 const lastName = data.lastName;
                 const mileageCollectionRef = collection(firestoredb, 'mileage');
-              
+
 
                 const mileageData = {
                     Date: formattedDate,
@@ -304,6 +274,8 @@ function RouteDirection() {
 
     const mileageTracker = trackMileage();
 
+
+    //For pause and resume tracking
     const handleTrackAndPauseClick = () => {
         switch (trackingState) {
             case 'idle':
@@ -323,13 +295,35 @@ function RouteDirection() {
         }
     };
 
+    const handleRouteChange = async (event) => {
+        const selectedRoute = event.target.value;
+
+        setDirections(null); // Remove DirectionsService
+        setOriginLocation(null); // Set originLocation to null
+        setSelectedRoute(selectedRoute);
+
+    };
+
+
+
 
 
 
     return isLoaded ? (<>
 
 
-        <div className="h5"> <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5></div>
+        <div className="h5">
+            <h5><em> <ShareLocationTwoToneIcon> </ShareLocationTwoToneIcon> Routes Direction <FollowTheSignsTwoToneIcon> </FollowTheSignsTwoToneIcon></em></h5>
+            <div className="dropdown-list">
+                <label htmlFor="dropdownOptions" style={{ fontSize: '14px' }}>Select a route: </label>
+                <select id="dropdownOptions" onChange={handleRouteChange} value={selectedRoute}>
+                    <option value="routeA">Route A</option>
+                    <option value="routeB">Route B</option>
+                    <option value="routeC">Route C</option>
+                </select>
+            </div>
+        </div>
+
         <div className="map-container">
             <GoogleMap
                 center={center}
@@ -370,16 +364,19 @@ function RouteDirection() {
                     : null
                 }
 
-                {patientsLocationData ?
-                    patientsLocationData.map((location, index) => (
-                        <Marker
-                            key={index}
-                            position={location}
-                            icon={{
-                                url: redMarker,
-                                scaledSize: new window.google.maps.Size(32, 32),
-                            }}
-                        />
+                {patientData ?
+                    patientData.map((location, index) => (
+                        location.route === selectedRoute ? (
+                            <Marker
+                                key={index}
+                                position={{ lat: Number(location.lat), lng: Number(location.lng) }}
+                                icon={{
+                                    url: redMarker,
+                                    scaledSize: new window.google.maps.Size(32, 32),
+                                }}
+                            />
+                        ) : null
+
                     ))
                     : null
                 }
@@ -413,19 +410,21 @@ function RouteDirection() {
             <div className="patient-mainbox">
                 {patientData ? (
                     patientData.map((patient, index) => (
-                        <div className="patient-box" key={index}>
-                            <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
-                            <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
-                            <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
-                            <br></br>
-                            <br></br>
-                            <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
+                        patient.route === selectedRoute ? (
+                            <div className="patient-box" key={index}>
+                                <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
+                                <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
+                                <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
+                                <br></br>
+                                <br></br>
+                                <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
 
-                        </div>
+                            </div>
+                        ) : null
                     ))
-                ) : (
-                    <p>No patient data available</p>
-                )}
+                ) : null
+
+                }
             </div>
         </form>
     </>
