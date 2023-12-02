@@ -26,7 +26,7 @@ export default function CreateUserPage() {
     const onSubmit = async(values) => {
     try {
         const response = await createUser(values);
-        console.log(response.data.id);
+        console.log(response.data);
         if(response.success){
             localStorage.setItem(
             "user",
@@ -35,14 +35,14 @@ export default function CreateUserPage() {
             password: "",
             })
         );
+        alert("User created successfully");
         }
-        //alert("User created successfully");
-        // if(response.sucess){
-        //     message.success(response.message);
-        // }else{
-        //     message.error(response.message);
-        // }
-        navigate("/createnurse");
+
+        if(response.data.role === 'nurse'){
+            navigate("/createnurse");
+        }else{
+            navigate("/login");
+        }
     } catch (error) {
         console.log(error);
         // message.error(error.message);

@@ -1,3 +1,4 @@
+
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import '../CSS/HomePage.css';
@@ -18,15 +19,31 @@ import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidT
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import GpsFixedTwoToneIcon from '@mui/icons-material/GpsFixedTwoTone';
 import CameraAltTwoToneIcon from '@mui/icons-material/CameraAltTwoTone';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { TreeItem, TreeView } from '@mui/x-tree-view';
+import Box from '@mui/material/Box';
+import PatientListPage from './PatientListPage';
+import PatientTableComponent from '../components/PatientTableComponent';
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
+const ShowComponent = (props) => {
+  console.log(props);
+  const {childre, activeTree, selectedTree} = props;
+  console.log(activeTree);
+  return (
+  <div hidden={activeTree !== selectedTree}>
+    {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
+  </div>
+  );
+}
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
-
+  const [activeTree, setActiveTree] = useState();
+   console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -91,8 +108,17 @@ export default function HomePage() {
       ]
     }]
   };
-  
+  const handleSelect = (event, selectedTree) => {
+    setActiveTree(selectedTree);
+  };
 
+  const handleLogOut = () => {
+    localStorage.clear();
+    window.location.reload();
+    navigator("/login");
+  }
+
+ 
   return (
     
     <div className="body">
@@ -102,11 +128,32 @@ export default function HomePage() {
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+
+          <br></br>
+          <br></br>
           
+          <Box sx={{ minHeight: 180, flexGrow: 1, maxWidth: 300 }}>
+      <TreeView
+        aria-label="file system navigator"
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+        onNodeSelect={handleSelect}
+      >
+        <TreeItem nodeId="1" label="Manage User">
+          <TreeItem nodeId="Slider One" label="Create User" />
+          <TreeItem nodeId="Slider Two" label="User List" />
+          <TreeItem nodeId="Slider Three" label="Nurse List" />
+        </TreeItem>
+        <TreeItem nodeId="5" label="Manage Patients">
+          <TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
+          <TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
+        </TreeItem>
+        <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+      </TreeView>
+    </Box>
 
           <ul>
-          <br></br>
-          <br></br>
+
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
@@ -232,6 +279,7 @@ export default function HomePage() {
 
           <br></br>
           <div>
+            <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent>
             {/* lets not use for now */}
             {/* <CanvasJSChart options={options} />
             <CanvasJSChart options={options2} /> */}
@@ -242,7 +290,7 @@ export default function HomePage() {
       <br></br>
       <br></br>
       <br></br>
-
+      
       
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
