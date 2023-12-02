@@ -21,14 +21,16 @@ import TestAPIFunction from './__tests__/TestAPIFunction'
 import TestCreateOrderFunction from './__tests__/TestCreateOrderFunction'
 import TestAPIFunctionJericho from './__tests__/TestAPIFunctionJericho'
 import HistoryOfVisiting from './pages/HistoryOfVisiting'
+import SuppliesOrderList from './pages/SuppliesOrderList'
 
 function App() {
   const [patients, setPatients] = useState([]);
-    // console.log(patients);
-      const getAllPatientData = async () => {
-        const patientsData = await getAllPatients();
-        setPatients(patientsData);  
-    }
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    console.log(userInfo);
+    const getAllPatientData = async () => {
+      const patientsData = await getAllPatients();
+      setPatients(patientsData);  
+  }
 
   useEffect(() => {
     getAllPatientData();
@@ -44,7 +46,9 @@ function App() {
       <PatientsContext.Provider 
       value={patients}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+
+          <Route path="/" 
+          element={userInfo? <HomePage />:<LoginPage />} />
           <Route path="/patients" element={<PatientListPage />} />
           <Route path="/visiting/:id" element={<PatientVisitingPage />} />
           <Route path="/edit/:id" element={<EditPatientPage />} />
@@ -64,6 +68,7 @@ function App() {
           <Route path="/billtest" element={<TestCreateOrderFunction />} />
           <Route path="/jerichotest" element={<TestAPIFunctionJericho />} />
           <Route path="/history/:id" element={<HistoryOfVisiting />} />
+          <Route path="/supplies" element={<SuppliesOrderList />} />
 
 
         </Routes>
