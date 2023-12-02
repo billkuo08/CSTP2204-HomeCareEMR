@@ -55,6 +55,7 @@ export default function TestAPIFunctionJericho() {
     }
   };
 
+  // make sure to screw this one up to fail the test
   const displayRNNurses = async () => {
     try {
       const rnNurses = await getRNNurses();
