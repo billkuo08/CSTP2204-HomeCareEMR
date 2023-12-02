@@ -1,5 +1,3 @@
-// TestAPIFunctionJericho.js
-
 import React, { useEffect } from 'react';
 import { addNurse, deleteNurse, getAllNurses, getLPNNurses, getRNNurses } from '../API/users';
 
@@ -14,33 +12,58 @@ export default function TestAPIFunctionJericho() {
       position: "test",
       userId: "test"
     };
-    const response = await addNurse(nurseload);
-    console.log(response);
+
+    try {
+      const response = await addNurse(nurseload);
+      console.log(response);
+      alert("Nurse creation succeeded!");
+    } catch (error) {
+      console.error("Error creating nurse:", error);
+      alert("Nurse creation failed!");
+    }
   };
 
   const testDeletion = async (userId) => {
     try {
       await deleteNurse(userId);
       console.log(`Nurse with userId ${userId} deleted successfully`);
+      alert("Nurse deletion succeeded!");
     } catch (error) {
       console.error("Error deleting nurse:", error);
+      alert("Nurse deletion failed!");
     }
   };
 
+  // Call the getAllNurses function wherever you need it
+  const displayAllNurses = async () => {
+    try {
+      await getAllNurses();
+      alert("Displaying all nurses succeeded!");
+    } catch (error) {
+      console.error("Error displaying all nurses:", error);
+      alert("Displaying all nurses failed!");
+    }
+  };
 
-// Call the getAllNurses function wherever you need it
-const displayAllNurses = async () => {
-  await getAllNurses();
-};
+  const displayLPNNurses = async () => {
+    try {
+      await getLPNNurses();
+      alert("Displaying LPN nurses succeeded!");
+    } catch (error) {
+      console.error("Error displaying LPN nurses:", error);
+      alert("Displaying LPN nurses failed!");
+    }
+  };
 
-const displayLPNNurses = async () => {
-  await getLPNNurses();
-};
-
-const displayRNNurses = async () => {
-  await getRNNurses();
-};
-
+  const displayRNNurses = async () => {
+    try {
+      await getRNNurses();
+      alert("Displaying RN nurses succeeded!");
+    } catch (error) {
+      console.error("Error displaying RN nurses:", error);
+      alert("Displaying RN nurses failed!");
+    }
+  };
 
   useEffect(() => {
     testCreation();
