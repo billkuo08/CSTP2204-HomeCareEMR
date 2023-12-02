@@ -31,6 +31,7 @@
     "firebase-admin": "^11.11.0",
     "i": "^0.3.7",
     "install": "^0.13.0",
+    "mui-image": "^1.0.7",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
