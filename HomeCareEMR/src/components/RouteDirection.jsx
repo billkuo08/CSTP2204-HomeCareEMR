@@ -58,7 +58,7 @@ function RouteDirection() {
         //Fetch "patients' location" data
         const patientsLocationCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
         const allPatientsData = patientsLocationCollectionSnapshot.docs.map((doc) => ({
-            // id: doc.id,
+            id: doc.id,
             ...doc.data(),
         }));
 

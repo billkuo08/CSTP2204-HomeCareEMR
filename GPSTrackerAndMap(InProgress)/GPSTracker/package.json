@@ -18,7 +18,13 @@
     "react-native-safe-area-context": "^4.7.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^12.4.0",
+    "babel-jest": "^29.7.0"
+  
   },
   "private": true
 }
