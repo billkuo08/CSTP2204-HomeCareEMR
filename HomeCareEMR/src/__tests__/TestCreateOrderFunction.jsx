@@ -18,7 +18,7 @@ export default function TestCreateOrderFunction() {
         supplyName: "Bill Kuo's supply",
     };
 
-    const createAndGetOrderTest = async () => {
+    const createAndGetOrder_whenOrderexist_shouldReturnOrder = async () => {
         try {
             await createOrder(newOrder);
             const response1 = await getOrder(newOrder.id)
@@ -29,7 +29,7 @@ export default function TestCreateOrderFunction() {
         }
     }
 
-    const getAllOrdersTest = async () => {
+    const getAllOrders_whenAtleastOneOrder_shouldReturnAllOrders = async () => {
         try {
             const response2 = await getAllOrders();
             if (response2 && response2.length > 0)
@@ -39,7 +39,7 @@ export default function TestCreateOrderFunction() {
         }
     }
 
-    const editOrderTest = async () => {
+    const editTheOrder_whenOrderexists_shouldReturnEditedOrder = async () => {
         try {
             const response3 = await editOrder(newOrder.id, updateOrder);
             if (response3 && response3.id === newOrder.id)
@@ -49,10 +49,10 @@ export default function TestCreateOrderFunction() {
         }
     }
 
-    const deleteOrderTest = async () => {
+    const deleteTheOrder_whenOrderexists_shouldReturndeletedOrder = async () => {
         try {
             const response4 = await deleteOrder(newOrder.id);
-            if (response4 && reponse4.id === newOrder.id)
+            if (response4 && response4.id === newOrder.id)
                 return response4;
         } catch (error) {
             console.log(error);
@@ -62,10 +62,10 @@ export default function TestCreateOrderFunction() {
 
     return (
         <><div> Bill's create/edit/delete/getall's OrderTest</div>
-            <button onClick={createAndGetOrderTest}>Test Create & Get Order APIs</button>
-            <button onClick={getAllOrdersTest}>Test Get All Orders APIs</button>
-            <button onClick={editOrderTest}>Test Edit Order APIs</button>
-            <button onClick={deleteOrderTest}>Test delete Order APIs</button>
+            <button onClick={createAndGetOrder_whenOrderexist_shouldReturnOrder}>Test Create & Get Order APIs</button>
+            <button onClick={getAllOrders_whenAtleastOneOrder_shouldReturnAllOrders}>Test Get All Orders APIs</button>
+            <button onClick={editTheOrder_whenOrderexists_shouldReturnEditedOrder}>Test Edit All Orders APIs</button>
+            <button onClick={deleteTheOrder_whenOrderexists_shouldReturndeletedOrder}>Test delete Order APIs</button>
 
         </>
 
