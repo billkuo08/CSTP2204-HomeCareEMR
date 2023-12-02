@@ -3,23 +3,22 @@ import { addNurse, deleteNurse, getAllNurses, getLPNNurses, getRNNurses } from '
 
 export default function TestAPIFunctionJericho() {
   const testCreation = async () => {
-    const nurseload = {
-      address: "test",
-      firstName: "test",
-      gender: "admin",
-      lastName: "test",
-      phone: "test",
-      position: "test",
-      userId: "test"
-    };
-
     try {
+      const nurseload = {
+        address: "test",
+        firstName: "test",
+        gender: "admin",
+        lastName: "test",
+        phone: "test",
+        position: "test",
+        userId: "test"
+      };
       const response = await addNurse(nurseload);
       console.log(response);
-      alert("Nurse creation succeeded!");
+      return { success: true, message: "Nurse created successfully" };
     } catch (error) {
       console.error("Error creating nurse:", error);
-      alert("Nurse creation failed!");
+      return { success: false, message: "Error creating nurse" };
     }
   };
 
@@ -27,64 +26,69 @@ export default function TestAPIFunctionJericho() {
     try {
       await deleteNurse(userId);
       console.log(`Nurse with userId ${userId} deleted successfully`);
-      alert("Nurse deletion succeeded!");
+      return { success: true, message: `Nurse with userId ${userId} deleted successfully` };
     } catch (error) {
       console.error("Error deleting nurse:", error);
-      alert("Nurse deletion failed!");
+      return { success: false, message: "Error deleting nurse" };
     }
   };
 
-  // Call the getAllNurses function wherever you need it
   const displayAllNurses = async () => {
     try {
-      await getAllNurses();
-      alert("Displaying all nurses succeeded!");
+      const nurses = await getAllNurses();
+      console.log("All nurses:", nurses);
+      return { success: true, message: "All nurses retrieved successfully" };
     } catch (error) {
-      console.error("Error displaying all nurses:", error);
-      alert("Displaying all nurses failed!");
+      console.error("Error retrieving all nurses:", error);
+      return { success: false, message: "Error retrieving all nurses" };
     }
   };
 
   const displayLPNNurses = async () => {
     try {
-      await getLPNNurses();
-      alert("Displaying LPN nurses succeeded!");
+      const lpnNurses = await getLPNNurses();
+      console.log("LPN nurses:", lpnNurses);
+      return { success: true, message: "LPN nurses retrieved successfully" };
     } catch (error) {
-      console.error("Error displaying LPN nurses:", error);
-      alert("Displaying LPN nurses failed!");
+      console.error("Error retrieving LPN nurses:", error);
+      return { success: false, message: "Error retrieving LPN nurses" };
     }
   };
 
   const displayRNNurses = async () => {
     try {
-      await getRNNurses();
-      alert("Displaying RN nurses succeeded!");
+      const rnNurses = await getRNNurses();
+      console.log("RN nurses:", rnNurses);
+      return { success: true, message: "RN nurses retrieved successfully" };
     } catch (error) {
-      console.error("Error displaying RN nurses:", error);
-      alert("Displaying RN nurses failed!");
+      console.error("Error retrieving RN nurses:", error);
+      return { success: false, message: "Error retrieving RN nurses" };
     }
   };
 
   useEffect(() => {
-    testCreation();
-    // Assuming you want to delete the nurse after a delay (for testing purposes)
-    const deleteTimeout = setTimeout(() => {
-      testDeletion("test"); // Pass the actual userId you want to delete
-    }, 5000); // 5 seconds delay
+    const runTests = async () => {
+      const tests = [
+        testCreation,
+        () => testDeletion("test"), // Wrap deletion in a function to ensure it's a function call
+        displayAllNurses,
+        displayLPNNurses,
+        displayRNNurses,
+      ];
 
-    return () => clearTimeout(deleteTimeout); // Cleanup timeout on component unmount
-  }, []);
+      for (const test of tests) {
+        const result = await test();
 
-  useEffect(() => {
-    displayAllNurses();
-  }, []);
+        if (!result.success) {
+          alert(`Test failed: ${result.message}`);
+          return; // Stop further tests on the first failure
+        }
+      }
 
-  useEffect(() => {
-    displayLPNNurses();
-  }, []);
+      alert("All tests succeeded!");
+    };
 
-  useEffect(() => {
-    displayRNNurses();
+    runTests();
   }, []);
 
   return <div>TestAPIFunctionJericho</div>;
