@@ -140,7 +140,7 @@ export default function HomePage() {
         onNodeSelect={handleSelect}
       >
         <TreeItem nodeId="1" label="Manage User">
-          <TreeItem nodeId="Slider One" label="Create User" />
+          <TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
           <TreeItem nodeId="Slider Two" label="User List" />
           <TreeItem nodeId="Slider Three" label="Nurse List" />
         </TreeItem>
