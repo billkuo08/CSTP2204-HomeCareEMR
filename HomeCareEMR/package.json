@@ -21,6 +21,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.2",
     "@mui/x-charts": "^6.0.0-alpha.15",
     "@mui/x-date-pickers": "^6.16.1",
+    "@mui/x-tree-view": "^6.17.0",
     "@nrwl/react": "^17.1.2",
     "@react-google-maps/api": "^2.19.2",
     "chart.js": "^4.4.0",
