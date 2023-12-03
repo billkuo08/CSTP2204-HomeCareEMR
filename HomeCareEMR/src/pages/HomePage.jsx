@@ -132,7 +132,10 @@ export default function HomePage() {
           <br></br>
           <br></br>
           
-          <Box sx={{ minHeight: 180, flexGrow: 1, maxWidth: 300 }}>
+          
+
+          <ul>
+
       <TreeView
         aria-label="file system navigator"
         defaultCollapseIcon={<ExpandMoreIcon />}
@@ -140,19 +143,25 @@ export default function HomePage() {
         onNodeSelect={handleSelect}
       >
         <TreeItem nodeId="1" label="Manage User">
+        <br></br>
           <TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
+
           <TreeItem nodeId="Slider Two" label="User List" />
+
           <TreeItem nodeId="Slider Three" label="Nurse List" />
+          <br></br>
         </TreeItem>
+        <br></br>
         <TreeItem nodeId="5" label="Manage Patients">
+
           <TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
+
           <TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
         </TreeItem>
+        <br></br>
         <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
       </TreeView>
-    </Box>
-
-          <ul>
+      <br></br>
 
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
@@ -218,7 +227,7 @@ export default function HomePage() {
     </div>
 </div>
 
-{/* <div className="flip-card">
+<div className="flip-card">
     <div className="flip-card-inner">
         <div className="flip-card-front">
             <p className="title">Home Care Nursing</p>
@@ -229,7 +238,7 @@ export default function HomePage() {
             <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
         </div>
     </div>
-</div>  */}
+</div> 
 
 <div className="flip-card">
     <div className="flip-card-inner">
