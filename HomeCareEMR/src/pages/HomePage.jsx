@@ -1,6 +1,11 @@
 
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+} from "@react-google-maps/api";
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -34,24 +39,29 @@ import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 
+import { mapAPIKey } from "../config/config"
+import car from '../images/car.png';
+
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const ShowComponent = (props) => {
   console.log(props);
-  const {childre, activeTree, selectedTree} = props;
+  const { childre, activeTree, selectedTree } = props;
   console.log(activeTree);
   return (
-  <div hidden={activeTree !== selectedTree}>
-    {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
-  </div>
+    <div hidden={activeTree !== selectedTree}>
+      {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
+    </div>
   );
 }
 export default function HomePage() {
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-   console.log(activeTree);
+  const [currentLocation, setCurrentLocation] = useState([]);
+
+  // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -89,7 +99,7 @@ export default function HomePage() {
       ]
     }]
   };
-  
+
   const options2 = {
     exportEnabled: true,
     animationEnabled: true,
@@ -126,78 +136,106 @@ export default function HomePage() {
     navigator("/login");
   }
 
- 
-  return (
-    
+
+
+  const { isLoaded, google } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: mapAPIKey,
+  });
+
+
+
+
+  useEffect(() => {
+
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setCurrentLocation(userLocation);
+      },
+      (error) => {
+        console.error("Error getting user's location:", error);
+      }
+    );
+
+    // Clean up the watchId on component unmount
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, []);
+
+  console.log("currentLocation", currentLocation);
+
+
+
+  return isLoaded ? ( <>
+
     <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
         <ViewSidebarTwoToneIcon />
       </button>
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
-          <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+          <h3><NavigationTwoToneIcon /> <PinchTwoToneIcon /></h3>
 
           <br></br>
           <br></br>
           <ul>
-          <li>
-      <TreeView
-        aria-label="file system navigator"
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        onNodeSelect={handleSelect}
-      >
-        <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User"> 
-        <br></br>
-          <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
-          <br></br>
-          <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="Slider Two" label="User List" />
-          <br></br>
-          <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Slider Three" label="Nurse List" />
-          <br></br>
-        </TreeItem>
-        <br></br>
+            <li>
+              <TreeView
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+                onNodeSelect={handleSelect}
+              >
+                <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
+                  <br></br>
+                  <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Slider One" label="Create User" onClick={() => window.location.pathname = '/createuser'} />
+                  <br></br>
+                  <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="Slider Two" label="User List" />
+                  <br></br>
+                  <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Slider Three" label="Nurse List" />
+                  <br></br>
+                </TreeItem>
+                <br></br>
 
-        <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
-        <br></br>
-          <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
-          <br></br>
-          <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
-        </TreeItem>
-        <br></br>
-        <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
-      </TreeView>
-      <br></br>
-      </li>
+                <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
+                  <br></br>
+                  <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="10" label="Create Patient" onClick={() => window.location.pathname = '/createpatient'} />
+                  <br></br>
+                  <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="6" label="Patients List" onClick={() => window.location.pathname = '/patients'} />
+                </TreeItem>
+                <br></br>
+                <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+              </TreeView>
+              <br></br>
+            </li>
             <li>
-              <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
+              <a href="/admin"><PasswordTwoToneIcon /> Admin Login</a>
             </li>
             <br></br>
             <br></br>
             <li>
-              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
+              <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
+            </li>
+            <br></br>
+            <br></br>       
+            <li>
+              <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
+            </li>
+            <br></br>
+            <br></br>
+            <li>
+              <a href="/direction"><GpsFixedTwoToneIcon /> Routes Direction</a>
             </li>
             <br></br>
 
             <br></br>
             <li>
-              <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/mileagelog"><DoNotStepTwoToneIcon/> Mileage Log</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
-            </li>
-            <br></br>
- 
-            <br></br>
-            <li>
-              <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
+              <a href="/order"><VaccinesTwoToneIcon /> Order Medication & Supplies</a>
             </li>
           </ul>
         </div>
@@ -207,86 +245,119 @@ export default function HomePage() {
             <h1><em>Welcome to HomeCare EMR</em></h1>
             <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
           </div>
-          <div className="grid-container">
 
-{/* ////////////////////////// FLIP CARDS ////////////////////////// */}
+          {/* <div className="grid-container">
+
             <div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Willpower.</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-        <p className="title"><InfoTwoToneIcon/></p>
-            <p>Willpower, strength and determination, it will take you places.</p>
-            <br></br>
-              - Julianna Pena
-        </div>
-    </div>
-</div>
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <p className="title">Willpower.</p>
+                  <p><FlipCameraAndroidTwoToneIcon /></p>
+                </div>
+                <div className="flip-card-back">
+                  <p className="title"><InfoTwoToneIcon /></p>
+                  <p>Willpower, strength and determination, it will take you places.</p>
+                  <br></br>
+                  - Julianna Pena
+                </div>
+              </div>
+            </div>
 
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Home Care Nursing</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-        <p className="title"><InfoTwoToneIcon/></p>
-            <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
-        </div>
-    </div>
-</div> 
+            <div className="flip-card">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <p className="title">Home Care Nursing</p>
+                  <p><FlipCameraAndroidTwoToneIcon /></p>
+                </div>
+                <div className="flip-card-back">
+                  <p className="title"><InfoTwoToneIcon /></p>
+                  <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
+                </div>
+              </div>
+            </div>
 
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Teamwork !</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
-            <br></br>
-              - Mattie Stepanek</p>
-        </div>
-    </div>
-</div>
-
-
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Care <br></br> & <br></br>Kindness.</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> <br></br> - Jackie Chan
-</p>
-        </div>
-    </div>
-</div>
+            <div className="flip-card">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <p className="title">Teamwork !</p>
+                  <p><FlipCameraAndroidTwoToneIcon /></p>
+                </div>
+                <div className="flip-card-back">
+                  <p className="title"><InfoTwoToneIcon /></p>
+                  <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
+                    <br></br>
+                    - Mattie Stepanek</p>
+                </div>
+              </div>
+            </div>
 
 
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Pay Attention !</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
-        </div>
-    </div>
-</div>
+            <div className="flip-card">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <p className="title">Care <br></br> & <br></br>Kindness.</p>
+                  <p><FlipCameraAndroidTwoToneIcon /></p>
+                </div>
+                <div className="flip-card-back">
+                  <p className="title"><InfoTwoToneIcon /></p>
+                  <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> <br></br> - Jackie Chan
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="flip-card">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <p className="title">Pay Attention !</p>
+                  <p><FlipCameraAndroidTwoToneIcon /></p>
+                </div>
+                <div className="flip-card-back">
+                  <p className="title"><InfoTwoToneIcon /></p>
+                  <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
+                </div>
+              </div>
+            </div>
+
+          </div> */}
+
+          <br></br>
+
+          <div className="map-container-homepage">
+            <GoogleMap
+              center={{
+                lat: 49.33473336980647,
+                lng: -123.15846009191421,
+              }}
+              zoom={11}
+              mapContainerStyle={{
+                width: "100%",
+                height: "65vh",
+              }}
+              options={{
+                zoomControl: true,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+              }}
+            >            
+              
+              <Marker
+                position={
+                  typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
+                    ? currentLocation
+                    : null // Set a default position or null if currentLocation is invalid
+                }
+                icon={car}
+              />
+
+            </GoogleMap>
 
           </div>
 
-          <br></br>
           <div>
-            <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent>
+            {/* <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent> */}
             {/* lets not use for now */}
             {/* <CanvasJSChart options={options} />
             <CanvasJSChart options={options2} /> */}
@@ -297,16 +368,17 @@ export default function HomePage() {
       <br></br>
       <br></br>
       <br></br>
-      
-      
+
+
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
-        <div  className="CameraAltTwoToneIcon">
+        <div className="CameraAltTwoToneIcon">
           <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank">
             <CameraAltTwoToneIcon />
           </a>
         </div>
       </footer>
     </div>
-  );
+  </>
+  ) : null;
 }
