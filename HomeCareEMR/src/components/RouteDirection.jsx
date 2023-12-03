@@ -78,6 +78,7 @@ function RouteDirection() {
                     lng: position.coords.longitude,
                 };
                 setCurrentLocation(userLocation);
+                console.log(currentLocation)
             },
             (error) => {
                 console.error("Error getting user's location:", error);

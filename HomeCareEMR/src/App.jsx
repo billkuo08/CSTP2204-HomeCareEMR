@@ -46,7 +46,6 @@ function App() {
       <PatientsContext.Provider 
       value={patients}>
         <Routes>
-
           <Route path="/" 
           element={userInfo? <HomePage />:<LoginPage />} />
           <Route path="/patients" element={<PatientListPage />} />
@@ -69,8 +68,6 @@ function App() {
           <Route path="/jerichotest" element={<TestAPIFunctionJericho />} />
           <Route path="/history/:id" element={<HistoryOfVisiting />} />
           <Route path="/supplies" element={<SuppliesOrderList />} />
-
-
         </Routes>
       </PatientsContext.Provider>
       
