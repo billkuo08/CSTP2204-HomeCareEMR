@@ -373,7 +373,7 @@ export default function HomePage() {
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
         <div className="CameraAltTwoToneIcon">
-          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank">
+          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank" rel="noreferrer">
             <CameraAltTwoToneIcon />
           </a>
         </div>
