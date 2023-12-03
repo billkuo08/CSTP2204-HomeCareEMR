@@ -78,7 +78,6 @@ function RouteDirection() {
                     lng: position.coords.longitude,
                 };
                 setCurrentLocation(userLocation);
-                console.log(currentLocation)
             },
             (error) => {
                 console.error("Error getting user's location:", error);
@@ -307,9 +306,6 @@ function RouteDirection() {
 
 
 
-
-
-
     return isLoaded ? (<>
 
 
@@ -407,7 +403,7 @@ function RouteDirection() {
 
         </div>
 
-        <form className="form-container">
+        <form className="mapform-container">
             <div className="patient-mainbox">
                 {patientData ? (
                     patientData.map((patient, index) => (

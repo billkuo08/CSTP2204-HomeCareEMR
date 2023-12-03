@@ -249,3 +249,11 @@
 .CameraAltTwoToneIcon {
   color: #FFF;
 }
+
+.map-container-homepage {
+  border: 3px solid #3a3b41;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+}

@@ -1,6 +1,11 @@
 
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+} from "@react-google-maps/api";
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -25,15 +30,17 @@ import { TreeItem, TreeView } from '@mui/x-tree-view';
 import Box from '@mui/material/Box';
 import PatientListPage from './PatientListPage';
 import PatientTableComponent from '../components/PatientTableComponent';
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-} from "@react-google-maps/api";
-import { getDatabase, ref, onValue, set } from "firebase/database";
-import { dbMap, mapAPIKey } from "../config/config"
+import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
+import ManageHistoryTwoToneIcon from '@mui/icons-material/ManageHistoryTwoTone';
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
+import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
+import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
+
+import { mapAPIKey } from "../config/config"
 import car from '../images/car.png';
-import "../CSS/Map.css"
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -52,7 +59,9 @@ export default function HomePage() {
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-  console.log(activeTree);
+  const [currentLocation, setCurrentLocation] = useState([]);
+
+  // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -127,19 +136,13 @@ export default function HomePage() {
     navigator("/login");
   }
 
-  const center = {
-    lat: 49.33473336980647,
-    lng: -123.15846009191421,
-  };
 
-  const dbMap = getDatabase();
 
   const { isLoaded, google } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapAPIKey,
   });
 
-  const [currentLocation, setCurrentLocation] = useState([]);
 
 
 
@@ -152,7 +155,6 @@ export default function HomePage() {
           lng: position.coords.longitude,
         };
         setCurrentLocation(userLocation);
-        console.log(currentLocation)
       },
       (error) => {
         console.error("Error getting user's location:", error);
@@ -165,9 +167,11 @@ export default function HomePage() {
     };
   }, []);
 
+  console.log("currentLocation", currentLocation);
 
 
-  return isLoaded ? (
+
+  return isLoaded ? ( <>
 
     <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
@@ -179,38 +183,36 @@ export default function HomePage() {
 
           <br></br>
           <br></br>
-
-
-
           <ul>
-
-            <TreeView
-              aria-label="file system navigator"
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              onNodeSelect={handleSelect}
-            >
-              <TreeItem nodeId="1" label="Manage User">
+            <li>
+              <TreeView
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+                onNodeSelect={handleSelect}
+              >
+                <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
+                  <br></br>
+                  <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Slider One" label="Create User" onClick={() => window.location.pathname = '/createuser'} />
+                  <br></br>
+                  <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="Slider Two" label="User List" />
+                  <br></br>
+                  <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Slider Three" label="Nurse List" />
+                  <br></br>
+                </TreeItem>
                 <br></br>
-                <TreeItem nodeId="Slider One" label="Create User" onClick={() => window.location.pathname = '/createuser'} />
 
-                <TreeItem nodeId="Slider Two" label="User List" />
-
-                <TreeItem nodeId="Slider Three" label="Nurse List" />
+                <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
+                  <br></br>
+                  <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="10" label="Create Patient" onClick={() => window.location.pathname = '/createpatient'} />
+                  <br></br>
+                  <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="6" label="Patients List" onClick={() => window.location.pathname = '/patients'} />
+                </TreeItem>
                 <br></br>
-              </TreeItem>
+                <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+              </TreeView>
               <br></br>
-              <TreeItem nodeId="5" label="Manage Patients">
-
-                <TreeItem nodeId="10" label="Create Patient" onClick={() => window.location.pathname = '/createpatient'} />
-
-                <TreeItem nodeId="6" label="Patients List" onClick={() => window.location.pathname = '/patients'} />
-              </TreeItem>
-              <br></br>
-              <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
-            </TreeView>
-            <br></br>
-
+            </li>
             <li>
               <a href="/admin"><PasswordTwoToneIcon /> Admin Login</a>
             </li>
@@ -220,17 +222,7 @@ export default function HomePage() {
               <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
             </li>
             <br></br>
-            <br></br>
-            <li>
-              <a href="/charts"><InsertChartTwoToneIcon /> Health Charts</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/tracker"><PersonPinCircleTwoToneIcon /> Location Tracker</a>
-            </li>
-            <br></br>
-            <br></br>
+            <br></br>       
             <li>
               <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
             </li>
@@ -240,11 +232,7 @@ export default function HomePage() {
               <a href="/direction"><GpsFixedTwoToneIcon /> Routes Direction</a>
             </li>
             <br></br>
-            <br></br>
-            <li>
-              <a href="/database"><FolderSharedTwoToneIcon /> Patient Database</a>
-            </li>
-            <br></br>
+
             <br></br>
             <li>
               <a href="/order"><VaccinesTwoToneIcon /> Order Medication & Supplies</a>
@@ -335,9 +323,13 @@ export default function HomePage() {
           </div> */}
 
           <br></br>
-          <div className="map-container">
+
+          <div className="map-container-homepage">
             <GoogleMap
-              center={center}
+              center={{
+                lat: 49.33473336980647,
+                lng: -123.15846009191421,
+              }}
               zoom={11}
               mapContainerStyle={{
                 width: "100%",
@@ -349,8 +341,8 @@ export default function HomePage() {
                 mapTypeControl: false,
                 fullscreenControl: false,
               }}
-            >
-
+            >            
+              
               <Marker
                 position={
                   typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
@@ -361,6 +353,7 @@ export default function HomePage() {
               />
 
             </GoogleMap>
+
           </div>
 
           <div>
@@ -386,5 +379,6 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
+  </>
   ) : null;
 }
