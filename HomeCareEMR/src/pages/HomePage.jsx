@@ -25,6 +25,14 @@ import { TreeItem, TreeView } from '@mui/x-tree-view';
 import Box from '@mui/material/Box';
 import PatientListPage from './PatientListPage';
 import PatientTableComponent from '../components/PatientTableComponent';
+import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
+import ManageHistoryTwoToneIcon from '@mui/icons-material/ManageHistoryTwoTone';
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
+import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
+import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -131,38 +139,36 @@ export default function HomePage() {
 
           <br></br>
           <br></br>
-          
-          
-
           <ul>
-
+          <li>
       <TreeView
         aria-label="file system navigator"
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
         onNodeSelect={handleSelect}
       >
-        <TreeItem nodeId="1" label="Manage User">
+        <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User"> 
         <br></br>
-          <TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
-
-          <TreeItem nodeId="Slider Two" label="User List" />
-
-          <TreeItem nodeId="Slider Three" label="Nurse List" />
+          <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
+          <br></br>
+          <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="Slider Two" label="User List" />
+          <br></br>
+          <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Slider Three" label="Nurse List" />
           <br></br>
         </TreeItem>
         <br></br>
-        <TreeItem nodeId="5" label="Manage Patients">
 
-          <TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
-
-          <TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
+        <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
+        <br></br>
+          <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
+          <br></br>
+          <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
         </TreeItem>
         <br></br>
-        <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+        <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
       </TreeView>
       <br></br>
-
+      </li>
             <li>
               <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
             </li>
@@ -172,11 +178,7 @@ export default function HomePage() {
               <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
             </li>
             <br></br>
-            <br></br>
-            <li>
-              <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
-            </li>
-            <br></br>
+
             <br></br>
             <li>
               <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
@@ -192,11 +194,7 @@ export default function HomePage() {
               <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
             </li>
             <br></br>
-            <br></br>
-            <li>
-              <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
-            </li>
-            <br></br>
+ 
             <br></br>
             <li>
               <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
