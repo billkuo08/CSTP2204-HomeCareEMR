@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 /* Navigation styles */
 .nav {
   position: fixed;
@@ -256,4 +257,11 @@
   overflow: hidden;
   margin-bottom: 20px;
 
+}
+
+.treeviews{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;	
+	font-family: Raleway, sans-serif;
 }
