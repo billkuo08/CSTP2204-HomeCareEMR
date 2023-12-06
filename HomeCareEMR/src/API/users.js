@@ -12,24 +12,26 @@ import {
 import CryptoJS from "crypto-js";
 import { db } from "../config/config";
 
-
 export const createUser= async (payload) => {
-    console.log(payload);
     try{
+        let i=0;
         const qry = query(
             collection(db, "users"),
             where("username", "==", payload.username)
         );
         const userSnapshots = await getDocs(qry);
+        console.log(i++)
         if(userSnapshots.size > 0){
             throw new Error("User already exists");
         }
+
+        
 
         // hash password
         const hashedPassword = CryptoJS.AES.encrypt(
             payload.password,
             "secret key 123"
-        ).toString();
+          ).toString();
         payload.password = hashedPassword;
         const docRef = await addDoc(collection(db, "users"), payload);
         console.log("Document written with ID: ", docRef.id);
@@ -40,7 +42,6 @@ export const createUser= async (payload) => {
         );
         const userSnapshots1 = await getDocs(qryUser);
         const user = userSnapshots1.docs[0].data();
-        console.log(user);
         return {
         success: true,
         message: "User logged in successfully",
@@ -56,7 +57,6 @@ export const createUser= async (payload) => {
 }
 
 export const addNurse = async (payload) => {
-    console.log(payload);
     try{
         await setDoc(doc(db, "nurses", payload.userId), payload);
 
@@ -85,7 +85,6 @@ export const loginUser = async (payload) => {
     user.id = userSnapshots.docs[0].id;
     const bytes = CryptoJS.AES.decrypt(user.password, "secret key 123");
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
-    console.log(originalPassword);
 
     if(originalPassword === payload.password){
         return {

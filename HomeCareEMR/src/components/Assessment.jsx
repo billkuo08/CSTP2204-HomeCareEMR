@@ -14,6 +14,7 @@ export default function Assessment(props) {
                 <tr>
                     <th>Time</th>
                     <th>Edema Assessment</th>
+                    <th>Nurse</th>
 
                 </tr>
             </thead>
@@ -24,6 +25,7 @@ export default function Assessment(props) {
                             <tr>
                                 <td>{vitalSign?.createDateTime}</td>
                                 <td>{vitalSign?.childStateOtherTasks.edemaAssessResult? vitalSign?.childStateOtherTasks.edemaAssessResult:"N/A"}</td>
+                                <td>{vitalSign?.user}</td>
                             </tr>
                         )
 

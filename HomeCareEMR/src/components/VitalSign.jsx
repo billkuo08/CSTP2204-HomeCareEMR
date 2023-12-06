@@ -15,9 +15,9 @@ export default function VitalSign(props) {
                     <th>Time</th>
                     <th>Blood Pressure</th>
                     <th>Pulse</th>
-                    <th>SPO2</th>
-
+                    <th>SPO2</th>              
                     <th>Glucose Level</th>
+                    <th>Nurse</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +29,8 @@ export default function VitalSign(props) {
                                 <td>{vitalSign?.childStateBloodPressure.sbp}/{vitalSign?.childStateBloodPressure.dbp}</td>
                                 <td>{vitalSign?.childStatePulse.pulse}</td>
                                 <td>{vitalSign?.childStateSpo.spo2}</td>
-
                                 <td>{vitalSign?.childStateBloodGlucose.bloodGlucoseLevel}/{vitalSign?.childStateBloodGlucose.fasting}</td>
+                                <td>{vitalSign?.user}</td>
                             </tr>
                         )
 

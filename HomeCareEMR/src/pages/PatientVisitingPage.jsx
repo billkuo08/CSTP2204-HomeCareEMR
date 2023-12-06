@@ -33,11 +33,10 @@ export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
     const {id} = useParams();
     const navigate = useNavigate();
-    console.log(patients[0]?.tasks);
     const today = new Date();
     const day = today.getDay();
     const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    console.log(dayNames[day]);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const ChildStateRefAnticoagulantInjection = useRef();
     const ChildStateRefBloodPressure = useRef();
@@ -96,6 +95,7 @@ export default function PatientVisitingPage() {
         )
 
         const data = {
+            user:user.username,
             patientId: id,
             childStateBloodPressure,
             childStatePulse,
