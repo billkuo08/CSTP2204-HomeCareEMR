@@ -26,7 +26,6 @@ import SuppliesOrderList from './pages/SuppliesOrderList'
 function App() {
   const [patients, setPatients] = useState([]);
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfo);
     const getAllPatientData = async () => {
       const patientsData = await getAllPatients();
       setPatients(patientsData);  

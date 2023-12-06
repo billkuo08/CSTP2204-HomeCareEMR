@@ -15,6 +15,7 @@ export default function Medication(props) {
                     <th>Meds Witnessed</th>
                     <th>Insuline</th>
                     <th>Anticoagulant</th>
+                    <th>Nurse</th>
 
                 </tr>
             </thead>
@@ -30,6 +31,7 @@ export default function Medication(props) {
                                 <td>{task?.childStateOtherTasks.reason?  "Refused / " + task?.childStateOtherTasks.reason:"" }{task?.childStateOtherTasks.took? "Yes":""} {!task?.childStateOtherTasks.took && !task?.childStateOtherTasks.reason?  "N/A":""}</td>
                                 <td>{task?.childStateInsulinInjection? "Yes":"N/A"}/{task?.childStateInsulinInjection.injectjionSite}</td>
                                 <td>{task?.childStateAnticoagulantInjection? "Yes":"N/A"}/{task?.childStateAnticoagulantInjection.injectjionSite}</td>
+                                <td>{task?.user}</td>
                             </tr>
                         )
 
