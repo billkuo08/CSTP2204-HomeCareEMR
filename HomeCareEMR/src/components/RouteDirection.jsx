@@ -53,6 +53,7 @@ function RouteDirection() {
     const nurseDocRef = doc(nursesCollection, userId);
 
 
+
     const fetchPatientsData = async () => {
 
         //Fetch "patients' location" data
@@ -163,6 +164,18 @@ function RouteDirection() {
             setOriginLocation(updatedOrigin);
         };
     }
+
+    const visitPatientPage = async (event) => {
+        event.preventDefault();
+        const selectedPatientId = event.currentTarget.getAttribute('patient-id');
+
+        if (selectedPatientId) {
+            window.location.href = `/visiting/${selectedPatientId}`;
+        } else {
+            console.error('No patient ID found for the selected button.');
+        }
+    };
+
 
     const resetRouteocation = () => {
         event.preventDefault();
@@ -306,6 +319,7 @@ function RouteDirection() {
 
 
 
+
     return isLoaded ? (<>
 
 
@@ -411,10 +425,11 @@ function RouteDirection() {
                             <div className="patient-box" key={index}>
                                 <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
                                 <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
-                                <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
-                                <br></br>
-                                <br></br>
-                                <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
+                                <button className="btn-forPatient" id={patient.id} onClick={changeOrigin}>Set Current</button>
+                                <button className="btn-forPatient" id={patient.id} onClick={changeDestination}>Direction</button>
+                                <button patient-id={patient.id} onClick={visitPatientPage}>Visit</button>
+
+
 
                             </div>
                         ) : null
