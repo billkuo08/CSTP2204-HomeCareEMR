@@ -5,9 +5,11 @@ import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonAddDisabledTwoToneIcon from '@mui/icons-material/PersonAddDisabledTwoTone';
 import { editOrder } from "../API/orders";
 import { useState } from 'react';
+
 export default function OrderList(props) {
     const orderData = props.data;
     const [orders, setOrders] = useState(orderData);
+    
     const handleStatusChange = async(orderId, order) => {
         order.status = !order.status;
         const updateData = await editOrder(orderId, order);

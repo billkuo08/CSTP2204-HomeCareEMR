@@ -61,6 +61,7 @@ export default function HomePage() {
   const [activeTree, setActiveTree] = useState();
   const [currentLocation, setCurrentLocation] = useState([]);
 
+
   // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -138,7 +139,7 @@ export default function HomePage() {
 
 
 
-  const { isLoaded, google } = useJsApiLoader({
+  const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapAPIKey,
   });
@@ -167,11 +168,8 @@ export default function HomePage() {
     };
   }, []);
 
-  console.log("currentLocation", currentLocation);
 
-
-
-  return isLoaded ? ( <>
+  return (<>
 
     <div className="body">
       <button className="toggle-button" onClick={toggleSidebar}>
@@ -222,7 +220,7 @@ export default function HomePage() {
               <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
             </li>
             <br></br>
-            <br></br>       
+            <br></br>
             <li>
               <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
             </li>
@@ -324,37 +322,40 @@ export default function HomePage() {
 
           <br></br>
 
-          <div className="map-container-homepage">
-            <GoogleMap
-              center={{
-                lat: 49.33473336980647,
-                lng: -123.15846009191421,
-              }}
-              zoom={11}
-              mapContainerStyle={{
-                width: "100%",
-                height: "65vh",
-              }}
-              options={{
-                zoomControl: true,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-              }}
-            >            
-              
-              <Marker
-                position={
-                  typeof currentLocation.lat === 'number' && typeof currentLocation.lng === 'number'
-                    ? currentLocation
-                    : null // Set a default position or null if currentLocation is invalid
-                }
-                icon={car}
-              />
+          {isLoaded ? (
 
-            </GoogleMap>
+            <div className="map-container-homepage">
 
-          </div>
+              <GoogleMap
+                center={{
+                  lat: 49.33473336980647,
+                  lng: -123.15846009191421,
+                }}
+                zoom={11}
+                mapContainerStyle={{
+                  width: "100%",
+                  height: "65vh",
+                }}
+                options={{
+                  zoomControl: true,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+                }}
+              >
+                {currentLocation && (
+                  <Marker
+                    position={currentLocation}
+                    icon={car}
+                  />
+                )}
+
+              </GoogleMap>
+
+            </div>
+          ) : (
+            <div>Loading Google Maps...</div>
+          )}
 
           <div>
             {/* <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent> */}
@@ -380,5 +381,5 @@ export default function HomePage() {
       </footer>
     </div>
   </>
-  ) : null;
+  )
 }

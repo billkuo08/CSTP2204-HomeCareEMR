@@ -27,6 +27,7 @@ export const getOrder = async (orderId) => {
     const querySnapshot = await getDocs(ordersCollection);
     const orderDoc = querySnapshot.docs.find(doc => doc.data().id === orderId);
 
+
     if (orderDoc) {
       const orderData = orderDoc.data();
       console.log('Get Order:', orderData)
@@ -68,10 +69,7 @@ export const editOrder = async (orderId, updatedPayload) => {
       console.error("Error updating order:", error);
 
     }
-  } catch (error) {
-    console.error("Error updating order:", error);
-  }
-};
+  } 
 
 
 export const getAllOrders = async () => {
