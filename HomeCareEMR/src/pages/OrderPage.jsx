@@ -11,6 +11,8 @@ import { createOrder } from "../API/orders";
 export default function OrderPage() {
   const patients = useContext(PatientsContext);
   const {id} = useParams();
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user.username);
   const navigate = useNavigate();
   const {
     register,
@@ -24,7 +26,8 @@ export default function OrderPage() {
     try {
       const payload = {
         ...value,
-        id,
+        user: user.username,
+        patientId: id,
         status: false,
         patientName: `${patient.firstName} ${patient.lastName}`,
         createDateTime: new Date().toISOString(),

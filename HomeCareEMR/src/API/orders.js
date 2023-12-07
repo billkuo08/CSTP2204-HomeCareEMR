@@ -27,6 +27,7 @@ export const getOrder = async (orderId) => {
     const querySnapshot = await getDocs(ordersCollection);
     const orderDoc = querySnapshot.docs.find(doc => doc.data().id === orderId);
 
+
     if (orderDoc) {
       const orderData = orderDoc.data();
       console.log('Get Order:', orderData)
@@ -41,22 +42,34 @@ export const getOrder = async (orderId) => {
 
 
 export const editOrder = async (orderId, updatedPayload) => {
-  try {
-    const ordersCollection = collection(db, 'orders');
-    const querySnapshot = await getDocs(ordersCollection);
-    const orderDoc = querySnapshot.docs.find(doc => doc.data().id === orderId);
 
-    if (orderDoc) {
-      await updateDoc(orderDoc.ref, updatedPayload);
-      const orderData = orderDoc.data();
-      console.log(`Order with orderId ${orderId} updated successfully`, orderData);
-    } else {
-      console.error(`Order with orderId ${orderId} not found`);
+    try {
+      const ordersCollection = collection(db, 'orders');
+      const querySnapshot = await getDocs(ordersCollection);
+      console.log(querySnapshot.docs[0].id);
+      const orderDoc = querySnapshot.docs.find(doc => doc.id === orderId);
+  
+      if (orderDoc) {
+        await updateDoc(orderDoc.ref, updatedPayload);
+        const updata = await getDocs(ordersCollection);
+        const orderData = updata.docs.map((doc) => {
+            return{
+            ...doc.data(),
+            };
+        });
+        
+        console.log('Edit Order:', orderData)
+        
+        console.log(`Order with orderId ${orderId} updated successfully`);
+        return orderData;
+      } else {
+        console.error(`Order with orderId ${orderId} not found`);
+      }
+    } catch (error) {
+      console.error("Error updating order:", error);
+
     }
-  } catch (error) {
-    console.error("Error updating order:", error);
-  }
-};
+  } 
 
 
 export const getAllOrders = async () => {

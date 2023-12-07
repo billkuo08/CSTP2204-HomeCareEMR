@@ -1,21 +1,26 @@
 import { createUser, getUserById, deleteUser } from '../API/users';
 import { addPatient, getPatientById, deletePatient, getDailyTask, addDailyTask, deleteDailyTask } from '../API/patients';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 
 export default function TestAPIFunction() {
-    const testCreationUser = async() =>{
+    const testCreationUser =  async() =>{
         const payload = {
             username: "test57",
             password: "test",
             role: "admin",
         };
         const response = await createUser(payload);
-        console.log(response.data.userId);
+        console.log(response);
         const id=response.data.userId;
+        console.log(id)
         const user = await getUserById(id);
-        console.log(user);
+        if(response.success){
+            console.log("createUser sussesfully")
+        }else{
+            alert("createUser fail")
+        }
 
         await deleteUser(id);
 
@@ -54,7 +59,7 @@ export default function TestAPIFunction() {
     }
 
     useEffect(() => {
-        // testCreationUser();
+        testCreationUser();
         //testCreatePatient(); 
         //testDailyTask();
 });
