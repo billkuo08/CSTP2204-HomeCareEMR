@@ -55,7 +55,8 @@ export default function CreateUserPage() {
     console.log(watch("example")) // watch input value by passing the name of it
 
     return (
-    <Container className="flex justify-center items-cengter form-container" sx={{width:'50%'}}>
+        <div className="main-content">
+            <Container className="flex justify-center items-cengter form-container" sx={{width:'50%'}}>
         <Typography variant="h5" className="h5"> <em><b> <AdminPanelSettingsTwoToneIcon></AdminPanelSettingsTwoToneIcon> Create User <AccessibilityNewTwoToneIcon></AccessibilityNewTwoToneIcon></b></em></Typography>
         <form onSubmit={handleSubmit(onSubmit)} className=" p-2 ">
         {/* register your input into the hook by invoking the "register" function */}
@@ -105,6 +106,8 @@ export default function CreateUserPage() {
         <Button className="btn-homepage" type="submit"><DrawTwoToneIcon></DrawTwoToneIcon>Submit</Button>
         </form>
     </Container>
+        </div>
+    
 
     )
 

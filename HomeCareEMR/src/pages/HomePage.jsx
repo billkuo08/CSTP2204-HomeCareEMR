@@ -25,6 +25,10 @@ import { TreeItem, TreeView } from '@mui/x-tree-view';
 import Box from '@mui/material/Box';
 import PatientListPage from './PatientListPage';
 import PatientTableComponent from '../components/PatientTableComponent';
+import PatientVisitingPage from './PatientVisitingPage';
+import HomeComponent from '../components/HomeComponent';
+import CreateUserPage from './CreateUserPage';
+import CreatePatient from '../components/CreatePatient';
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -32,9 +36,8 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const ShowComponent = (props) => {
   console.log(props);
   const {childre, activeTree, selectedTree} = props;
-  console.log(activeTree);
   return (
-  <div hidden={activeTree !== selectedTree}>
+  <div hidden={activeTree !== selectedTree }>
     {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
   </div>
   );
@@ -122,9 +125,12 @@ export default function HomePage() {
   return (
     
     <div className="body">
-      <button className="toggle-button" onClick={toggleSidebar}>
-        <ViewSidebarTwoToneIcon />
-      </button>
+      <div className="main-content">
+        <button className="toggle-button" onClick={toggleSidebar}>
+          <ViewSidebarTwoToneIcon />
+        </button>
+      </div>
+
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
@@ -133,24 +139,25 @@ export default function HomePage() {
           <br></br>
           
           <Box sx={{ minHeight: 180, flexGrow: 1, maxWidth: 300 }}>
-      <TreeView
-        aria-label="file system navigator"
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        onNodeSelect={handleSelect}
-      >
-        <TreeItem nodeId="1" label="Manage User">
-          <TreeItem nodeId="Slider One" label="Create User" onClick={()=> window.location.pathname = '/createuser'} />
-          <TreeItem nodeId="Slider Two" label="User List" />
-          <TreeItem nodeId="Slider Three" label="Nurse List" />
-        </TreeItem>
-        <TreeItem nodeId="5" label="Manage Patients">
-          <TreeItem nodeId="10" label="Create Patient" onClick={()=> window.location.pathname = '/createpatient'}/>
-          <TreeItem nodeId="6" label="Patients List" onClick={()=> window.location.pathname = '/patients'}/>          
-        </TreeItem>
-        <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
-      </TreeView>
-    </Box>
+            <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              onNodeSelect={handleSelect}
+            >
+              <TreeItem nodeId="1" label="Manage User">
+                <TreeItem nodeId="Create User" label="Create User" />
+                <TreeItem nodeId="User List" label="User List" />
+                <TreeItem nodeId="Nurse List" label="Nurse List" />
+              </TreeItem>
+              <TreeItem nodeId="5" label="Manage Patients">
+                <TreeItem nodeId="Create Patient" label="Create Patient" />
+                <TreeItem nodeId="Patients List" label="Patients List" />          
+              </TreeItem>
+              <TreeItem nodeId="Home" label="Home" />
+              <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+            </TreeView>
+          </Box>
 
           <ul>
 
@@ -195,98 +202,17 @@ export default function HomePage() {
           </ul>
         </div>
 
-        <div className="main-content">
-          <div className="header">
-            <h1><em>Welcome to HomeCare EMR</em></h1>
-            <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
-          </div>
-          <div className="grid-container">
 
-{/* ////////////////////////// FLIP CARDS ////////////////////////// */}
-            <div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Willpower.</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-        <p className="title"><InfoTwoToneIcon/></p>
-            <p>Willpower, strength and determination, it will take you places.</p>
-            <br></br>
-              - Julianna Pena
-        </div>
-    </div>
-</div>
-
-{/* <div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Home Care Nursing</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-        <p className="title"><InfoTwoToneIcon/></p>
-            <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
-        </div>
-    </div>
-</div>  */}
-
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Teamwork !</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
-            <br></br>
-              - Mattie Stepanek</p>
-        </div>
-    </div>
-</div>
-
-
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Care <br></br> & <br></br>Kindness.</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> <br></br> - Jackie Chan
-</p>
-        </div>
-    </div>
-</div>
-
-
-<div className="flip-card">
-    <div className="flip-card-inner">
-        <div className="flip-card-front">
-            <p className="title">Pay Attention !</p>
-            <p><FlipCameraAndroidTwoToneIcon /></p>
-        </div>
-        <div className="flip-card-back">
-            <p className="title"><InfoTwoToneIcon/></p>
-            <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
-        </div>
-    </div>
-</div>
-
-          </div>
-
-          <br></br>
-          <div>
-            <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent>
-            {/* lets not use for now */}
-            {/* <CanvasJSChart options={options} />
-            <CanvasJSChart options={options2} /> */}
-          </div>
-        </div>
       </div>
-
+      {console.log(activeTree)}
+      {(()=>{
+        if(!activeTree || activeTree === "1" || activeTree === "5" || activeTree === "Home"){
+          return <HomeComponent/>
+        }
+      })()}
+      <ShowComponent childre={<CreateUserPage/>} activeTree={activeTree} selectedTree="Create User"/>  
+      <ShowComponent childre={<CreatePatient/>} activeTree={activeTree} selectedTree="Create Patient"/> 
+      <ShowComponent childre={<PatientListPage/>} activeTree={activeTree} selectedTree="Patients List"/>    
       <br></br>
       <br></br>
       <br></br>
