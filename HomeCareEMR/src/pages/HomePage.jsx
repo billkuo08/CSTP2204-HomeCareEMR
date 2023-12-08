@@ -41,8 +41,6 @@ import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { mapAPIKey } from "../config/config"
 import car from '../images/car.png';
-import { set } from 'firebase/database';
-
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;

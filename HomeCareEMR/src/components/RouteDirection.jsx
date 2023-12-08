@@ -255,9 +255,6 @@ function RouteDirection() {
     };
 
 
-
-
-
     const stopTracking = async () => {
 
         if (trackingState === 'idle') {
