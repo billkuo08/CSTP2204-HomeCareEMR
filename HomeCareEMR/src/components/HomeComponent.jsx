@@ -1,8 +1,9 @@
+import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
 import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
 import FlipCameraAndroidTwoToneIcon from '@mui/icons-material/FlipCameraAndroidTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   useJsApiLoader,
   GoogleMap,
@@ -13,10 +14,69 @@ import car from '../images/car.png';
 
 export default function HomeComponent() {
     const [currentLocation, setCurrentLocation] = useState([]);
-      const { isLoaded } = useJsApiLoader({
+    const currentYear = new Date().getFullYear();
+    const [hasSentToDb, setHasSentToDb] = useState(false);
+    const [userIsInDb, setUserIsInDb] = useState(false);
+    const firestoredb = getFirestore();
+    const userInfoFromLocal = localStorage.getItem('user');
+    const userInfo = JSON.parse(userInfoFromLocal);
+    const userId = userInfo.id;
+
+
+const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapAPIKey,
   });
+
+  //Sending location data to Firestore
+  const sendLocationToFirestore = () => {
+    console.log('sending initial location to firestore');
+    const initialLocation = collection(firestoredb, 'locations');
+
+    const locationData = {
+      id: userId,
+      lat: Number(currentLocation.lat),
+      lng: Number(currentLocation.lng),
+    };
+
+    addDoc(initialLocation, locationData)
+  };
+
+  useEffect(() => {
+
+    const watchId = navigator.geolocation.watchPosition(
+
+      (position) => {
+        const userLocation = {
+          lat: Number(position.coords.latitude),
+          lng: Number(position.coords.longitude),
+        };
+        setCurrentLocation(userLocation);
+      },
+      (error) => {
+        console.error("Error getting user's location:", error);
+      }
+    );  
+
+    if (currentLocation.lat && currentLocation.lng && !hasSentToDb) {
+      setHasSentToDb(true);
+      sendLocationToFirestore();
+    }
+
+    if(hasSentToDb && !userIsInDb) {
+      setUserIsInDb(true);
+      console.log("User is in DB:", userIsInDb);
+
+    }
+
+    // Clean up the watchId on component unmount
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, [hasSentToDb, userIsInDb]);
+
+
+
   return (
     <>
         <div className="main-content">

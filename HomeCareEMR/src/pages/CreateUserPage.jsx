@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 // import Select from "react-select"
 import { TextField, MenuItem, Stack, Typography, Container } from '@mui/material'
 import Button from '@mui/material/Button';
-import "../CSS/Map.css"
 import '../CSS/PatientTableComponent.css';
 import '../CSS/CreateUserPage.css';
 import { createUser } from "../API/users"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getFirestore, collection, getDocs, doc, getDoc, addDoc } from "firebase/firestore";
 import {
     useJsApiLoader,
@@ -30,9 +30,10 @@ const center = {
 function RouteDirection() {
 
     const firestoredb = getFirestore();
-    const userInfoFromLoacl = localStorage.getItem('user');
-    const userInfo = JSON.parse(userInfoFromLoacl);
+    const userInfoFromLocal = localStorage.getItem('user');
+    const userInfo = JSON.parse(userInfoFromLocal);
     const userId = userInfo.id;
+    const watchIdRef = useRef(null);
 
 
     const { isLoaded, google } = useJsApiLoader({
@@ -43,14 +44,15 @@ function RouteDirection() {
     const [currentLocation, setCurrentLocation] = useState([]);
     const [directions, setDirections] = useState(null); // Store directions in state
     const [patientData, setPatientData] = useState();
-    // const [patientsLocationData, setPatientLocation] = useState([]);
     const [originLocation, setOriginLocation] = useState();
     const [trackingState, setTrackingState] = useState('idle');//Track the track, pause, stop state for mileage tracking
     const [totalDistanceForUpload, setTotalDistanceForUpload] = useState(0); // Store total distance traveled in state
+    const [previousPosition, setPreviousPosition] = useState(null); // Store the previous position in state
     const [selectedRoute, setSelectedRoute] = useState('routeA');
     const patientsLocationCollectionRef = collection(firestoredb, 'patients');
     const nursesCollection = collection(firestoredb, 'nurses');
     const nurseDocRef = doc(nursesCollection, userId);
+
 
 
     const fetchPatientsData = async () => {
@@ -58,7 +60,7 @@ function RouteDirection() {
         //Fetch "patients' location" data
         const patientsLocationCollectionSnapshot = await getDocs(patientsLocationCollectionRef);
         const allPatientsData = patientsLocationCollectionSnapshot.docs.map((doc) => ({
-            // id: doc.id,
+            id: doc.id,
             ...doc.data(),
         }));
 
@@ -71,7 +73,7 @@ function RouteDirection() {
     useEffect(() => {
         fetchPatientsData();
 
-        const watchId = navigator.geolocation.watchPosition(
+        watchIdRef.current = navigator.geolocation.watchPosition(
             (position) => {
                 const userLocation = {
                     lat: position.coords.latitude,
@@ -79,14 +81,12 @@ function RouteDirection() {
                 };
                 setCurrentLocation(userLocation);
             },
-            (error) => {
-                console.error("Error getting user's location:", error);
-            }
+
         );
 
         // Clean up the watchId on component unmount
         return () => {
-            navigator.geolocation.clearWatch(watchId);
+            navigator.geolocation.clearWatch(watchIdRef.current);
         };
     }, []); // Empty dependency array to run it only once when the component mounts
 
@@ -164,6 +164,18 @@ function RouteDirection() {
         };
     }
 
+    const visitPatientPage = async (event) => {
+        event.preventDefault();
+        const selectedPatientId = event.currentTarget.getAttribute('patient-id');
+
+        if (selectedPatientId) {
+            window.location.href = `/visiting/${selectedPatientId}`;
+        } else {
+            console.error('No patient ID found for the selected button.');
+        }
+    };
+
+
     const resetRouteocation = () => {
         event.preventDefault();
 
@@ -172,128 +184,132 @@ function RouteDirection() {
 
     }
 
-    const trackMileage = () => {
-        let totalDistance = 0;
-        let previousPosition = null;
-        let watchId;
-
-        const startTracking = () => {
-            console.log('Start tracking');
-            watchId = navigator.geolocation.watchPosition(
-                (position) => {
-                    console.log('Got user\'s location:', position);
-                    const currentPosition = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-
-                    if (previousPosition) {
-                        // Calculate the distance between the current and previous positions
-                        console.log('currentPosition:', currentPosition);
-                        const distance = calculateDistance(previousPosition, currentPosition);
-                        totalDistance += distance;
-                        setTotalDistanceForUpload(totalDistance);
-                        console.log('totalDistance:', totalDistance);
-                    }
-
-                    // Update the previous position for the next calculation
-                    previousPosition = currentPosition;
-                },
-                (error) => {
-                    console.error('Error getting user\'s location:', error);
-                }
-            );
+    const watchPositionCallback = (position) => {
+        console.log('Got user\'s location:', position);
+        const currentPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
         };
 
-        const pauseTracking = () => {
-            console.log('Pause tracking');
-            // Pause the tracking by clearing the watch
-            navigator.geolocation.clearWatch(watchId);
-        };
+        if (previousPosition) {
+            // Calculate the distance between the current and previous positions
+            const distance = calculateDistance(previousPosition, currentPosition);
+            setTotalDistanceForUpload(prevDistance => prevDistance + distance);
+            console.log('totalDistance:', totalDistanceForUpload);
+        }
 
-        const stopTracking = async () => {
-            //Fetch Nurse's data for mileage log
-            const nurseDocSnap = await getDoc(nurseDocRef);
-
-            // Upload the total distance to the database
-            if (nurseDocSnap.exists()) {
-                console.log('Userdata:', nurseDocSnap.data());
-                const currentDate = new Date();
-                const formattedDate = currentDate.toISOString().slice(0, 16).replace('T', ' '); // Get the date in "year-month-day-hour-minute" format
-                const data = nurseDocSnap.data();
-                const firstName = data.firstName;
-                const lastName = data.lastName;
-                const mileageCollectionRef = collection(firestoredb, 'mileage');
-
-
-                const mileageData = {
-                    Date: formattedDate,
-                    DistanceTraveled: `${totalDistanceForUpload.toFixed(2)} km`,
-                    FirstName: firstName,
-                    LastName: lastName,
-                    NurseID: userId,
-                };
-                addDoc(mileageCollectionRef, mileageData);
-                console.log('mileage uploaded', mileageData)
-
-                // Stop the tracking and reset values
-                navigator.geolocation.clearWatch(watchId);
-                totalDistance = 0;
-                previousPosition = null;
-
-            } else {
-                console.log('No such document!');
-            }
-        };
-
-        // Example function to calculate distance between two points using Haversine formula
-        const calculateDistance = (point1, point2) => {
-            const R = 6371; // Earth's radius in kilometers
-            const dLat = toRadians(point2.lat - point1.lat);
-            const dLng = toRadians(point2.lng - point1.lng);
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(toRadians(point1.lat)) * Math.cos(toRadians(point2.lat)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const distance = R * c;
-
-            return distance;
-        };
-
-        const toRadians = (angle) => {
-            return (angle * Math.PI) / 180;
-        };
-
-        return {
-            startTracking,
-            pauseTracking,
-            stopTracking,
-            getTotalDistance: () => totalDistance,
-        };
+        // Update the previous position for the next calculation
+        setPreviousPosition(currentPosition);
     };
 
-    const mileageTracker = trackMileage();
+    useEffect(() => {
+        watchIdRef.current = navigator.geolocation.watchPosition(
+            watchPositionCallback,
+            (error) => {
+                console.error('Error getting user\'s location:', error);
+            }
+        );
+
+        // Clean up the watchId on component unmount
+        return () => {
+            navigator.geolocation.clearWatch(watchIdRef.current);
+        };
+    }, [previousPosition, totalDistanceForUpload]);
 
 
-    //For pause and resume tracking
-    const handleTrackAndPauseClick = () => {
-        switch (trackingState) {
-            case 'idle':
-                mileageTracker.startTracking();
-                setTrackingState('tracking');
-                break;
-            case 'tracking':
-                mileageTracker.pauseTracking();
-                setTrackingState('paused');
-                break;
-            case 'paused':
-                mileageTracker.startTracking();
-                setTrackingState('tracking');
-                break;
-            default:
-                break;
+    const startTracking = () => {
+        if (trackingState === 'tracking') {
+            alert('You are already tracking!');
+            return;
+        }
+
+        setTrackingState('tracking');
+        try {
+            console.log('Start tracking');
+            // Watch is set up in useEffect
+        } catch (error) {
+            console.error('Error getting user\'s location:', error);
         }
     };
+
+
+
+
+
+    // Example function to calculate distance between two points using Haversine formula
+    const calculateDistance = (point1, point2) => {
+        const R = 6371; // Earth's radius in kilometers
+        const dLat = toRadians(point2.lat - point1.lat);
+        const dLng = toRadians(point2.lng - point1.lng);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRadians(point1.lat)) * Math.cos(toRadians(point2.lat)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+
+        return distance;
+    };
+
+    const toRadians = (angle) => {
+        return (angle * Math.PI) / 180;
+    };
+
+
+
+
+
+    const stopTracking = async () => {
+
+        if (trackingState === 'idle') {
+            alert('Please start tracking first!');
+            return;
+        }
+        //Fetch Nurse's data for mileage log
+        const nurseDocSnap = await getDoc(nurseDocRef);
+
+        // Upload the total distance to the database
+        if (nurseDocSnap.exists()) {
+            console.log('Userdata:', nurseDocSnap.data());
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().slice(0, 16).replace('T', ' '); // Get the date in "year-month-day-hour-minute" format
+            const data = nurseDocSnap.data();
+            const firstName = data.firstName;
+            const lastName = data.lastName;
+            const mileageCollectionRef = collection(firestoredb, 'mileage');
+
+            // Use doc() to create a new document reference with an auto-generated ID
+            const newMileageDocRef = doc(mileageCollectionRef);
+
+            const mileageData = {
+                id: newMileageDocRef.id,
+                Date: formattedDate,
+                DistanceTraveled: `${totalDistanceForUpload.toFixed(2)} km`,
+                FirstName: firstName,
+                LastName: lastName,
+                NurseID: userId,
+            };
+            addDoc(mileageCollectionRef, mileageData);
+            console.log('mileage uploaded', mileageData)
+
+            // Stop the tracking and reset values
+            navigator.geolocation.clearWatch(watchIdRef.current);
+            watchIdRef.current = null; // Reset the ref to null
+            setPreviousPosition(null);
+            setTotalDistanceForUpload(0);
+            setTrackingState('idle');
+
+        } else {
+            console.log('No such document!');
+        }
+    };
+
+
+
+
+
+
+
+
 
     const handleRouteChange = async (event) => {
         const selectedRoute = event.target.value;
@@ -303,8 +319,6 @@ function RouteDirection() {
         setSelectedRoute(selectedRoute);
 
     };
-
-
 
 
 
@@ -396,17 +410,12 @@ function RouteDirection() {
             </GoogleMap>
             <button className="btn-homepage" onClick={navigateToHomepage}>Go to Homepage</button>
             <button className="btn-reset" onClick={resetRouteocation}>Reset Map</button>
-            {/* <button className="btn-trackAndPause" onClick={handleTrackAndPauseClick}>
-                {trackingState === 'idle' && 'Track Mileage'}
-                {trackingState === 'tracking' && 'Pause Tracking'}
-                {trackingState === 'paused' && 'Resume Tracking'}
-            </button> */}
-            <button className="btn-trackAndPause" onClick={mileageTracker.startTracking}>Track Mileage</button>
-            <button className="btn-upload" onClick={mileageTracker.stopTracking}>Stop & Upload Mileage</button>
+            <button className="btn-trackAndPause" onClick={startTracking}>Track Mileage</button>
+            <button className="btn-upload" onClick={stopTracking}>Stop & Upload Mileage</button>
 
         </div>
 
-        <form className="form-container">
+        <form className="mapform-container">
             <div className="patient-mainbox">
                 {patientData ? (
                     patientData.map((patient, index) => (
@@ -414,10 +423,11 @@ function RouteDirection() {
                             <div className="patient-box" key={index}>
                                 <h3><BadgeTwoToneIcon></BadgeTwoToneIcon> Full Name: {patient.firstName + " " + patient.lastName}</h3>
                                 <h4><BusinessTwoToneIcon></BusinessTwoToneIcon> Address: {patient.address}</h4>
-                                <button className="btn-current" id={patient.id} onClick={changeOrigin}>Set as Current</button>
-                                <br></br>
-                                <br></br>
-                                <button className="btn-driection" id={patient.id} onClick={changeDestination}>Direction</button>
+                                <button className="btn-forPatient" id={patient.id} onClick={changeOrigin}>Set Current</button>
+                                <button className="btn-forPatient" id={patient.id} onClick={changeDestination}>Direction</button>
+                                <button patient-id={patient.id} onClick={visitPatientPage}>Visit</button>
+
+
 
                             </div>
                         ) : null
@@ -436,3 +446,36 @@ function RouteDirection() {
 }
 
 export default RouteDirection
+
+
+// const pauseTracking = () => {
+//     console.log('Pause tracking');
+//     // Pause the tracking by clearing the watch
+//     navigator.geolocation.clearWatch(watchId);
+// };
+
+//For pause and resume tracking
+// const handleTrackAndPauseClick = () => {
+//     switch (trackingState) {
+//         case 'idle':
+//             mileageTracker.startTracking();
+//             setTrackingState('tracking');
+//             break;
+//         case 'tracking':
+//             mileageTracker.pauseTracking();
+//             setTrackingState('paused');
+//             break;
+//         case 'paused':
+//             mileageTracker.startTracking();
+//             setTrackingState('tracking');
+//             break;
+//         default:
+//             break;
+//     }
+// };
+
+{/* <button className="btn-trackAndPause" onClick={handleTrackAndPauseClick}>
+                {trackingState === 'idle' && 'Track Mileage'}
+                {trackingState === 'tracking' && 'Pause Tracking'}
+                {trackingState === 'paused' && 'Resume Tracking'}
+            </button> */}

@@ -23,7 +23,7 @@ import '../CSS/CreatePatient.css';
 // import { collection, getDocs } from 'firebase/firestore';
 // import { db } from '../config/config';
 
-import {PatientsContext} from "../context/PatientsContext";
+import { PatientsContext } from "../context/PatientsContext";
 import { Typography, Box } from "@mui/material";
 import BloodGlucose from "../components/BloodGlucose";
 import InsulinInjection from "../components/InsulinInjection";
@@ -31,7 +31,7 @@ import OtherTasks from "../components/OtherTasks.jsx";
 
 export default function PatientVisitingPage() {
     const patients = useContext(PatientsContext);
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const today = new Date();
     const day = today.getDay();
@@ -45,49 +45,49 @@ export default function PatientVisitingPage() {
     const ChildStateRefBloodGlucose = useRef();
     const ChildStateRefInsulinInjection = useRef();
     const ChildStateRefOtherTasks = useRef();
-    let childStateBloodPressure= "";
-    let childStatePulse= "";
-    let childStateSpo= "";
-    let childStateBloodGlucose= "";
-    let childStateInsulinInjection= "";
-    let childStateAnticoagulantInjection= "";
-    let childStateOtherTasks= "";
+    let childStateBloodPressure = "";
+    let childStatePulse = "";
+    let childStateSpo = "";
+    let childStateBloodGlucose = "";
+    let childStateInsulinInjection = "";
+    let childStateAnticoagulantInjection = "";
+    let childStateOtherTasks = "";
     const handleClick = async (e) => {
         patients.map((patient) => {
-            if(patient.id === id){
+            if (patient.id === id) {
                 console.log(patient);
-                Object.keys(patient?.permission['Blood Pressure']).map((key)=>{
-                    if(patient?.permission['Blood Pressure'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Blood Pressure']).map((key) => {
+                    if (patient?.permission['Blood Pressure'][key] && dayNames[day] === key) {
                         childStateBloodPressure = ChildStateRefBloodPressure.current.getChildState();
                     }
                 })
-                Object.keys(patient?.permission['Pulse']).map((key)=>{
-                    if(patient?.permission['Pulse'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Pulse']).map((key) => {
+                    if (patient?.permission['Pulse'][key] && dayNames[day] === key) {
                         childStatePulse = ChildStateRefPulse.current.getChildState();
                     }
                 })
-                Object.keys(patient?.permission['Spo2']).map((key)=>{
-                    if(patient?.permission['Spo2'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Spo2']).map((key) => {
+                    if (patient?.permission['Spo2'][key] && dayNames[day] === key) {
                         childStateSpo = ChildStateRefSpo.current.getChildState();
                     }
                 })
-                Object.keys(patient?.permission['Blood Glucose']).map((key)=>{
-                    if(patient?.permission['Blood Glucose'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Blood Glucose']).map((key) => {
+                    if (patient?.permission['Blood Glucose'][key] && dayNames[day] === key) {
                         childStateBloodGlucose = ChildStateRefBloodGlucose.current.getChildState();
                     }
                 })
-                Object.keys(patient?.permission['Insulin Injection']).map((key)=>{
-                    if(patient?.permission['Insulin Injection'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Insulin Injection']).map((key) => {
+                    if (patient?.permission['Insulin Injection'][key] && dayNames[day] === key) {
                         childStateInsulinInjection = ChildStateRefInsulinInjection.current.getChildState();
                     }
                 })
-                Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>{
-                    if(patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key){
+                Object.keys(patient?.permission['Aanticoagulant Injection']).map((key) => {
+                    if (patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key) {
                         childStateAnticoagulantInjection = ChildStateRefAnticoagulantInjection.current.getChildState();
                     }
                 })
                 console.log(patient?.tasks);
-                if(patient?.tasks){
+                if (patient?.tasks) {
                     childStateOtherTasks = ChildStateRefOtherTasks.current.getChildState();
                 }
             }
@@ -95,7 +95,7 @@ export default function PatientVisitingPage() {
         )
 
         const data = {
-            user:user.username,
+            user: user.username,
             patientId: id,
             childStateBloodPressure,
             childStatePulse,
@@ -117,100 +117,102 @@ export default function PatientVisitingPage() {
     const handlecall = (phone) => {
         window.open(`tel:${phone}`);
     }
-    
-   
 
-  return (
-    <>
-<Box className="form-container">
-<Typography className="h5" variant="h5"><em><b><TourTwoToneIcon></TourTwoToneIcon>  Patient Visiting Page <PreviewTwoToneIcon></PreviewTwoToneIcon></b></em>
-<br></br>
-</Typography>
-        {patients.map((patient) => {
-            if(patient.id === id){
-                return(
-                    <>
-                    
-                    <IconButton color="primary" aria-label="add to shopping cart">
-                        <AddShoppingCartIcon onClick={()=> navigate(`/order/${patient.id}`)}/>
-                    </IconButton>
-                    <IconButton color="primary" aria-label="">
-                        <CallIcon onClick={()=>handlecall(patient.phone)} />
-                    </IconButton>
-                    <IconButton color="primary" aria-label="">
-                        <ContactPhoneIcon onClick={()=>navigate(`/emergency/${patient.id}`)} />
-                    </IconButton>
-                    <Box>
-                        <br></br>
-                        <Typography variant="h6"><b><BadgeTwoToneIcon></BadgeTwoToneIcon> Patient Name :</b> {patient.firstName} {patient.lastName}</Typography>
-                        <br></br>
-                        <Typography variant="h6"><b><CakeTwoToneIcon></CakeTwoToneIcon> Patient Date of Birth : </b>{patient.birthDate}</Typography>
-                        <br></br>
-                        <Typography variant="h6"><b><NumbersTwoToneIcon></NumbersTwoToneIcon> Patient Health Card Number : </b>{patient.healthCardNumber}</Typography>
-                        <br></br>
-                        </Box>
-                        <br></br>
-                        <br></br>
-                        
-                        {
-                            Object.keys(patient?.permission['Blood Pressure']).map((key)=>
-                                patient?.permission['Blood Pressure'][key] && dayNames[day] === key ? <BloodPress ref={ChildStateRefBloodPressure} />: ""
-                            )
-                        }
-                        <br></br>
 
-                        
-                        {
-                            Object.keys(patient?.permission['Pulse']).map((key)=>
-                                patient?.permission['Pulse'][key] && dayNames[day] === key ? <Pulse ref={ChildStateRefPulse} />: ""
-                            )
-                        }
-                        <br></br>
-                            
-                        {
-                            Object.keys(patient?.permission['Spo2']).map((key)=>
-                                patient?.permission['Spo2'][key] && dayNames[day] === key ? <Spo ref={ChildStateRefSpo}/>: ""
-                            )
-                        }
 
-                        <br></br>
+    return (
+        <>
+            <Box className="form-container">
+                <Typography className="h5" variant="h5"><em><b><TourTwoToneIcon></TourTwoToneIcon>  Patient Visiting Page <PreviewTwoToneIcon></PreviewTwoToneIcon></b></em>
+                    <br></br>
+                </Typography>
+                {patients.map((patient,) => {
+                    if (patient.id === id) {
 
-                        {
-                            Object.keys(patient?.permission['Blood Glucose']).map((key)=>
-                                patient?.permission['Blood Glucose'][key] && dayNames[day] === key ? <BloodGlucose ref={ChildStateRefBloodGlucose} />: ""
-                            )
-                        }
-                        <br></br>
-                        {
-                            Object.keys(patient?.permission['Insulin Injection']).map((key)=>
-                                patient?.permission['Insulin Injection'][key] && dayNames[day] === key ? <InsulinInjection id={id} ref={ChildStateRefInsulinInjection}  />: ""
-                            )
-                        }
-                        
-                        <br></br>
+                        return (
 
-                        {
-                            Object.keys(patient?.permission['Aanticoagulant Injection']).map((key)=>
-                                patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key ? <AnticoagulantInjection id={id} ref={ChildStateRefAnticoagulantInjection}  />: ""
-                            )
-                        }
-                     
-                        {
-                            patient?.tasks? <OtherTasks id={id} ref={ChildStateRefOtherTasks}/>: console.log("No")
-                        }
+                            <>
 
-                           <br></br>
+                                <IconButton color="primary" aria-label="add to shopping cart">
+                                    <AddShoppingCartIcon onClick={() => navigate(`/order/${patient.id}`)} />
+                                </IconButton>
+                                <IconButton color="primary" aria-label="">
+                                    <CallIcon onClick={() => handlecall(patient.phone)} />
+                                </IconButton>
+                                <IconButton color="primary" aria-label="">
+                                    <ContactPhoneIcon onClick={() => navigate(`/emergency/${patient.id}`)} />
+                                </IconButton>
+                                <Box>
+                                    <br></br>
+                                    <Typography variant="h6"><b><BadgeTwoToneIcon></BadgeTwoToneIcon> Patient Name :</b> {patient.firstName} {patient.lastName}</Typography>
+                                    <br></br>
+                                    <Typography variant="h6"><b><CakeTwoToneIcon></CakeTwoToneIcon> Patient Date of Birth : </b>{patient.birthDate}</Typography>
+                                    <br></br>
+                                    <Typography variant="h6"><b><NumbersTwoToneIcon></NumbersTwoToneIcon> Patient Health Card Number : </b>{patient.healthCardNumber}</Typography>
+                                    <br></br>
+                                </Box>
+                                <br></br>
+                                <br></br>
 
-                    </>
-                    
-                    
-                )
-            }
-        })}
+                                {
+                                    Object.keys(patient?.permission['Blood Pressure']).map((key) =>
+                                        patient?.permission['Blood Pressure'][key] && dayNames[day] === key ? <BloodPress ref={ChildStateRefBloodPressure} /> : ""
+                                    )
+                                }
+                                <br></br>
 
-<div> <button className="button88"  onClick={handleClick}> submit </button>
-   </div>
-    </Box>
-    </>
-  )
+
+                                {
+                                    Object.keys(patient?.permission['Pulse']).map((key) =>
+                                        patient?.permission['Pulse'][key] && dayNames[day] === key ? <Pulse ref={ChildStateRefPulse} /> : ""
+                                    )
+                                }
+                                <br></br>
+
+                                {
+                                    Object.keys(patient?.permission['Spo2']).map((key) =>
+                                        patient?.permission['Spo2'][key] && dayNames[day] === key ? <Spo ref={ChildStateRefSpo} /> : ""
+                                    )
+                                }
+
+                                <br></br>
+
+                                {
+                                    Object.keys(patient?.permission['Blood Glucose']).map((key) =>
+                                        patient?.permission['Blood Glucose'][key] && dayNames[day] === key ? <BloodGlucose ref={ChildStateRefBloodGlucose} /> : ""
+                                    )
+                                }
+                                <br></br>
+                                {
+                                    Object.keys(patient?.permission['Insulin Injection']).map((key) =>
+                                        patient?.permission['Insulin Injection'][key] && dayNames[day] === key ? <InsulinInjection id={id} ref={ChildStateRefInsulinInjection} /> : ""
+                                    )
+                                }
+
+                                <br></br>
+
+                                {
+                                    Object.keys(patient?.permission['Aanticoagulant Injection']).map((key) =>
+                                        patient?.permission['Aanticoagulant Injection'][key] && dayNames[day] === key ? <AnticoagulantInjection id={id} ref={ChildStateRefAnticoagulantInjection} /> : ""
+                                    )
+                                }
+
+                                {
+                                    patient?.tasks ? <OtherTasks id={id} ref={ChildStateRefOtherTasks} /> : console.log("No")
+                                }
+
+                                <br></br>
+
+                            </>
+
+
+                        )
+                    }
+                })}
+
+                <div> <button className="button88" onClick={handleClick}> submit </button>
+                </div>
+            </Box>
+        </>
+    )
 }

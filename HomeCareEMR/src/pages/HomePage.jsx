@@ -1,6 +1,12 @@
 
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+} from "@react-google-maps/api";
+import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -29,6 +35,17 @@ import PatientVisitingPage from './PatientVisitingPage';
 import HomeComponent from '../components/HomeComponent';
 import CreateUserPage from './CreateUserPage';
 import CreatePatient from '../components/CreatePatient';
+import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
+import ManageHistoryTwoToneIcon from '@mui/icons-material/ManageHistoryTwoTone';
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import GroupAddTwoToneIcon from '@mui/icons-material/GroupAddTwoTone';
+import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
+import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
+import { mapAPIKey } from "../config/config"
+
+
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -43,10 +60,19 @@ const ShowComponent = (props) => {
   );
 }
 export default function HomePage() {
+  const [currentLocation, setCurrentLocation] = useState([]);
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-   console.log(activeTree);
+  const [hasSentToDb, setHasSentToDb] = useState(false);
+  const [userIsInDb, setUserIsInDb] = useState(false);
+  const firestoredb = getFirestore();
+  const userInfoFromLocal = localStorage.getItem('user');
+  const userInfo = JSON.parse(userInfoFromLocal);
+  const userId = userInfo.id;
+
+
+  // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -84,7 +110,7 @@ export default function HomePage() {
       ]
     }]
   };
-  
+
   const options2 = {
     exportEnabled: true,
     animationEnabled: true,
@@ -121,9 +147,63 @@ export default function HomePage() {
     navigator("/login");
   }
 
- 
-  return (
-    
+
+
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: mapAPIKey,
+  });
+
+  //Sending location data to Firestore
+  const sendLocationToFirestore = () => {
+    console.log('sending initial location to firestore');
+    const initialLocation = collection(firestoredb, 'locations');
+
+    const locationData = {
+      id: userId,
+      lat: Number(currentLocation.lat),
+      lng: Number(currentLocation.lng),
+    };
+
+    addDoc(initialLocation, locationData)
+  };
+
+  useEffect(() => {
+
+    const watchId = navigator.geolocation.watchPosition(
+
+      (position) => {
+        const userLocation = {
+          lat: Number(position.coords.latitude),
+          lng: Number(position.coords.longitude),
+        };
+        setCurrentLocation(userLocation);
+      },
+      (error) => {
+        console.error("Error getting user's location:", error);
+      }
+    );  
+
+    if (currentLocation.lat && currentLocation.lng && !hasSentToDb) {
+      setHasSentToDb(true);
+      sendLocationToFirestore();
+    }
+
+    if(hasSentToDb && !userIsInDb) {
+      setUserIsInDb(true);
+      console.log("User is in DB:", userIsInDb);
+
+    }
+
+    // Clean up the watchId on component unmount
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, [hasSentToDb, userIsInDb]);
+
+
+  return (<>
+
     <div className="body">
       <div className="main-content">
         <button className="toggle-button" onClick={toggleSidebar}>
@@ -133,75 +213,67 @@ export default function HomePage() {
 
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
-          <h3><NavigationTwoToneIcon/> <PinchTwoToneIcon/></h3>
+          <h3><NavigationTwoToneIcon /> <PinchTwoToneIcon /></h3>
 
           <br></br>
           <br></br>
-          
-          <Box sx={{ minHeight: 180, flexGrow: 1, maxWidth: 300 }}>
-            <TreeView
-              aria-label="file system navigator"
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              onNodeSelect={handleSelect}
-            >
-              <TreeItem nodeId="1" label="Manage User">
-                <TreeItem nodeId="Create User" label="Create User" />
-                <TreeItem nodeId="User List" label="User List" />
-                <TreeItem nodeId="Nurse List" label="Nurse List" />
-              </TreeItem>
-              <TreeItem nodeId="5" label="Manage Patients">
-                <TreeItem nodeId="Create Patient" label="Create Patient" />
-                <TreeItem nodeId="Patients List" label="Patients List" />          
-              </TreeItem>
-              <TreeItem nodeId="Home" label="Home" />
-              <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
-            </TreeView>
-          </Box>
-
           <ul>
+            <li>
+              <TreeView
+                aria-label="file system navigator"
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+                onNodeSelect={handleSelect}
+              >
+                <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
+                  <br></br>
+                  <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Create User" label="Create User" />
+                  <br></br>
+                  <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="User List" label="User List" />
+                  <br></br>
+                  <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Nurse List" label="Nurse List" />
+                  <br></br>
+                </TreeItem>
+                <br></br>
 
+                <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
+                  <br></br>
+                  <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="Create Patient" label="Create Patient" />
+                  <br></br>
+                  <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="Patients List" label="Patients List" />  
+                </TreeItem>
+                <br></br>
+                <TreeItem nodeId="Home" label="Home" />
+                <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+              </TreeView>
+              <br></br>
+            </li>
             <li>
-              <a href="/admin"><PasswordTwoToneIcon/> Admin Login</a>
+              <a href="/admin"><PasswordTwoToneIcon /> Admin Login</a>
             </li>
             <br></br>
             <br></br>
             <li>
-              <a href="/nurses"><HealthAndSafetyTwoToneIcon/> Nurses</a>
+              <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
             </li>
             <br></br>
             <br></br>
             <li>
-              <a href="/charts"><InsertChartTwoToneIcon/> Health Charts</a>
+              <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
             </li>
             <br></br>
             <br></br>
             <li>
-              <a href="/tracker"><PersonPinCircleTwoToneIcon/> Location Tracker</a>
+              <a href="/direction"><GpsFixedTwoToneIcon /> Routes Direction</a>
             </li>
             <br></br>
+
             <br></br>
             <li>
-              <a href="/mileagelog"><DoNotStepTwoToneIcon/> Mileage Log</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/direction"><GpsFixedTwoToneIcon/> Routes Direction</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/database"><FolderSharedTwoToneIcon/> Patient Database</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/order"><VaccinesTwoToneIcon/> Order Medication & Supplies</a>
+              <a href="/order"><VaccinesTwoToneIcon /> Order Medication & Supplies</a>
             </li>
           </ul>
         </div>
-
 
       </div>
       {console.log(activeTree)}
@@ -216,16 +288,17 @@ export default function HomePage() {
       <br></br>
       <br></br>
       <br></br>
-      
-      
+
+
       <footer className="footer">
         &copy; {currentYear} HomeCare EMR
-        <div  className="CameraAltTwoToneIcon">
-          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank">
+        <div className="CameraAltTwoToneIcon">
+          <a href="https://www.instagram.com/wecare.ca/?hl=en" target="_blank" rel="noreferrer">
             <CameraAltTwoToneIcon />
           </a>
         </div>
       </footer>
     </div>
-  );
+  </>
+  )
 }

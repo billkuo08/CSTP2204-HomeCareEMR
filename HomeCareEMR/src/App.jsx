@@ -9,7 +9,6 @@ import {PatientsContext} from './context/PatientsContext';
 import { useState, useEffect } from 'react';
 import CheckboxComponent from './components/CheckboxComponent';
 import RouteMapPage from './pages/RouteMapPage';
-import LocationTrackerPage from './pages/LocationTrackerPage'
 import MileageLogPage from './pages/MileageLogPage';
 import EditPatientPage from './pages/EditPatientPage';
 import CreateUserPage from './pages/CreateUserPage'
@@ -47,7 +46,6 @@ function App() {
       <PatientsContext.Provider 
       value={patients}>
         <Routes>
-
           <Route path="/" 
           element={userInfo? <HomePage />:<LoginPage />} />
           <Route path="/patients" element={<PatientListPage />} />
@@ -58,7 +56,6 @@ function App() {
           <Route path="/checkbox" element={<CheckboxComponent />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/direction" element={<RouteMapPage/>} />
-          <Route path="/tracker" element={<LocationTrackerPage/>} />
           <Route path="/mileagelog" element={<MileageLogPage/>} />
           <Route path="/createuser" element={<CreateUserPage/>} />
           <Route path="/createnurse" element={<CreateNurse/>} />
