@@ -6,6 +6,7 @@ import {
   GoogleMap,
   Marker,
 } from "@react-google-maps/api";
+import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -38,9 +39,10 @@ import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
 import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-
 import { mapAPIKey } from "../config/config"
 import car from '../images/car.png';
+import { set } from 'firebase/database';
+
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -56,10 +58,16 @@ const ShowComponent = (props) => {
   );
 }
 export default function HomePage() {
+  const [currentLocation, setCurrentLocation] = useState([]);
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-  const [currentLocation, setCurrentLocation] = useState([]);
+  const [hasSentToDb, setHasSentToDb] = useState(false);
+  const [userIsInDb, setUserIsInDb] = useState(false);
+  const firestoredb = getFirestore();
+  const userInfoFromLocal = localStorage.getItem('user');
+  const userInfo = JSON.parse(userInfoFromLocal);
+  const userId = userInfo.id;
 
 
   // console.log(activeTree);
@@ -144,29 +152,52 @@ export default function HomePage() {
     googleMapsApiKey: mapAPIKey,
   });
 
+  //Sending location data to Firestore
+  const sendLocationToFirestore = () => {
+    console.log('sending initial location to firestore');
+    const initialLocation = collection(firestoredb, 'locations');
 
+    const locationData = {
+      id: userId,
+      lat: Number(currentLocation.lat),
+      lng: Number(currentLocation.lng),
+    };
 
+    addDoc(initialLocation, locationData)
+  };
 
   useEffect(() => {
 
     const watchId = navigator.geolocation.watchPosition(
+
       (position) => {
         const userLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: Number(position.coords.latitude),
+          lng: Number(position.coords.longitude),
         };
         setCurrentLocation(userLocation);
       },
       (error) => {
         console.error("Error getting user's location:", error);
       }
-    );
+    );  
+
+    if (currentLocation.lat && currentLocation.lng && !hasSentToDb) {
+      setHasSentToDb(true);
+      sendLocationToFirestore();
+    }
+
+    if(hasSentToDb && !userIsInDb) {
+      setUserIsInDb(true);
+      console.log("User is in DB:", userIsInDb);
+
+    }
 
     // Clean up the watchId on component unmount
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, []);
+  }, [hasSentToDb, userIsInDb]);
 
 
   return (<>
@@ -343,7 +374,7 @@ export default function HomePage() {
                   fullscreenControl: false,
                 }}
               >
-                {currentLocation && (
+                {currentLocation &&  (
                   <Marker
                     position={currentLocation}
                     icon={car}

@@ -48,8 +48,8 @@ export default function App() {
 
         let currentLocation = await Location.getCurrentPositionAsync({});
         setLocation(currentLocation);
-        const db = getDatabase();
-        const referenceFuel = ref(db, 'location/');
+        const fireStore = getDatabase();
+        const referenceFuel = ref(fireStore, 'location/');
 
         update(referenceFuel, {
           lat: location.coords.latitude,

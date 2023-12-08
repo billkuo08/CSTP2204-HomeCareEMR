@@ -30,8 +30,8 @@ const center = {
 function RouteDirection() {
 
     const firestoredb = getFirestore();
-    const userInfoFromLoacl = localStorage.getItem('user');
-    const userInfo = JSON.parse(userInfoFromLoacl);
+    const userInfoFromLocal = localStorage.getItem('user');
+    const userInfo = JSON.parse(userInfoFromLocal);
     const userId = userInfo.id;
     const watchIdRef = useRef(null);
 
