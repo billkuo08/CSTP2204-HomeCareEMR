@@ -5,7 +5,7 @@ export default function PatientListPage() {
 
   return (
     <>
-
+      
         <PatientTableComponent />
 
 
