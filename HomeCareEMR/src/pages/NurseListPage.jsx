@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getAllNurses } from '../API/nurses';
+import { getAllNurses } from '../API/users';
+import NurseTable from '../components/NurseTable';
 
 export default function NurseListPage() {
     const [nurse, setNurse] = useState([]);
@@ -7,6 +8,7 @@ export default function NurseListPage() {
     const getNurses = async () => {
         try{
             const nurses = await getAllNurses();
+            console.log(nurses);
             setNurse(nurses);
         }catch(error){
             console.log(error);
@@ -16,6 +18,8 @@ export default function NurseListPage() {
         getNurses();
     }, [])
   return (
-    <div>NurseListPage</div>
+    <>
+        <NurseTable data={nurse}/>
+    </>
   )
 }

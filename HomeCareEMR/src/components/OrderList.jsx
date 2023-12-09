@@ -16,7 +16,8 @@ export default function OrderList(props) {
         setOrders(updateData);
     }
   return (
-    <Container className="flex justify-center items-center form-container" sx={{ width: '100%' }}>
+    <div className="main-content">
+
         <h2>< VaccinesTwoToneIcon/><em> Supplies Order List </em> <HealingTwoToneIcon /></h2>
         <div className="table-wrapper" >
                             <br></br>
@@ -65,6 +66,8 @@ export default function OrderList(props) {
                             <br></br>
                             <br></br>
         </div>
-    </Container>
+
+    </div>
+    
   )
 }
