@@ -31,6 +31,10 @@ import { TreeItem, TreeView } from '@mui/x-tree-view';
 import Box from '@mui/material/Box';
 import PatientListPage from './PatientListPage';
 import PatientTableComponent from '../components/PatientTableComponent';
+import PatientVisitingPage from './PatientVisitingPage';
+import HomeComponent from '../components/HomeComponent';
+import CreateUserPage from './CreateUserPage';
+import CreatePatient from '../components/CreatePatient';
 import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
 import ManageHistoryTwoToneIcon from '@mui/icons-material/ManageHistoryTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
@@ -40,19 +44,18 @@ import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { mapAPIKey } from "../config/config"
-import car from '../images/car.png';
+
+
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const ShowComponent = (props) => {
-  console.log(props);
-  const { childre, activeTree, selectedTree } = props;
-  console.log(activeTree);
+  const {childre, activeTree, selectedTree} = props;
   return (
-    <div hidden={activeTree !== selectedTree}>
-      {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
-    </div>
+  <div hidden={activeTree !== selectedTree }>
+    {activeTree === selectedTree && <Box mx={2}>{childre}</Box>}
+  </div>
   );
 }
 export default function HomePage() {
@@ -143,67 +146,15 @@ export default function HomePage() {
     navigator("/login");
   }
 
-
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: mapAPIKey,
-  });
-
-  //Sending location data to Firestore
-  const sendLocationToFirestore = () => {
-    console.log('sending initial location to firestore');
-    const initialLocation = collection(firestoredb, 'locations');
-
-    const locationData = {
-      id: userId,
-      lat: Number(currentLocation.lat),
-      lng: Number(currentLocation.lng),
-    };
-
-    addDoc(initialLocation, locationData)
-  };
-
-  useEffect(() => {
-
-    const watchId = navigator.geolocation.watchPosition(
-
-      (position) => {
-        const userLocation = {
-          lat: Number(position.coords.latitude),
-          lng: Number(position.coords.longitude),
-        };
-        setCurrentLocation(userLocation);
-      },
-      (error) => {
-        console.error("Error getting user's location:", error);
-      }
-    );  
-
-    if (currentLocation.lat && currentLocation.lng && !hasSentToDb) {
-      setHasSentToDb(true);
-      sendLocationToFirestore();
-    }
-
-    if(hasSentToDb && !userIsInDb) {
-      setUserIsInDb(true);
-      console.log("User is in DB:", userIsInDb);
-
-    }
-
-    // Clean up the watchId on component unmount
-    return () => {
-      navigator.geolocation.clearWatch(watchId);
-    };
-  }, [hasSentToDb, userIsInDb]);
-
-
   return (<>
 
     <div className="body">
-      <button className="toggle-button" onClick={toggleSidebar}>
-        <ViewSidebarTwoToneIcon />
-      </button>
+      <div className="main-content">
+        <button className="toggle-button" onClick={toggleSidebar}>
+          <ViewSidebarTwoToneIcon />
+        </button>
+      </div>
+
       <div className="content">
         <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
           <h3><NavigationTwoToneIcon /> <PinchTwoToneIcon /></h3>
@@ -220,22 +171,23 @@ export default function HomePage() {
               >
                 <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
                   <br></br>
-                  <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Slider One" label="Create User" onClick={() => window.location.pathname = '/createuser'} />
+                  <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Create User" label="Create User" />
                   <br></br>
-                  <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="Slider Two" label="User List" />
+                  <RecentActorsTwoToneIcon></RecentActorsTwoToneIcon><TreeItem nodeId="User List" label="User List" />
                   <br></br>
-                  <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Slider Three" label="Nurse List" />
+                  <DirectionsRunTwoToneIcon></DirectionsRunTwoToneIcon><TreeItem nodeId="Nurse List" label="Nurse List" />
                   <br></br>
                 </TreeItem>
                 <br></br>
 
                 <ManageHistoryTwoToneIcon></ManageHistoryTwoToneIcon><TreeItem nodeId="5" label="Manage Patients">
                   <br></br>
-                  <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="10" label="Create Patient" onClick={() => window.location.pathname = '/createpatient'} />
+                  <DrawTwoToneIcon></DrawTwoToneIcon><TreeItem nodeId="Create Patient" label="Create Patient" />
                   <br></br>
-                  <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="6" label="Patients List" onClick={() => window.location.pathname = '/patients'} />
+                  <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="Patients List" label="Patients List" />  
                 </TreeItem>
                 <br></br>
+                <TreeItem nodeId="Home" label="Home" />
                 <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
               </TreeView>
               <br></br>
@@ -267,134 +219,16 @@ export default function HomePage() {
           </ul>
         </div>
 
-        <div className="main-content">
-          <div className="header">
-            <h1><em>Welcome to HomeCare EMR</em></h1>
-            <p><Diversity1TwoToneIcon /> Our Trusted Partner in Healthcare <VolunteerActivismTwoToneIcon /></p>
-          </div>
-
-          {/* <div className="grid-container">
-
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">Willpower.</p>
-                  <p><FlipCameraAndroidTwoToneIcon /></p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title"><InfoTwoToneIcon /></p>
-                  <p>Willpower, strength and determination, it will take you places.</p>
-                  <br></br>
-                  - Julianna Pena
-                </div>
-              </div>
-            </div>
-
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">Home Care Nursing</p>
-                  <p><FlipCameraAndroidTwoToneIcon /></p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title"><InfoTwoToneIcon /></p>
-                  <p>Nurses working in Home & Community Care provide a range of services, both in community clinics and in your home.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">Teamwork !</p>
-                  <p><FlipCameraAndroidTwoToneIcon /></p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title"><InfoTwoToneIcon /></p>
-                  <p>Unity is strength. . . when there is teamwork and collaboration, wonderful things can be achieved. <br></br>
-                    <br></br>
-                    - Mattie Stepanek</p>
-                </div>
-              </div>
-            </div>
-
-
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">Care <br></br> & <br></br>Kindness.</p>
-                  <p><FlipCameraAndroidTwoToneIcon /></p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title"><InfoTwoToneIcon /></p>
-                  <p>Sometimes it takes only one act of kindness and caring to change a person's life.<br></br> <br></br> - Jackie Chan
-                  </p>
-                </div>
-              </div>
-            </div>
-
-
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <p className="title">Pay Attention !</p>
-                  <p><FlipCameraAndroidTwoToneIcon /></p>
-                </div>
-                <div className="flip-card-back">
-                  <p className="title"><InfoTwoToneIcon /></p>
-                  <p>Pay close attention to everything, notice what no one else notices. Then you'll know what no one else knows, and that's always useful.</p>
-                </div>
-              </div>
-            </div>
-
-          </div> */}
-
-          <br></br>
-
-          {isLoaded ? (
-
-            <div className="map-container-homepage">
-
-              <GoogleMap
-                center={{
-                  lat: 49.33473336980647,
-                  lng: -123.15846009191421,
-                }}
-                zoom={11}
-                mapContainerStyle={{
-                  width: "100%",
-                  height: "65vh",
-                }}
-                options={{
-                  zoomControl: true,
-                  streetViewControl: false,
-                  mapTypeControl: false,
-                  fullscreenControl: false,
-                }}
-              >
-                {currentLocation &&  (
-                  <Marker
-                    position={currentLocation}
-                    icon={car}
-                  />
-                )}
-
-              </GoogleMap>
-
-            </div>
-          ) : (
-            <div>Loading Google Maps...</div>
-          )}
-
-          <div>
-            {/* <ShowComponent activeTree={activeTree} selectedTree="Slider One"><PatientTableComponent /></ShowComponent> */}
-            {/* lets not use for now */}
-            {/* <CanvasJSChart options={options} />
-            <CanvasJSChart options={options2} /> */}
-          </div>
-        </div>
       </div>
-
+   
+      {(()=>{
+        if(!activeTree || activeTree === "1" || activeTree === "5" || activeTree === "Home"){
+          return <HomeComponent/>
+        }
+      })()}
+      <ShowComponent childre={<CreateUserPage/>} activeTree={activeTree} selectedTree="Create User"/>  
+      <ShowComponent childre={<CreatePatient/>} activeTree={activeTree} selectedTree="Create Patient"/> 
+      <ShowComponent childre={<PatientListPage/>} activeTree={activeTree} selectedTree="Patients List"/>    
       <br></br>
       <br></br>
       <br></br>
