@@ -48,6 +48,7 @@ import NurseListPage from './NurseListPage';
 import UserListPage from './UserListPage';
 import HomeIcon from '@mui/icons-material/Home';
 import SuppliesOrderList from './SuppliesOrderList';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 
 
 
@@ -229,7 +230,7 @@ export default function HomePage() {
                 defaultExpandIcon={<ChevronRightIcon />}
                 onNodeSelect={handleSelect}
               >
-                <HomeIcon></HomeIcon>
+                <HomeTwoToneIcon></HomeTwoToneIcon>
                 <TreeItem nodeId="Home" label="Home" />
                 <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
                   <br></br>
@@ -254,8 +255,9 @@ export default function HomePage() {
                   <Diversity1TwoToneIcon></Diversity1TwoToneIcon><TreeItem nodeId="Supplies Order" label="Supplies Order" />
                   <br></br>
                 </TreeItem>
-                
-                <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+                <br></br>
+                <LogoutTwoToneIcon></LogoutTwoToneIcon> 
+                <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
               </TreeView>
               <br></br>
             </li>
