@@ -168,6 +168,7 @@ export const deleteUser = async (id) => {
             });
       
             console.log("All Nurses:", nursesData);
+            return nursesData;
           } else {
             console.log("No nurses found!");
           }

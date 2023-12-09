@@ -15,7 +15,6 @@ export default function TestAPIFunction() {
         console.log(response);
         const id=response.data.userId;
         console.log(id)
-        const user = await getUserById(id);
         if(response.success){
             console.log("createUser sussesfully")
         }else{
@@ -39,6 +38,11 @@ export default function TestAPIFunction() {
         const id=response.data.id;
         const patient = await getPatientById(id);
         console.log(patient);
+        if(response.success){
+            console.log("createUser sussesfully")
+        }else{
+            alert("createUser fail")
+        }
         
         await deletePatient(id);
     }
@@ -55,11 +59,17 @@ export default function TestAPIFunction() {
         const id=response.data.id;
         const dailyTask = await getDailyTask(id);
         console.log({dailyTask})
+                if(response.success){
+            console.log("createUser sussesfully")
+        }else{
+            alert("createUser fail")
+        }
+
         await deleteDailyTask(id);
     }
 
     useEffect(() => {
-        testCreationUser();
+        //testCreationUser();
         //testCreatePatient(); 
         //testDailyTask();
 });
