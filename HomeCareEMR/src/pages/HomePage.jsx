@@ -1,12 +1,7 @@
 
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-} from "@react-google-maps/api";
-import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
+import { useState } from 'react';
+import { getFirestore } from 'firebase/firestore';
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -43,7 +38,6 @@ import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
 import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import { mapAPIKey } from "../config/config"
 import NurseListPage from './NurseListPage';
 import UserListPage from './UserListPage';
 import HomeIcon from '@mui/icons-material/Home';
@@ -56,7 +50,6 @@ import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const ShowComponent = (props) => {
-  console.log(props);
   const {childre, activeTree, selectedTree} = props;
   return (
   <div hidden={activeTree !== selectedTree }>
@@ -65,19 +58,11 @@ const ShowComponent = (props) => {
   );
 }
 export default function HomePage() {
-  const [currentLocation, setCurrentLocation] = useState([]);
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-  const [hasSentToDb, setHasSentToDb] = useState(false);
-  const [userIsInDb, setUserIsInDb] = useState(false);
-  const firestoredb = getFirestore();
-  const userInfoFromLocal = localStorage.getItem('user');
-  const userInfo = JSON.parse(userInfoFromLocal);
-  const userId = userInfo.id;
 
 
-  // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -152,61 +137,6 @@ export default function HomePage() {
     navigator("/login");
   }
 
-
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: mapAPIKey,
-  });
-
-  //Sending location data to Firestore
-  const sendLocationToFirestore = () => {
-    console.log('sending initial location to firestore');
-    const initialLocation = collection(firestoredb, 'locations');
-
-    const locationData = {
-      id: userId,
-      lat: Number(currentLocation.lat),
-      lng: Number(currentLocation.lng),
-    };
-
-    addDoc(initialLocation, locationData)
-  };
-
-  useEffect(() => {
-
-    const watchId = navigator.geolocation.watchPosition(
-
-      (position) => {
-        const userLocation = {
-          lat: Number(position.coords.latitude),
-          lng: Number(position.coords.longitude),
-        };
-        setCurrentLocation(userLocation);
-      },
-      (error) => {
-        console.error("Error getting user's location:", error);
-      }
-    );  
-
-    if (currentLocation.lat && currentLocation.lng && !hasSentToDb) {
-      setHasSentToDb(true);
-      sendLocationToFirestore();
-    }
-
-    if(hasSentToDb && !userIsInDb) {
-      setUserIsInDb(true);
-      console.log("User is in DB:", userIsInDb);
-
-    }
-
-    // Clean up the watchId on component unmount
-    return () => {
-      navigator.geolocation.clearWatch(watchId);
-    };
-  }, [hasSentToDb, userIsInDb]);
-
-
   return (<>
 
     <div className="body">
@@ -261,16 +191,9 @@ export default function HomePage() {
               </TreeView>
               <br></br>
             </li>
-            <li>
-              <a href="/admin"><PasswordTwoToneIcon /> Admin Login</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
-            </li>
-            <br></br>
-            <br></br>
+           
+            <br></br>           
+            
             <li>
               <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
             </li>
@@ -279,17 +202,13 @@ export default function HomePage() {
             <li>
               <a href="/direction"><GpsFixedTwoToneIcon /> Routes Direction</a>
             </li>
-            <br></br>
-
-            <br></br>
-            <li>
-              <a href="/order"><VaccinesTwoToneIcon /> Order Medication & Supplies</a>
-            </li>
+            
+            
           </ul>
         </div>
 
       </div>
-      {console.log(activeTree)}
+   
       {(()=>{
         if(!activeTree || activeTree === "1" || activeTree === "5" || activeTree === "Home"|| activeTree === "6"){
           return <HomeComponent/>

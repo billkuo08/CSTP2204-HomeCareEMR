@@ -10,11 +10,10 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { mapAPIKey } from "../config/config"
-import car from '../images/car.png';
+import redcross from '../images/redcross.png';
 
 export default function HomeComponent() {
     const [currentLocation, setCurrentLocation] = useState([]);
-    const currentYear = new Date().getFullYear();
     const [hasSentToDb, setHasSentToDb] = useState(false);
     const [userIsInDb, setUserIsInDb] = useState(false);
     const firestoredb = getFirestore();
@@ -65,7 +64,6 @@ const { isLoaded } = useJsApiLoader({
 
     if(hasSentToDb && !userIsInDb) {
       setUserIsInDb(true);
-      console.log("User is in DB:", userIsInDb);
 
     }
 
@@ -187,7 +185,10 @@ const { isLoaded } = useJsApiLoader({
                 {currentLocation && (
                   <Marker
                     position={currentLocation}
-                    icon={car}
+                    icon={{
+                      url: redcross,
+                      scaledSize: new window.google.maps.Size(55, 55),
+                    }}
                   />
                 )}
 
