@@ -44,6 +44,7 @@ import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { mapAPIKey } from "../config/config"
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 
 
 
@@ -243,8 +244,11 @@ export default function HomePage() {
                   <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="Patients List" label="Patients List" />  
                 </TreeItem>
                 <br></br>
+                <HomeTwoToneIcon></HomeTwoToneIcon>
                 <TreeItem nodeId="Home" label="Home" />
-                <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
+                <br></br>
+                <LogoutTwoToneIcon></LogoutTwoToneIcon> 
+                <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
               </TreeView>
               <br></br>
             </li>
