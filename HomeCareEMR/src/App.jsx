@@ -21,6 +21,8 @@ import TestCreateOrderFunction from './__tests__/TestCreateOrderFunction'
 import TestAPIFunctionJericho from './__tests__/TestAPIFunctionJericho'
 import HistoryOfVisiting from './pages/HistoryOfVisiting'
 import SuppliesOrderList from './pages/SuppliesOrderList'
+import MuiTreeView from './pages/MuiTreeView'
+import UserListPage from './pages/UserListPage'
 
 function App() {
   const [patients, setPatients] = useState([]);
@@ -65,6 +67,11 @@ function App() {
           <Route path="/jerichotest" element={<TestAPIFunctionJericho />} />
           <Route path="/history/:id" element={<HistoryOfVisiting />} />
           <Route path="/supplies" element={<SuppliesOrderList />} />
+          <Route path="/mui" element={<MuiTreeView />} />
+          <Route path="/users" element={<UserListPage />} />
+          
+ 
+
         </Routes>
       </PatientsContext.Provider>
       
