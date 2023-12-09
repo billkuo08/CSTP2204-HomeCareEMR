@@ -6,7 +6,7 @@ import {
     Marker,
 } from "@react-google-maps/api";
 import { mapAPIKey } from "../config/config"
-import car from '../images/car.png';
+import redcross from '../images/redcross.png';
 import redMarker from '../images/red-dot_Marker.png';
 import yellowMarker from '../images/yellow-dot_Marker.png';
 import { DirectionsRenderer } from "@react-google-maps/api";
@@ -357,7 +357,10 @@ function RouteDirection() {
                             ? currentLocation
                             : null // Set a default position or null if currentLocation is invalid
                     }
-                    icon={car}
+                    icon={{
+                        url: redcross,
+                        scaledSize: new window.google.maps.Size(55, 55),
+                      }}
                 />
 
                 {originLocation ?

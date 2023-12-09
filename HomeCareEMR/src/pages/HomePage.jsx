@@ -1,12 +1,7 @@
 
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-} from "@react-google-maps/api";
-import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
+import { useState } from 'react';
+import { getFirestore } from 'firebase/firestore';
 import '../CSS/HomePage.css';
 import ViewSidebarTwoToneIcon from '@mui/icons-material/ViewSidebarTwoTone';
 import HealthAndSafetyTwoToneIcon from '@mui/icons-material/HealthAndSafetyTwoTone';
@@ -43,7 +38,6 @@ import RecentActorsTwoToneIcon from '@mui/icons-material/RecentActorsTwoTone';
 import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import { mapAPIKey } from "../config/config"
 import NurseListPage from './NurseListPage';
 import UserListPage from './UserListPage';
 import HomeIcon from '@mui/icons-material/Home';
@@ -64,19 +58,11 @@ const ShowComponent = (props) => {
   );
 }
 export default function HomePage() {
-  const [currentLocation, setCurrentLocation] = useState([]);
   const currentYear = new Date().getFullYear();
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [activeTree, setActiveTree] = useState();
-  const [hasSentToDb, setHasSentToDb] = useState(false);
-  const [userIsInDb, setUserIsInDb] = useState(false);
-  const firestoredb = getFirestore();
-  const userInfoFromLocal = localStorage.getItem('user');
-  const userInfo = JSON.parse(userInfoFromLocal);
-  const userId = userInfo.id;
 
 
-  // console.log(activeTree);
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
@@ -205,16 +191,9 @@ export default function HomePage() {
               </TreeView>
               <br></br>
             </li>
-            <li>
-              <a href="/admin"><PasswordTwoToneIcon /> Admin Login</a>
-            </li>
-            <br></br>
-            <br></br>
-            <li>
-              <a href="/nurses"><HealthAndSafetyTwoToneIcon /> Nurses</a>
-            </li>
-            <br></br>
-            <br></br>
+           
+            <br></br>           
+            
             <li>
               <a href="/mileagelog"><DoNotStepTwoToneIcon /> Mileage Log</a>
             </li>
@@ -223,12 +202,8 @@ export default function HomePage() {
             <li>
               <a href="/direction"><GpsFixedTwoToneIcon /> Routes Direction</a>
             </li>
-            <br></br>
-
-            <br></br>
-            <li>
-              <a href="/order"><VaccinesTwoToneIcon /> Order Medication & Supplies</a>
-            </li>
+            
+            
           </ul>
         </div>
 

@@ -46,7 +46,7 @@
 
 /* Footer styles */
 .footer {
-  position: bottom;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -265,3 +265,4 @@
 	padding: 0;	
 	font-family: Raleway, sans-serif;
 }
+
