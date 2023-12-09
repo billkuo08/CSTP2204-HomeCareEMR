@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllUsers } from '../API/users';
+import UserTable from '../components/UserTable';
 
 export default function UserListPage() {
     const [user, setUser] = useState([]);
@@ -16,6 +17,8 @@ export default function UserListPage() {
         getUsers();
     }, [])
   return (
-    <div>UserListPage</div>
+    <>
+        <UserTable data={user}/>
+    </>
   )
 }

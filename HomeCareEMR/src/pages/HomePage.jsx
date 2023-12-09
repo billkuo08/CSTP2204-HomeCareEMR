@@ -44,6 +44,10 @@ import DirectionsRunTwoToneIcon from '@mui/icons-material/DirectionsRunTwoTone';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
 import { mapAPIKey } from "../config/config"
+import NurseListPage from './NurseListPage';
+import UserListPage from './UserListPage';
+import HomeIcon from '@mui/icons-material/Home';
+import SuppliesOrderList from './SuppliesOrderList';
 
 
 
@@ -225,6 +229,8 @@ export default function HomePage() {
                 defaultExpandIcon={<ChevronRightIcon />}
                 onNodeSelect={handleSelect}
               >
+                <HomeIcon></HomeIcon>
+                <TreeItem nodeId="Home" label="Home" />
                 <ManageAccountsTwoToneIcon> </ManageAccountsTwoToneIcon> <TreeItem nodeId="1" label="Manage User">
                   <br></br>
                   <GroupAddTwoToneIcon></GroupAddTwoToneIcon><TreeItem nodeId="Create User" label="Create User" />
@@ -243,7 +249,12 @@ export default function HomePage() {
                   <BallotTwoToneIcon></BallotTwoToneIcon><TreeItem nodeId="Patients List" label="Patients List" />  
                 </TreeItem>
                 <br></br>
-                <TreeItem nodeId="Home" label="Home" />
+                <InfoTwoToneIcon></InfoTwoToneIcon><TreeItem nodeId="6" label="Supplies Order">
+                  <br></br>
+                  <Diversity1TwoToneIcon></Diversity1TwoToneIcon><TreeItem nodeId="Supplies Order" label="Supplies Order" />
+                  <br></br>
+                </TreeItem>
+                
                 <LogoutTwoToneIcon></LogoutTwoToneIcon> <TreeItem nodeId='7' label='Log out' onClick={handleLogOut} />
               </TreeView>
               <br></br>
@@ -278,13 +289,17 @@ export default function HomePage() {
       </div>
       {console.log(activeTree)}
       {(()=>{
-        if(!activeTree || activeTree === "1" || activeTree === "5" || activeTree === "Home"){
+        if(!activeTree || activeTree === "1" || activeTree === "5" || activeTree === "Home"|| activeTree === "6"){
           return <HomeComponent/>
         }
       })()}
       <ShowComponent childre={<CreateUserPage/>} activeTree={activeTree} selectedTree="Create User"/>  
       <ShowComponent childre={<CreatePatient/>} activeTree={activeTree} selectedTree="Create Patient"/> 
-      <ShowComponent childre={<PatientListPage/>} activeTree={activeTree} selectedTree="Patients List"/>    
+      <ShowComponent childre={<PatientListPage/>} activeTree={activeTree} selectedTree="Patients List"/>
+      <ShowComponent childre={<NurseListPage/>} activeTree={activeTree} selectedTree="Nurse List"/>
+      <ShowComponent childre={<UserListPage/>} activeTree={activeTree} selectedTree="User List"/> 
+      <ShowComponent childre={<SuppliesOrderList/>} activeTree={activeTree} selectedTree="Supplies Order"/> 
+
       <br></br>
       <br></br>
       <br></br>

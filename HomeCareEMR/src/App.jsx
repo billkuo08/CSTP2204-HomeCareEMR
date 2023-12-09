@@ -23,6 +23,7 @@ import HistoryOfVisiting from './pages/HistoryOfVisiting'
 import SuppliesOrderList from './pages/SuppliesOrderList'
 import MuiTreeView from './pages/MuiTreeView'
 import UserListPage from './pages/UserListPage'
+import NurseListPage from './pages/NurseListPage'
 
 function App() {
   const [patients, setPatients] = useState([]);
@@ -69,7 +70,7 @@ function App() {
           <Route path="/supplies" element={<SuppliesOrderList />} />
           <Route path="/mui" element={<MuiTreeView />} />
           <Route path="/users" element={<UserListPage />} />
-          
+          <Route path="/nurses" element={<NurseListPage />} />
  
 
         </Routes>
